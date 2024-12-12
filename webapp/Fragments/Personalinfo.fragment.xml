@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
+xmlns="sap.m">
+<Dialog id="Personalinfo">
+            <FlexBox >
+               <VBox >
+                    <Label text="ContactName" />
+                    <Input id="eContactName" width="250px" editable="true"/>
+                    <Label text="Relationship" />
+                    <Input id="eRelationship" width="250px" editable="true"/>
+                    <Label text="ContactPhone" />
+                    <Input id="eContactPhone" width="250px" editable="true"/>
+                    <Label text="ContactEmail"/>
+                    <Input id="eContactEmail" width="250px" editable="true"/>
+               </VBox>
+            </FlexBox>
+        <Bar>
+            <contentRight>
+            <Button text="Submit" press="onSubmit"></Button>
+            <Button text="Reset" press="onClear"></Button>
+            <Button text="close" press="onclose"></Button>
+           </contentRight>
+         </Bar>
+</Dialog>
+</core:FragmentDefinition>
