@@ -1,24 +1,44 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
 xmlns="sap.m">
-<Dialog id="Personalinfo">
-            <FlexBox >
-               <VBox >
-                    <Label text="ContactName" />
-                    <Input id="eContactName" width="250px" editable="true"/>
-                    <Label text="Relationship" />
-                    <Input id="eRelationship" width="250px" editable="true"/>
-                    <Label text="ContactPhone" />
-                    <Input id="eContactPhone" width="250px" editable="true"/>
-                    <Label text="ContactEmail"/>
-                    <Input id="eContactEmail" width="250px" editable="true"/>
-               </VBox>
-            </FlexBox>
-        <Bar>
-            <contentRight>
-            <Button text="Submit" press="onSubmit"></Button>
-            <Button text="Reset" press="onClear"></Button>
-            <Button text="close" press="onclose"></Button>
-           </contentRight>
-         </Bar>
+<Dialog id="Personalinfo" title=" Thomas ">
+    <VBox class="sapUiSmallMargin">
+		<f:SimpleForm id="Information" 
+			editable="true"
+			layout="ResponsiveGridLayout"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+      	<Label text="EmployeeID" />
+				<Input id="eEmployee_Id" value="{EmployeeID_ID}" />
+				<Label text="ContactName" />
+				<Input id="eContactName" value="{ContactName}" />
+        	<Label text="Relationship" />
+				<Input id="eRelationship" value="{Relationship}" />
+        	<Label text="ContactPhone" />
+				<Input id="eContactPhone" value="{ContactPhone}" />
+        	<Label text="ContactEmail" />
+				<Input id="eContactEmail" value="{ContactEmail}" />
+			</f:content>
+		</f:SimpleForm>
+	</VBox> 
+               <footer>
+               <Toolbar>
+               <ToolbarSpacer/>
+                  <Button text="Close" press="OnClose"></Button>
+                </Toolbar>
+               </footer>
 </Dialog>
 </core:FragmentDefinition>
+ 
+

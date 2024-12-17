@@ -14,65 +14,53 @@
                 </contentRight>
             </Bar>
         </subHeader>
-        <Table id="employeeTable" headerText="EmployeeList" growing="true" growingThreshold="5" items="{/EmployeeInfo}">
-        <columns>
-                <Column>
-                    <Text text="Id"/>
-                </Column>
-                <!-- <Column>
-                    <Text text="EmpId"/>
-                </Column> -->
-                <Column>
-                    <Text text="FirstName"/>
-                </Column>
-                <Column>
-                    <Text text="LastName"/>
-                </Column>
-                <Column>
-                    <Text text="Email"/>
-                </Column>
-                <Column>
-                    <Text text="Phone"/>
-                </Column>
-                <Column>
-                    <Text text="Department"/>
-                </Column>
-                <Column>
-                    <Text text="Position"/>
-                </Column>
-                <Column>
-                    <Text text="JoiningDate"/>
-                </Column>
-                <Column>
-                    <Text text="Actions"/>
-                </Column>
-            </columns>
-             <items>
-                <ColumnListItem>
-                    <cells>
-                        <!-- <Text text="{ID}"/> -->
-                        <Text text="{EmployeeID}"/>
-                        <Text text="{FirstName}"/>
-                        <Text text="{LastName}"/>
-                        <Text text="{Email}"/>
-                        <Text text="{Phone}"/>
-                        <Text text="{Department}"/>
-                        <Text text="{Position}"/>
-                        <Text text="{JoiningDate}"/>
-                        <HBox>
-                            <!-- class is used to provide space between a delete Button and edit Button -->
-                            <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
-                            <Button icon="sap-icon://user-edit" class="sapUiTinyMarginEnd" press="UpdateBtn"></Button>
-                            <Button text="Click" press="OnNavigate"></Button>
-                        </HBox>
-                           </cells>
-                </ColumnListItem>
-            </items>
-        </Table>
-        <l:VerticalLayout>
-            <u:Calendar
-                id="calendar"
-                select="handleCalendarSelect" /> 
-        </l:VerticalLayout>
+       <Table id="employeeTable" headerText="EmployeeList" growing="true" growingThreshold="5" items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group:true}}">
+
+    <columns>
+        <Column>
+            <Text text="EmpId"/>
+        </Column>
+        <Column>
+            <Text text="FirstName"/>
+        </Column>
+        <Column>
+            <Text text="Email"/>
+        </Column>
+        <Column>
+            <Text text="Phone"/>
+        </Column>
+        <Column>
+            <Text text="Department"/>
+        </Column>
+        <Column>
+            <Text text="Position"/>
+        </Column>
+        <Column>
+            <Text text="JoiningDate"/>
+        </Column>
+        <Column>
+            <Text text="Actions"/>
+        </Column>
+    </columns>
+    
+    <items>
+        <ColumnListItem type="Active" press="OnNavigate">
+            <cells>
+                <Text text="{ID}"/>
+                <Text text="{FirstName}"/>
+                <Text text="{Email}"/>
+                <Text text="{Phone}"/>
+                <Text text="{Department}"/>
+                <Text text="{Position}"/>
+                <Text text="{path: 'JoiningDate', formatter: '.formatter.formatJoiningDate'}" />
+                <HBox>
+                    <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
+                    <Button icon="sap-icon://user-edit" class="sapUiTinyMarginEnd" press="UpdateBtn"></Button>
+                </HBox>
+            </cells>
+        </ColumnListItem>
+    </items>
+
+</Table>
     </Page>
 </mvc:View>

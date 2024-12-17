@@ -1,14 +1,12 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
 xmlns="sap.m">
-<Dialog id="update">
-            <FlexBox >
-               <VBox >
-                    <Label text="EmpId" />
+<Dialog id="update" title="Update Details" >
+          
+               <VBox class="sapUiTinyMargin" >
+                    <Label text="EmployeeID" />
                     <Input id="id_E" width="250px" editable="true"/>
                     <Label text="First Name" />
                     <Input id="FN_E" width="250px" editable="true"/>
-                    <Label text="Last Name" />
-                    <Input id="LN_E" width="250px" editable="true"/>
                     <Label text="Email"/>
                     <Input id="E_E" width="250px" editable="true"/>
                     <Label text="Phone"/>
@@ -20,12 +18,12 @@ xmlns="sap.m">
                     <Label text="Joining Date" />
                     <Input id="JD_E" width="250px" editable="true"/>
                </VBox>
-            </FlexBox>
-        <Bar>
-            <contentRight>
-            <Button text="Update" press="onUpdateDialog"></Button>
-            <Button text="Close" press="onCancleDialog"></Button>
-           </contentRight>
-         </Bar>
+          <footer>
+               <Toolbar>
+               <ToolbarSpacer/>
+                <Button text="Update" press="onUpdateDialog"></Button>
+                <Button text="Close" press="onCancleDialog"></Button>
+              </Toolbar>
+           </footer>
 </Dialog>
 </core:FragmentDefinition>

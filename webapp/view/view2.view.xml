@@ -1,39 +1,31 @@
+
 <mvc:View controllerName="odata.controller.view2"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Page id="pages" title="{i18n>title}">
     <content>
-        <Button text="Add" press="Info"/>
     </content>
-    <Table headerText="Employee Personal Information" items="{/EmployeeInfoEmergencyContact}">
-
-        <columns>
-            <Column>
-            <Text text="EmployeeId"/>
-            </Column>
-            <Column>
-            <Text text="Contact Name"/>
-            </Column>
-            <Column>
-            <Text text="Relationship"/>
-            </Column>
-            <Column>
-            <Text text="Contact Phone"/>
-            </Column>
-            <Column>
-            <Text text="Contact Email"/>
-            </Column>
-         </columns>
-         <items>
-            <ColumnListItem >
-               <Text text="{ID}"/>
-               <Text text="{ContactName}"/>
-               <Text text="{Relationship}"/>
-               <Text text="{ContactPhone}"/>
-               <Text text="{ContactEmail}"/>
-            </ColumnListItem>
-         </items>
-
-     </Table>
+	<Bar>
+	<contentRight>
+        <Button icon="sap-icon://add" press="onOpenDialog"></Button>
+    </contentRight>
+	  <contentLeft>
+	  <Button icon="sap-icon://nav-back" press="NavBack"></Button>
+	  </contentLeft>
+	</Bar>
+	 <List items="{/items}"
+	       id="Data"
+		   headerText="Employee Details"
+		   growing="true"
+		   growingThreshold="4"
+		   growingScrollToLoad="false">
+		<StandardListItem
+            type="Active"
+            press="onCLick"	
+			title="{ContactName}"/>
+	 </List>
     </Page>
 </mvc:View>
+  
+
+  
