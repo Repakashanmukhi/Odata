@@ -5,7 +5,6 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
     <content>
-        
     </content>
     <subHeader>
             <Bar>
@@ -14,8 +13,7 @@
                 </contentRight>
             </Bar>
         </subHeader>
-       <Table id="employeeTable" headerText="EmployeeList" growing="true" growingThreshold="5" items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group:true}}">
-
+       <Table id="employeeTable" growing="true" growingThreshold="5" items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group: true}}">
     <columns>
         <Column>
             <Text text="EmpId"/>
@@ -42,8 +40,8 @@
             <Text text="Actions"/>
         </Column>
     </columns>
-    
     <items>
+    <GroupHeaderListItem title="{Department}" />
         <ColumnListItem type="Active" press="OnNavigate">
             <cells>
                 <Text text="{ID}"/>
@@ -60,7 +58,6 @@
             </cells>
         </ColumnListItem>
     </items>
-
 </Table>
     </Page>
 </mvc:View>

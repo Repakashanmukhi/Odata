@@ -3,6 +3,7 @@ xmlns="sap.m">
 <Dialog id="create" title="Employee Details">
              
                <VBox class="sapUiTinyMargin"> 
+                <!-- <Button icon="sap-icon://add" press="onOpenDialog"></Button> -->
                     <Label text="First Name" />
                     <Input id="efirstName" width="250px" editable="true"/>
                     <Label text="Email"/>
@@ -22,7 +23,7 @@ xmlns="sap.m">
                <ToolbarSpacer/>
             <Button text="Submit" press="onSubmitDialog"></Button>
             <Button text="Reset" press="onClear"></Button>
-            <Button text="close" press="onclose"></Button>
+            <Button text="Close" press="onclose"></Button>
            </Toolbar>
         </footer>
 </Dialog>

@@ -9,13 +9,15 @@
 	<contentRight>
         <Button icon="sap-icon://add" press="onOpenDialog"></Button>
     </contentRight>
+	<contentMiddle>
+	    <Text text="Employee Details"></Text>
+	</contentMiddle>
 	  <contentLeft>
 	  <Button icon="sap-icon://nav-back" press="NavBack"></Button>
 	  </contentLeft>
 	</Bar>
 	 <List items="{/items}"
 	       id="Data"
-		   headerText="Employee Details"
 		   growing="true"
 		   growingThreshold="4"
 		   growingScrollToLoad="false">

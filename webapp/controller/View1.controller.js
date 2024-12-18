@@ -3,21 +3,15 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "odata/model/formatter",
-    "sap/ui/model/Sorter",
-    "sap/m/GroupHeaderListItem"
-
-   
-], function (Controller,MessageBox,MessageToast,formatter, Sorter, GroupHeaderListItem) {
+     "sap/ui/model/Sorter"
+], function (Controller,MessageBox,MessageToast,formatter,Sorter) {
     "use strict";
-    
     return Controller.extend("odata.controller.View1", {
         // passing formatter details to formatter property
         formatter: formatter,
         onInit: function () {
-            this._oDialog = null; 
-            
+            this._oDialog = null;
             },
-        // Open the dialog (from the view)
         onOpenDialog: function () {
             if (!this.create) {
                 this.create = sap.ui.xmlfragment("odata.Fragments.create", this);
@@ -25,13 +19,12 @@ sap.ui.define([
             }
             this.create.open();
         },
-        // Close the dialog
         onclose: function () {
             if (this.create) {
-                this.create.close();
+                this.create.close(); 
             }
         },
-        // Submit the data from the dialog
+       
         onSubmitDialog: function () {
              var sfirstName = sap.ui.getCore().byId("efirstName").getValue();
              var sEmail = sap.ui.getCore().byId("eEmail").getValue();
@@ -92,7 +85,7 @@ sap.ui.define([
             }
             var oContext = oEvent.getSource().getBindingContext().getObject();
             // set the values which are present in the table to update fragment 
-            sap.ui.getCore().byId("id_E").setValue(oContext.Id);
+            sap.ui.getCore().byId("id_E").setValue(oContext.ID);
             sap.ui.getCore().byId("FN_E").setValue(oContext.FirstName);
             sap.ui.getCore().byId("E_E").setValue(oContext.Email);
             sap.ui.getCore().byId("P_E").setValue(oContext.Phone);
@@ -110,10 +103,7 @@ sap.ui.define([
             var sPhone = sap.ui.getCore().byId("P_E").getValue();
             var sDepartment = sap.ui.getCore().byId("D_E").getValue();
             var sPosition = sap.ui.getCore().byId("PO_E").getValue();
- 
-       
             // Validate that all fields are filled
-         
                 var oUpdatedEmployee = {
                     ID:sId,
                     FirstName: sfirstName,
@@ -121,6 +111,7 @@ sap.ui.define([
                     Phone: sPhone,
                     Department: sDepartment,
                     Position: sPosition
+                 
                 };
                 var oData = this.getOwnerComponent().getModel();
                 // var updatePath = "/EmployeeInfo,oData (' "+sfirstName+" ')";
