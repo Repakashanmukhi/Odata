@@ -24,38 +24,29 @@ sap.ui.define([
                 this.create.close(); 
             }
         },
-       
         onSubmitDialog: function () {
-             var sfirstName = sap.ui.getCore().byId("efirstName").getValue();
-             var sEmail = sap.ui.getCore().byId("eEmail").getValue();
-             var sPhone = sap.ui.getCore().byId("ePhone").getValue();
-             var sdepartment = sap.ui.getCore().byId("edepartment").getValue();
-             var sposition = sap.ui.getCore().byId("eposition").getValue();
-             var sjoiningDate=sap.ui.getCore().byId("eJoiningDate").getValue();
-             if (sfirstName && sEmail && sPhone && sdepartment && sposition && sjoiningDate ) {
-                 var oNewEmployee = {
-                     FirstName: sfirstName,
-                     Email: sEmail,
-                     Phone: sPhone,
-                     Department: sdepartment,
-                     Position: sposition,
-                     JoiningDate: sjoiningDate,
-                 };
-                 var oData = this.getOwnerComponent().getModel();
-                 oData.create("/EmployeeInfo", oNewEmployee, {
-                     success: function (response) {
-                         MessageToast.show("Record created successfully");
-                         this.create.close();
-                         oData.refresh(true);
-                    },
-                    error: function (error) {
-                        MessageToast.show("Error creating record");
-                    }
-                });
-            } else {
-                MessageBox.error("Please fill all required fields.");
-            }
-        }, 
+            var create = this.create;
+            var oModel = this.getView().getModel();
+            var oData = {
+                FirstName: sap.ui.getCore().byId("efirstName").getValue(),
+                Email : sap.ui.getCore().byId("eEmail").getValue(),
+                Phone: sap.ui.getCore().byId("ePhone").getValue(),
+                Department: sap.ui.getCore().byId("edepartment").getValue(),
+                Position: sap.ui.getCore().byId("eposition").getValue(),
+                JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
+            };
+            oModel.create("/EmployeeInfo", oData, {
+                success: function () {
+                    MessageToast.show("Employee record added successfully.");
+                    create.close();
+                    this.refresh();
+
+                },
+                error: function () {
+                    MessageToast.show("Error adding employee record.");
+                }
+            });
+        },
         // Reset the input fields in the dialog
         onClear: function () {
             sap.ui.getCore().byId("efirstName").setValue("");
