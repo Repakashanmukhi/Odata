@@ -28,7 +28,7 @@ xmlns="sap.m">
                     <Label text="Joining Date" />
                     <Input id="eJoiningDate" width="250px" editable="true"/> 
                </VBox>
-            <Table >
+            <Table id="TempTable" items="{employeeModel>/Employees}">
             <columns>
                 <Column ><Label text="FirstName"></Label></Column>
                 <Column ><Label text="Email"></Label></Column>
@@ -40,12 +40,12 @@ xmlns="sap.m">
             <items>
             <ColumnListItem>
             <cells>
-            <Input value="{jTabModel>Employeeid}"></Input>
-            <Input value="{jTabModel>Empfirstname}"></Input>
-            <Input value="{jTabModel>Empmidname}"></Input>
-            <Input value="{jTabModel>Emplastname}"></Input>
-            <Input value="{jTabModel>Department}"></Input>
-            <Input value="{jTabModel>Designation}"></Input>
+            <Input value="{employeeModel>FirstName}"></Input>
+            <Input value="{employeeModel>Email}"></Input>
+            <Input value="{employeeModel>Phone}"></Input>
+            <Input value="{employeeModel>Department}"></Input>
+            <Input value="{employeeModel>Position}"></Input>
+            <Input value="{employeeModel>JoiningDate}"></Input>
             </cells>
             </ColumnListItem>
             </items>

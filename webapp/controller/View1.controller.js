@@ -10,7 +10,11 @@ sap.ui.define([
         // passing formatter details to formatter property
         formatter: formatter,
         onInit: function () {
-         
+            var TempEmployee = new JSONModel({
+                Employees: []
+            });
+            this.getView().setModel(TempEmployee, "employeeModel");
+
         },
         onOpenDialog: function () {
             if (!this.create) {
@@ -26,14 +30,10 @@ sap.ui.define([
             }
         },  
         onAddRow: function(){
-           
-        },
-        onSubmitDialog: function () {
-            var create = this.create;
-            var oModel = this.getView().getModel();
-            
-            // Collect data from the input fields
-            var oData = {
+            var oView = this.getView();
+            var oEmployeeModel = this.getView().getModel("employeeModel");
+            var aEmployees = oEmployeeModel.getProperty("/Employees");
+            var TempEmp = {
                 FirstName: sap.ui.getCore().byId("efirstName").getValue(),
                 Email : sap.ui.getCore().byId("eEmail").getValue(),
                 Phone: sap.ui.getCore().byId("ePhone").getValue(),
@@ -41,16 +41,26 @@ sap.ui.define([
                 Position: sap.ui.getCore().byId("eposition").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
             };
+            aEmployees.push(TempEmp);
+                oEmployeeModel.setProperty("/Employees", aEmployees);
+                this.onClear();
         
-            // Send the collected data to the backend (OData service)
+        },
+        onSubmitDialog: function () {
+            var create = this.create;
+            var oModel = this.getView().getModel();
+            var oData = {
+                FirstName: sap.ui.getCore().byId("efirstName").getValue(),
+                Email : sap.ui.getCore().byId("eEmail").getValue(),
+                Phone: sap.ui.getCore().byId("ePhone").getValue(),
+                Department: sap.ui.getCore().byId("edepartment").getValue(),
+                Position: sap.ui.getCore().byId("Position1").getValue(),
+                JoiningDate: sap.ui.getCore().byId("Joining Date1").getValue()
+            };
             oModel.create("/EmployeeInfo", oData, {
                 success: function () {
                     MessageToast.show("Employee record added successfully.");
-        
-                    // Close the dialog
                     create.close();
-        
-                    // Clear the input fields
                     sap.ui.getCore().byId("efirstName").setValue(""); 
                     sap.ui.getCore().byId("eEmail").setValue("");
                     sap.ui.getCore().byId("ePhone").setValue("");
