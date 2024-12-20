@@ -3,17 +3,14 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "odata/model/formatter",
-     "sap/ui/model/Sorter",
-        "sap/ui/model/json/JSONModel"
-], function (Controller,MessageBox,MessageToast,formatter,Sorter,JSONModel) {
+    "sap/ui/model/json/JSONModel"
+], function (Controller,MessageBox,MessageToast,formatter,JSONModel) {
     "use strict";
-    var oTempEmployees = []; 
     return Controller.extend("odata.controller.View1", {
         // passing formatter details to formatter property
         formatter: formatter,
         onInit: function () {
-            this._oDialog = null;
-            // this.getView().setModel(new sap.ui.model.json.JSONModel({ tempEmployees: oTempEmployees }));
+         
         },
         onOpenDialog: function () {
             if (!this.create) {
@@ -22,38 +19,37 @@ sap.ui.define([
             }
             this.create.open();
         },
+       
         onclose: function () {
             if (this.create) {
                 this.create.close(); 
             }
         },  
-        onAddEmployeeRow: function () {
-            // this.onClear(); // Clear the input fields
-            if (!this.create) {
-                this.create = sap.ui.xmlfragment("sap.ui.view.fragments.create", this);
-                this.getView().addDependent(this.create);
-            }
-            this.create.open();
-        },
-        //     // Get the entered data from input fields
-        //     var oData = {
-        //         FirstName: sap.ui.getCore().byId("efirstName").getValue(),
-        //         Email: sap.ui.getCore().byId("eEmail").getValue(),
-        //         Phone: sap.ui.getCore().byId("ePhone").getValue(),
-        //         Department: sap.ui.getCore().byId("edepartment").getValue(),
-        //         Position: sap.ui.getCore().byId("eposition").getValue(),
-        //         JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
-        //     };
-        //     // Get the temporary model and add the new entry to it
-        //     var oTempModel = this.getView().getModel();
-        //     var aTempEmployees = oTempModel.getProperty("/tempEmployees");
-        //     aTempEmployees.push(oData);
-        //     oTempModel.setProperty("/tempEmployees", aTempEmployees);
-        //     // Clear the form after adding to the temporary table
-        //     // this.onClear();
         onSubmitDialog: function () {
+            // var create = this.create;
+            // var oModel = this.getView().getModel();
+            // var oData = {
+            //     FirstName: sap.ui.getCore().byId("efirstName").getValue(),
+            //     Email : sap.ui.getCore().byId("eEmail").getValue(),
+            //     Phone: sap.ui.getCore().byId("ePhone").getValue(),
+            //     Department: sap.ui.getCore().byId("edepartment").getValue(),
+            //     Position: sap.ui.getCore().byId("eposition").getValue(),
+            //     JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
+            // }
+            // oModel.create("/EmployeeInfo", oData, {
+            //     success: function () {
+            //         MessageToast.show("Employee record added successfully.");
+            //         create.close();
+
+            //     },
+            //     error: function () {
+            //         MessageToast.show("Error adding employee record.");
+            //     }
+            // });
             var create = this.create;
             var oModel = this.getView().getModel();
+            
+            // Collect data from the input fields
             var oData = {
                 FirstName: sap.ui.getCore().byId("efirstName").getValue(),
                 Email : sap.ui.getCore().byId("eEmail").getValue(),
@@ -62,18 +58,28 @@ sap.ui.define([
                 Position: sap.ui.getCore().byId("eposition").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
             };
-            oTempEmployees.push(oData);
-            this.getView().byId("tempTable").getBinding("items").refresh();
+        
+            // Send the collected data to the backend (OData service)
             oModel.create("/EmployeeInfo", oData, {
                 success: function () {
                     MessageToast.show("Employee record added successfully.");
+        
+                    // Close the dialog
                     create.close();
-
+        
+                    // Clear the input fields
+                    sap.ui.getCore().byId("efirstName").setValue(""); 
+                    sap.ui.getCore().byId("eEmail").setValue("");
+                    sap.ui.getCore().byId("ePhone").setValue("");
+                    sap.ui.getCore().byId("edepartment").setValue("");
+                    sap.ui.getCore().byId("eposition").setValue("");
+                    sap.ui.getCore().byId("eJoiningDate").setValue("");
                 },
                 error: function () {
                     MessageToast.show("Error adding employee record.");
                 }
             });
+        
          },
         onClear: function () {
             sap.ui.getCore().byId("efirstName").setValue(""); 
