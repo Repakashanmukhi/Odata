@@ -25,27 +25,10 @@ sap.ui.define([
                 this.create.close(); 
             }
         },  
+        onAddRow: function(){
+           
+        },
         onSubmitDialog: function () {
-            // var create = this.create;
-            // var oModel = this.getView().getModel();
-            // var oData = {
-            //     FirstName: sap.ui.getCore().byId("efirstName").getValue(),
-            //     Email : sap.ui.getCore().byId("eEmail").getValue(),
-            //     Phone: sap.ui.getCore().byId("ePhone").getValue(),
-            //     Department: sap.ui.getCore().byId("edepartment").getValue(),
-            //     Position: sap.ui.getCore().byId("eposition").getValue(),
-            //     JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
-            // }
-            // oModel.create("/EmployeeInfo", oData, {
-            //     success: function () {
-            //         MessageToast.show("Employee record added successfully.");
-            //         create.close();
-
-            //     },
-            //     error: function () {
-            //         MessageToast.show("Error adding employee record.");
-            //     }
-            // });
             var create = this.create;
             var oModel = this.getView().getModel();
             

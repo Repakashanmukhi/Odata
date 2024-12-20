@@ -8,14 +8,14 @@ xmlns="sap.m">
                      <Text text="Employee Details"></Text>
                 </contentLeft>
                 <contentRight>
-                    <Button icon="sap-icon://add" press=" "></Button>
+                    <Button icon="sap-icon://add" press="onAddRow"></Button>
                 </contentRight>
              </Bar>
          </customHeader> 
                <VBox class="sapUiTinyMargin"> 
                
                 <!-- <Button icon="sap-icon://add" press="onOpenDialog"></Button> -->
-                    <Label text="First Name" />
+                    <Label text="FirstName" />
                     <Input id="efirstName" width="250px" editable="true"/>
                     <Label text="Email"/>
                     <Input id="eEmail" width="250px" editable="true"/>
@@ -28,42 +28,28 @@ xmlns="sap.m">
                     <Label text="Joining Date" />
                     <Input id="eJoiningDate" width="250px" editable="true"/> 
                </VBox>
-            
-            <Table id="tempTable">
-        <columns>
-            <Column>
-                <Text text="First Name"/>
-            </Column>
-            <Column>
-                <Text text="Email"/>
-            </Column>
-            <Column>
-                <Text text="Phone"/>
-            </Column>
-            <Column>
-                <Text text="Department"/>
-            </Column>
-            <Column>
-                <Text text="Position"/>
-            </Column>
-            <Column>
-                <Text text="Joining Date"/>
-            </Column>
-        </columns>
-        <items>
+            <Table >
+            <columns>
+                <Column ><Label text="FirstName"></Label></Column>
+                <Column ><Label text="Email"></Label></Column>
+                <Column ><Label text="Phone"></Label></Column>
+                <Column ><Label text="Department"></Label></Column>
+                <Column ><Label text="Position"></Label></Column>
+                <Column ><Label text="Joining Date"></Label></Column>
+            </columns>
+            <items>
             <ColumnListItem>
-                <cells>
-                    <Text text="{FirstName}" />
-                    <Text text="{Email}" />
-                    <Text text="{Phone}" />
-                    <Text text="{Department}" />
-                    <Text text="{Position}" />
-                    <Text text="{JoiningDate}" />
-                </cells>
+            <cells>
+            <Input value="{jTabModel>Employeeid}"></Input>
+            <Input value="{jTabModel>Empfirstname}"></Input>
+            <Input value="{jTabModel>Empmidname}"></Input>
+            <Input value="{jTabModel>Emplastname}"></Input>
+            <Input value="{jTabModel>Department}"></Input>
+            <Input value="{jTabModel>Designation}"></Input>
+            </cells>
             </ColumnListItem>
-        </items>
-    </Table>
-    
+            </items>
+        </Table>
        <footer>
                <Toolbar>
                <ToolbarSpacer/>
