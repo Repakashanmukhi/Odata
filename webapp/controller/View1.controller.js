@@ -100,8 +100,7 @@ sap.ui.define([
             if(!this.update){
                 this.update=sap.ui.xmlfragment("odata.Fragments.update", this)
             }
-            var oContext = oEvent.getSource().getBindingContext().getObject();
-            // set the values which are present in the table to update fragment 
+            var oContext = oEvent.getSource().getBindingContext().getObject(); 
             sap.ui.getCore().byId("id_E").setValue(oContext.ID);
             sap.ui.getCore().byId("FN_E").setValue(oContext.FirstName);
             sap.ui.getCore().byId("E_E").setValue(oContext.Email);
@@ -111,16 +110,13 @@ sap.ui.define([
             sap.ui.getCore().byId("JD_E").setValue(oContext.JoiningDate);
             this.update.open();
         },
-         //Get the values from table and display them on a update fragment 
         onUpdateDialog: function(){
-            // Get the updated values from the dialog fields
             var sId = sap.ui.getCore().byId("id_E").getValue();
             var sfirstName = sap.ui.getCore().byId("FN_E").getValue();
             var sEmail = sap.ui.getCore().byId("E_E").getValue();
             var sPhone = sap.ui.getCore().byId("P_E").getValue();
             var sDepartment = sap.ui.getCore().byId("D_E").getValue();
             var sPosition = sap.ui.getCore().byId("PO_E").getValue();
-            // Validate that all fields are filled
                 var oUpdatedEmployee = {
                     ID:sId,
                     FirstName: sfirstName,
