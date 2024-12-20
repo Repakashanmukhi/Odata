@@ -10,7 +10,7 @@
         <Button icon="sap-icon://add" press="onOpenDialog"></Button>
     </contentRight>
 	<contentMiddle>
-	    <Text text="Employee Details"></Text>
+	    <Title text="Employee Details" ></Title>
 	</contentMiddle>
 	  <contentLeft>
 	  <Button icon="sap-icon://nav-back" press="NavBack"></Button>

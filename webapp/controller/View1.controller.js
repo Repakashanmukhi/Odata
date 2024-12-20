@@ -3,15 +3,18 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "odata/model/formatter",
-     "sap/ui/model/Sorter"
-], function (Controller,MessageBox,MessageToast,formatter,Sorter) {
+     "sap/ui/model/Sorter",
+        "sap/ui/model/json/JSONModel"
+], function (Controller,MessageBox,MessageToast,formatter,Sorter,JSONModel) {
     "use strict";
+    var oTempEmployees = []; 
     return Controller.extend("odata.controller.View1", {
         // passing formatter details to formatter property
         formatter: formatter,
         onInit: function () {
             this._oDialog = null;
-            },
+            // this.getView().setModel(new sap.ui.model.json.JSONModel({ tempEmployees: oTempEmployees }));
+        },
         onOpenDialog: function () {
             if (!this.create) {
                 this.create = sap.ui.xmlfragment("odata.Fragments.create", this);
@@ -23,7 +26,31 @@ sap.ui.define([
             if (this.create) {
                 this.create.close(); 
             }
+        },  
+        onAddEmployeeRow: function () {
+            // this.onClear(); // Clear the input fields
+            if (!this.create) {
+                this.create = sap.ui.xmlfragment("sap.ui.view.fragments.create", this);
+                this.getView().addDependent(this.create);
+            }
+            this.create.open();
         },
+        //     // Get the entered data from input fields
+        //     var oData = {
+        //         FirstName: sap.ui.getCore().byId("efirstName").getValue(),
+        //         Email: sap.ui.getCore().byId("eEmail").getValue(),
+        //         Phone: sap.ui.getCore().byId("ePhone").getValue(),
+        //         Department: sap.ui.getCore().byId("edepartment").getValue(),
+        //         Position: sap.ui.getCore().byId("eposition").getValue(),
+        //         JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
+        //     };
+        //     // Get the temporary model and add the new entry to it
+        //     var oTempModel = this.getView().getModel();
+        //     var aTempEmployees = oTempModel.getProperty("/tempEmployees");
+        //     aTempEmployees.push(oData);
+        //     oTempModel.setProperty("/tempEmployees", aTempEmployees);
+        //     // Clear the form after adding to the temporary table
+        //     // this.onClear();
         onSubmitDialog: function () {
             var create = this.create;
             var oModel = this.getView().getModel();
@@ -35,21 +62,21 @@ sap.ui.define([
                 Position: sap.ui.getCore().byId("eposition").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()
             };
+            oTempEmployees.push(oData);
+            this.getView().byId("tempTable").getBinding("items").refresh();
             oModel.create("/EmployeeInfo", oData, {
                 success: function () {
                     MessageToast.show("Employee record added successfully.");
                     create.close();
-                    this.refresh();
 
                 },
                 error: function () {
                     MessageToast.show("Error adding employee record.");
                 }
             });
-        },
-        // Reset the input fields in the dialog
+         },
         onClear: function () {
-            sap.ui.getCore().byId("efirstName").setValue("");
+            sap.ui.getCore().byId("efirstName").setValue(""); 
             sap.ui.getCore().byId("eEmail").setValue("");
             sap.ui.getCore().byId("ePhone").setValue("");
             sap.ui.getCore().byId("edepartment").setValue("");
@@ -102,7 +129,7 @@ sap.ui.define([
                     Phone: sPhone,
                     Department: sDepartment,
                     Position: sPosition
-                 
+        
                 };
                 var oData = this.getOwnerComponent().getModel();
                 // var updatePath = "/EmployeeInfo,oData (' "+sfirstName+" ')";
@@ -120,7 +147,7 @@ sap.ui.define([
         onCancleDialog: function(){
             this.update.close()
             },
-        OnNavigate: function (oEvent) {
+            OnNavigate: function (oEvent) {
             var oId = oEvent.getSource().getBindingContext().getProperty("ID");
             var Oname=oEvent.getSource().getBindingContext().getProperty("FirstName");
             this.getOwnerComponent().getRouter().navTo("view2",{
