@@ -9,27 +9,31 @@ sap.ui.define([
     return Controller.extend("odata.controller.View1", {
         // passing formatter details to formatter property
         formatter: formatter,
-        onInit: function () {
+        onInit: function () 
+        {
             var TempEmployee = new JSONModel({
                 Employees: []
             });
             this.getView().setModel(TempEmployee, "employeeModel");
-
         },
-        onOpenDialog: function () {
-            if (!this.create) {
+        onOpenDialog: function () 
+        {
+            if (!this.create) 
+            {
                 this.create = sap.ui.xmlfragment("odata.Fragments.create", this);
                 this.getView().addDependent(this.create);
             }
             this.create.open();
         },
-       
-        onclose: function () {
-            if (this.create) {
+        onclose: function () 
+        {
+            if (this.create) 
+            {
                 this.create.close(); 
             }
         },  
-        onAddRow: function(){
+        onAddRow: function()
+        {
             var oView = this.getView();
             var oEmployeeModel = this.getView().getModel("employeeModel");
             var aEmployees = oEmployeeModel.getProperty("/Employees");
@@ -44,37 +48,39 @@ sap.ui.define([
             aEmployees.push(TempEmp);
                 oEmployeeModel.setProperty("/Employees", aEmployees);
                 this.onClear();
-        
         },
-        onSubmitDialog: function () {
-            var create = this.create;
-            var oModel = this.getView().getModel();
-            var oData = {
-                FirstName: sap.ui.getCore().byId("efirstName").getValue(),
-                Email : sap.ui.getCore().byId("eEmail").getValue(),
-                Phone: sap.ui.getCore().byId("ePhone").getValue(),
-                Department: sap.ui.getCore().byId("edepartment").getValue(),
-                Position: sap.ui.getCore().byId("Position1").getValue(),
-                JoiningDate: sap.ui.getCore().byId("Joining Date1").getValue()
-            };
-            oModel.create("/EmployeeInfo", oData, {
-                success: function () {
-                    MessageToast.show("Employee record added successfully.");
-                    create.close();
-                    sap.ui.getCore().byId("efirstName").setValue(""); 
-                    sap.ui.getCore().byId("eEmail").setValue("");
-                    sap.ui.getCore().byId("ePhone").setValue("");
-                    sap.ui.getCore().byId("edepartment").setValue("");
-                    sap.ui.getCore().byId("eposition").setValue("");
-                    sap.ui.getCore().byId("eJoiningDate").setValue("");
-                },
-                error: function () {
-                    MessageToast.show("Error adding employee record.");
+        onSubmitDialog: function () 
+        {
+                var oEmployeeModel = this.getView().getModel("employeeModel");
+                var aEmployees = oEmployeeModel.getProperty("/Employees");
+                var oData = this.getOwnerComponent().getModel(); 
+                for (var i = 0; i < aEmployees.length; i++) 
+                {
+                    var oEmployee = aEmployees[i];
+                    var oNewEmployee = {
+                        FirstName: oEmployee.FirstName,
+                        Email: oEmployee.Email,
+                        Phone: oEmployee.Phone,
+                        Department: oEmployee.Department,
+                        Position: oEmployee.Position,
+                        JoiningDate: oEmployee.JoiningDate
+                    };
+                    oData.create("/EmployeeInfo", oNewEmployee, {
+                        success: function () 
+                        {
+                            MessageToast.show("Employee data submitted successfully!");
+                        },
+                        error: function (error) 
+                        {
+                            MessageToast.show("Error submitting employee data!");
+                            // console.error(error);
+                        }
+                    });
                 }
-            });
-        
-         },
-        onClear: function () {
+                oEmployeeModel.setProperty("/Employees", []);
+            },
+        onClear: function () 
+        {
             sap.ui.getCore().byId("efirstName").setValue(""); 
             sap.ui.getCore().byId("eEmail").setValue("");
             sap.ui.getCore().byId("ePhone").setValue("");
@@ -82,22 +88,27 @@ sap.ui.define([
             sap.ui.getCore().byId("eposition").setValue("");
             sap.ui.getCore().byId("eJoiningDate").setValue("");
         },
-        DeleteBtn: function(oEvent){
+        DeleteBtn: function(oEvent)
+        {
             var oButton=oEvent.getSource();
             var oContext=oButton.getBindingContext();
             var sPath=oContext.getPath();
             var oModel=this.getView().getModel();
             oModel.remove(sPath,{
-                success: function(){
+                success: function()
+                {
                     sap.m.MessageToast.show("Record deleted successfully!");
                 },
-                error: function(){
+                error: function()
+                {
                     sap.m.MessageToast.show("Cannot delete record");
                 }
             }) 
         },
-        UpdateBtn: function(oEvent){
-            if(!this.update){
+        UpdateBtn: function(oEvent)
+        {
+            if(!this.update)
+            {
                 this.update=sap.ui.xmlfragment("odata.Fragments.update", this)
             }
             var oContext = oEvent.getSource().getBindingContext().getObject(); 
@@ -110,7 +121,8 @@ sap.ui.define([
             sap.ui.getCore().byId("JD_E").setValue(oContext.JoiningDate);
             this.update.open();
         },
-        onUpdateDialog: function(){
+        onUpdateDialog: function()
+        {
             var sId = sap.ui.getCore().byId("id_E").getValue();
             var sfirstName = sap.ui.getCore().byId("FN_E").getValue();
             var sEmail = sap.ui.getCore().byId("E_E").getValue();
@@ -124,25 +136,28 @@ sap.ui.define([
                     Phone: sPhone,
                     Department: sDepartment,
                     Position: sPosition
-        
                 };
                 var oData = this.getOwnerComponent().getModel();
                 // var updatePath = "/EmployeeInfo,oData (' "+sfirstName+" ')";
                 var updatePath = `/EmployeeInfo(guid'${sId}')`
                 oData.update(updatePath, oUpdatedEmployee,{
-                    success: function(){
+                    success: function()
+                    {
                         sap.m.MessageToast.show("Record updated successfully!");
                     },
-                error: function (error) {
+                error: function (error) 
+                {
                 console.log(error)
                 MessageToast.show("Cannot update record");
-            }
+                }
            })
         },
-        onCancleDialog: function(){
+        onCancleDialog: function()
+        {
             this.update.close()
-            },
-            OnNavigate: function (oEvent) {
+        },
+        OnNavigate: function (oEvent) 
+        {
             var oId = oEvent.getSource().getBindingContext().getProperty("ID");
             var Oname=oEvent.getSource().getBindingContext().getProperty("FirstName");
             this.getOwnerComponent().getRouter().navTo("view2",{

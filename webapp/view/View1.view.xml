@@ -13,7 +13,7 @@
                 </contentRight>
             </Bar>
         </subHeader>
-       <Table id="employeeTable" growing="true" growingThreshold="5" items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group: true}}">
+    <Table id="employeeTable" growing="true" growingThreshold="5" items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group: true}}">
     <columns>
         <Column>
             <Text text="EmpId"/>
@@ -27,7 +27,7 @@
         <Column>
             <Text text="Phone"/>
         </Column>
-        <Column>
+        <Column> 
             <Text text="Department"/>
         </Column>
         <Column>
@@ -60,4 +60,4 @@
     </items>
 </Table>
     </Page>
-</mvc:View>
+</mvc:View> 
