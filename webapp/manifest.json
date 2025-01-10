@@ -99,7 +99,7 @@
                 },
                 {
                     "name": "view2",
-                    "pattern": "SecondView/{Ids}/{FName}",
+                    "pattern": "SecondView/{selectedItems}",
                     "view":"view2",
                     "target":[
                         "Targetview2"

@@ -43,7 +43,6 @@ sap.ui.define([
                         items: filteredEmployees
                     })
                     that.byId("Data").setModel(oModel);
-                    sap.m.MessageToast.show("Displaying Employee List");
                 },error:function(error){
                     sap.m.MessageToast.show("Error");
                     console.log(error);

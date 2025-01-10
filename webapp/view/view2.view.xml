@@ -2,7 +2,7 @@
 <mvc:View controllerName="odata.controller.view2"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Page id="pages" title="{i18n>title}">
+    <Page id="pages" showHeader="false">
     <content>
     </content>
 	<Bar>

@@ -6,17 +6,17 @@ xmlns="sap.m">
                     <Label text="EmployeeID" />
                     <Input id="id_E" width="250px" editable="true"/>
                     <Label text="First Name" />
-                    <Input id="FN_E" width="250px" editable="true"/>
+                    <Input id="FirstName_E" width="250px" editable="true"/>
                     <Label text="Email"/>
-                    <Input id="E_E" width="250px" editable="true"/>
+                    <Input id="Email_E" width="250px" editable="true"/>
                     <Label text="Phone"/>
-                    <Input id="P_E" width="250px" editable="true"/>
+                    <Input id="Phone_E" width="250px" editable="true"/>
                     <Label text="Department" />
-                    <Input id="D_E" width="250px" editable="true"/>
+                    <Input id="Department_E" width="250px" editable="true"/>
                     <Label text="Position" />
-                    <Input id="PO_E" width="250px" editable="true"/>
+                    <Input id="Position_E" width="250px" editable="true"/>
                     <Label text="Joining Date" />
-                    <Input id="JD_E" width="250px" editable="true"/>
+                    <Input id="JoiningDate_E" width="250px" editable="true" type="Date"/>
                </VBox>
           <footer>
                <Toolbar>

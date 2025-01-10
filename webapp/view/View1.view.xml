@@ -10,10 +10,11 @@
             <Bar>
                 <contentRight>
                     <Button icon="sap-icon://add" press="onOpenDialog"></Button>
+                    <Button icon="sap-icon://begin" press="MultiNavigate"></Button>
                 </contentRight>
             </Bar>
         </subHeader>
-    <Table id="employeeTable" growing="true" growingThreshold="5" items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group: true}}">
+     <Table id="employeeTable" growing="true" growingThreshold="5" items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group: true}}" mode="MultiSelect" selectionChange="oSelectedItems">
     <columns>
         <Column>
             <Text text="EmpId"/>
@@ -26,6 +27,9 @@
         </Column>
         <Column>
             <Text text="Phone"/>
+        </Column>
+           <Column>
+            <Text text="BloodGroup"/>
         </Column>
         <Column> 
             <Text text="Department"/>
@@ -48,6 +52,7 @@
                 <Text text="{FirstName}"/>
                 <Text text="{Email}"/>
                 <Text text="{Phone}"/>
+                <Text text="{BloodGroup}"/>
                 <Text text="{Department}"/>
                 <Text text="{Position}"/>
                 <Text text="{path: 'JoiningDate', formatter: '.formatter.formatJoiningDate'}" />
