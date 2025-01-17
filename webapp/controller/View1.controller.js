@@ -54,7 +54,6 @@ sap.ui.define([
                 Position: sap.ui.getCore().byId("eposition").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()  
             };
-
             // Check if all required fields are filled
             if (TempEmp.FirstName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.JoiningDate) {
                 var oModel = that.getView().getModel();  
@@ -227,7 +226,7 @@ sap.ui.define([
             var aTableData=[];
             // Using forEach method to call a function for each element in array 
             aItems.forEach(function (oItem) {
-            // Binding the context 
+            // Binding the context- binding context is used to bind the elements into the specific object in a model 
                 var oBindingContext = oItem.getBindingContext();
                     if (oBindingContext) {
                     var sEmployeeId = oBindingContext.getProperty("ID");
