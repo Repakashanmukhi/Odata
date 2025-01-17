@@ -99,7 +99,7 @@
                 },
                 {
                     "name": "view2",
-                    "pattern": "SecondView/{selectedItems}",
+                    "pattern": "view2/{tableData}",
                     "view":"view2",
                     "target":[
                         "Targetview2"
@@ -108,7 +108,7 @@
             ],
             "targets": {
                 "TargetView1": {
-                    "id": "View1",
+                    "id": "View1",  
                     "name": "View1"
                 },
                 "Targetview2": {

@@ -11,6 +11,8 @@ xmlns="sap.m">
                     <Input id="Email_E" width="250px" editable="true"/>
                     <Label text="Phone"/>
                     <Input id="Phone_E" width="250px" editable="true"/>
+                     <Label text="BloodGroup"/>
+                    <Input id="BloodGroup_E" width="250px" editable="true"/>
                     <Label text="Department" />
                     <Input id="Department_E" width="250px" editable="true"/>
                     <Label text="Position" />

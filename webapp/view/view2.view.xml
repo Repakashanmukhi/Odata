@@ -1,4 +1,3 @@
-
 <mvc:View controllerName="odata.controller.view2"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
@@ -13,21 +12,15 @@
 	    <Title text="Employee Details" ></Title>
 	</contentMiddle>
 	  <contentLeft>
-	  <Button icon="sap-icon://nav-back" press="NavBack"></Button>
+	  <Button icon="sap-icon://nav-back" press="NavBack "></Button>
 	  </contentLeft>
 	</Bar>
-	 <List items="{/items}"
-	       id="Data"
-		   growing="true"
-		   growingThreshold="4"
-		   growingScrollToLoad="false">
-		<StandardListItem
-            type="Active"
-            press="onCLick"	
-			title="{ContactName}"/>
-	 </List>
     </Page>
 </mvc:View>
+
+
+
+
   
 
   
