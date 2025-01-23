@@ -322,6 +322,7 @@ sap.ui.define([
     //     }
     // }, 
     onFileChange: function (oEvent) {
+        // 
         var aFile = oEvent.getParameter("files");
         if (aFile.length>0) {
             var oFile= aFile[0];
