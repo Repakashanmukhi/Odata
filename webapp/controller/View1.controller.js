@@ -3,12 +3,13 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "odata/model/formatter",
-    "sap/ui/model/json/JSONModel"
-], function (Controller,MessageBox,MessageToast,formatter,JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/export/Spreadsheet"
+], function (Controller,MessageBox,MessageToast,formatter,JSONModel,Spreadsheet) {
     "use strict";
     var that;
     return Controller.extend("odata.controller.View1", {
-        // passing formatter details to formatter property
+        // passing formatter details to formatter property.
         formatter: formatter,
         onInit: function () 
         {
@@ -17,10 +18,10 @@ sap.ui.define([
                 Employees: []
             });
             that.getView().setModel(TempEmployee, "employeeModel");
-            // Create a new model
+            // Create a new model.
             var oModel = new sap.ui.model.json.JSONModel();
             oModel.setData({ selectedItems: [] });
-            // Set the model to the component
+            // Set the model to the component.
             this.getOwnerComponent().setModel(oModel, "selectedDataModel");
         },
         onOpenDialog: function () 
@@ -38,13 +39,13 @@ sap.ui.define([
         },  
         onAddRow: function()
         {
-            // Get the view object to access its elements and models
+            // Get the view object to access its elements and models.
             var oView = that.getView(); 
-             // Get the employee model 
+             // Get the employee model.
             var oEmployeeModel = that.getView().getModel("employeeModel");
-            // Get the current list of employees from the model
+            // Get the current list of employees from the model.
             var aEmployees = oEmployeeModel.getProperty("/Employees"); 
-            // Create a new employee object with data taken from the form inputs
+            // Create a new employee object with data taken from the form inputs.
             var TempEmp = {
                 FirstName: sap.ui.getCore().byId("efirstName").getValue(), 
                 Email: sap.ui.getCore().byId("eEmail").getValue(),  
@@ -54,30 +55,30 @@ sap.ui.define([
                 Position: sap.ui.getCore().byId("eposition").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()  
             };
-            // Check if all required fields are filled
+            // Check if all required fields are filled.
             if (TempEmp.FirstName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.JoiningDate) {
                 var oModel = that.getView().getModel();  
-                // Add the new employee object to the list of employees
+                // Add the new employee object to the list of employees.
                 aEmployees.push(TempEmp);  
-                // Update the model with the new list of employees
+                // Update the model with the new list of employees.
                 oEmployeeModel.setProperty("/Employees", aEmployees);  
-                // Clear the form after adding the employee
+                // Clear the form after adding the employee.
                 that.onClear();  
             } else {
                 MessageToast.show("Please fill all the fields!");
             }
         },
         onSubmitDialog: function () {
-        // Get the employee model which holds the employee data
+        // Get the employee model which holds the employee data.
         var oEmployeeModel = that.getView().getModel("employeeModel");
-         // Get the list of employees from the model
+         // Get the list of employees from the model.
         var aEmployees = oEmployeeModel.getProperty("/Employees"); 
-        // Get the OData model
+        // Get the OData model.
         var oData = that.getOwnerComponent().getModel();  
-        // Looping for each employee and sending the data to the OData service
+        // Looping for each employee and sending the data to the OData service.
         for (var i = 0; i < aEmployees.length; i++) {
             var oEmployee = aEmployees[i];  
-            // Creating a new employee object for sending it to the backend
+            // Creating a new employee object for sending it to the backend.
             var oNewEmployee = {
                 FirstName: oEmployee.FirstName,  
                 Email: oEmployee.Email,  
@@ -87,22 +88,22 @@ sap.ui.define([
                 Position: oEmployee.Position, 
                 JoiningDate: oEmployee.JoiningDate 
                 };
-            // Syntax to create an employee data in oData service 
+            // Syntax to create an employee data in oData service.
             oData.create("/EmployeeInfo", oNewEmployee, { 
                 success: function () {
-                            //success message
+                            //success message.
                             MessageToast.show("Employee data submitted successfully!");
                         },
                         error: function (error) {
-                            //error message
+                            //error message.
                             MessageToast.show("Error submitting employee data!");
                         }
                     });
                 }
-        // After submitting, clear the employees list in the model 
+        // After submitting, clear the employees list in the model. 
         oEmployeeModel.setProperty("/Employees", []);
 },
-          // To clear the data 
+          // To clear the data.
         onClear: function () 
         {
             sap.ui.getCore().byId("efirstName").setValue(""); 
@@ -116,13 +117,13 @@ sap.ui.define([
         DeleteBtn: function(oEvent)
         {
             var oButton=oEvent.getSource();
-            // Bringing the binding context of the button
+            // Bringing the binding context of the button.
             var oContext=oButton.getBindingContext();
-            // Get the path of the context (Location)
+            // Get the path of the context (Location).
             var sPath=oContext.getPath();
-            // Get the model from the view which holds the data 
+            // Get the model from the view which holds the data. 
             var oModel=that.getView().getModel();
-            // Syntax to Delete the record in oData Serivice 
+            // Syntax to Delete the record in oData Serivice.
             oModel.remove(sPath,{
                 success: function()
                 {
@@ -141,7 +142,7 @@ sap.ui.define([
                 that.update=sap.ui.xmlfragment("odata.Fragments.update", that)
             }
             that.update.open();
-            // Bring the value from the table to update fragment using Id's
+            // Bring the value from the table to update fragment using Id's.
             var oContext = oEvent.getSource().getBindingContext().getObject(); 
             sap.ui.getCore().byId("id_E").setValue(oContext.ID);
             sap.ui.getCore().byId("FirstName_E").setValue(oContext.FirstName);
@@ -155,7 +156,7 @@ sap.ui.define([
         },
         onUpdateDialog: function()
         {
-            // storing the updated value into the table 
+            // storing the updated value into the table. 
             var sId = sap.ui.getCore().byId("id_E").getValue();
             var sfirstName = sap.ui.getCore().byId("FirstName_E").getValue();
             var sEmail = sap.ui.getCore().byId("Email_E").getValue();
@@ -164,7 +165,7 @@ sap.ui.define([
             var sDepartment = sap.ui.getCore().byId("Department_E").getValue();
             var sPosition = sap.ui.getCore().byId("Position_E").getValue();
             var sJoiningDate=sap.ui.getCore().byId("JoiningDate_E").getValue();
-            // Object to store the updated values 
+            // Object to store the updated values.
                 var oUpdatedEmployee = {
                     ID:sId,
                     FirstName: sfirstName,
@@ -175,32 +176,32 @@ sap.ui.define([
                     Position: sPosition,
                     JoiningDate: sJoiningDate
                 };
-                // Getting the model and storing it into oData 
+                // Getting the model and storing it into oData. 
                 var oData = that.getOwnerComponent().getModel();
-                // Binding with EntityName of the table 
+                // Binding with EntityName of the table.
                 var updatePath = `/EmployeeInfo(guid'${sId}')`
-                // Syntax to update the record in oData Serivice 
+                // Syntax to update the record in oData Serivice. 
                 oData.update(updatePath, oUpdatedEmployee,{
-                    // Success Message 
+                    // Success Message.
                     success: function()
                     {
                         sap.m.MessageToast.show("Record updated successfully!");
                     },
-                    // Eroor Message 
+                    // Eroor Message.
                 error: function (error) 
                 {
                 console.log(error)
                 MessageToast.show("Cannot update record");
                 }   
            })
-           // Closing the fragment once the data get updated in table 
+           // Closing the fragment once the data get updated in table. 
            that.update.close()
         },
         onCancleDialog: function()
         { 
             that.update.close()
         },
-        // Multi navigation for only selected ids 
+        // Multi navigation for only selected ids.
         // MultiNavigate: function () {
         //     var oTable = this.getView().byId("employeeTable");
         //     var aSelectedItems = oTable.getSelectedItems();
@@ -216,17 +217,17 @@ sap.ui.define([
         //         });
         //     } 
         // },
-        // MultiNavigation for complete table 
+        // MultiNavigation for complete table. 
         MultiNavigate: function () {
-            // Bring the view of table and storing them into oTable
+            // Bring the view of table and storing them into oTable.
             var oTable = this.getView().byId("employeeTable");
-            // Bring items of the table and storing them into aItem
+            // Bring items of the table and storing them into aItem.
             var aItems = oTable.getItems(); 
-            // Creating an array to push each and every column
+            // Creating an array to push each and every column.
             var aTableData=[];
-            // Using forEach method to call a function for each element in array 
+            // Using forEach method we call a function for each element in array. 
             aItems.forEach(function (oItem) {
-            // Binding the context- binding context is used to bind the elements into the specific object in a model 
+            // Binding the context- binding context is used to bind the elements into the specific object in a model. 
                 var oBindingContext = oItem.getBindingContext();
                     if (oBindingContext) {
                     var sEmployeeId = oBindingContext.getProperty("ID");
@@ -237,7 +238,7 @@ sap.ui.define([
                     var sDepartment = oBindingContext.getProperty("Department");
                     var sPosition = oBindingContext.getProperty("Positon");
                     var sJoiningDate = oBindingContext.getProperty("JoiningDate");
-                    // Pushing the binded data into aTableData 
+                    // Pushing the binded data into aTableData.
                     aTableData.push({
                         EmployeeId: sEmployeeId,
                         FirstName: sFirstName,
@@ -250,12 +251,101 @@ sap.ui.define([
                     });
                 } 
             });
-            // Navigation for view 2
+            // Navigation for view 2.
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("view2", {
-                // JSON.stringify is used to convert an object into a string 
+                // JSON.stringify is used to convert an object into a string. 
                 tableData: JSON.stringify(aTableData)  
             });
+        },
+    onDownload: function(oEvent) {
+        var oTable = this.getView().byId("employeeTable");
+        var aItems = oTable.getItems();
+        console.log(aItems)
+        // Initializing the table data array with column headers.
+        var aTableData = [
+            ["EmployeeId", "FirstName", "Email", "Phone", "BloodGroup", "Department", "Position", "JoiningDate"] 
+        ];
+        aItems.forEach(function(oItem) {
+            // Get binding context for all properties.
+            var oBindingContext = oItem.getBindingContext();
+            if (oBindingContext) {
+                // Push a new row into the aTableData array using binding context.
+                aTableData.push([
+                    oBindingContext.getProperty("ID"),
+                    oBindingContext.getProperty("FirstName"),
+                    oBindingContext.getProperty("Email"),
+                    oBindingContext.getProperty("Phone"),
+                    oBindingContext.getProperty("BloodGroup"),
+                    oBindingContext.getProperty("Department"),
+                    oBindingContext.getProperty("Position"),
+                    oBindingContext.getProperty("JoiningDate")
+                ]);
+            }   
+        });
+        // XLSX.utils.aoa_to_sheet- creates worksheets from array of arrays.
+        var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
+        // XLSX.utils.book_new- creates a new book.
+        var oWorkbook = XLSX.utils.book_new();
+        // XLSX.utils.book_append_sheet- Appends Worksheet to a Workbook.
+        XLSX.utils.book_append_sheet(oWorkbook, oSheet, "Employee Data");  
+        var sFileName = "EmployeeData.xlsx";
+        // XLSX.writeFile- Geneates and saves the file in system.
+        XLSX.writeFile(oWorkbook, sFileName);
+    },
+    handleUpload: function(){
+        if (!that.upload) 
+            {
+                that.upload = sap.ui.xmlfragment("odata.Fragments.upload", that);
+                that.getView().addDependent(that.upload);
+            }
+            that.upload.open();
+    }, 
+    // onFileChange: function(oEvent) {
+    //     // Get the file selected by the user
+    //     var oFileUploader = oEvent.getSource();
+    //     var oFile = oFileUploader.getFocusDomRef().files[0];
+    //     if (oFile) {
+    //         var reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             // Parse the Excel file
+    //             var data = e.target.result;
+    //             var workbook = XLSX.read(data, { type: 'binary' });
+    //             // Assuming we have a sheet named 'Sheet1'
+    //             var sheetName = workbook.SheetNames[0];
+    //             var sheet = workbook.Sheets[sheetName];
+    //             // Convert sheet to JSON
+    //             var jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    //             console.log("Parsed Excel Data:", jsonData);
+    //         };
+    //         reader.readAsBinaryString(oFile);
+    //     }
+    // }, 
+    onFileChange: function (oEvent) {
+        var aFile = oEvent.getParameter("files");
+        if (aFile.length>0) {
+            var oFile= aFile[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = e.target.result;
+                var workbook = XLSX.read(data, { 
+                    type: 'array'
+                });
+                var sheetNames = workbook.SheetNames;
+                var sheet = workbook.Sheets[sheetNames[0]];
+                var jsonData = XLSX.utils.sheet_to_json(sheet);
+                console.log(jsonData);  
+            };
+            reader.readAsArrayBuffer(oFile);
+        } else {
+            MessageToast.show("No file selected");
+        }
+    },
+     ExcelUpload: function(oEvent) {
+    
+     },
+        close: function(){
+            that.upload.close();
         }
     });
 });

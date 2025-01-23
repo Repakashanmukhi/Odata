@@ -10,7 +10,11 @@
             <Bar>
                 <contentRight>
                     <Button icon="sap-icon://add" press="onOpenDialog"></Button>
+                    <Button icon="sap-icon://download" text="Download" press="onDownload"></Button>
+                    <Button icon="sap-icon://upload-to-cloud" text="Upload" press="handleUpload"  ariaHasPopup="Dialog"></Button>
+                   
                     <Button icon="sap-icon://begin" press="MultiNavigate"></Button>
+     
                 </contentRight>
             </Bar>
         </subHeader>
@@ -64,6 +68,8 @@
         </ColumnListItem>
     </items>
 </Table>
+
+
     </Page>
 </mvc:View> 
    
