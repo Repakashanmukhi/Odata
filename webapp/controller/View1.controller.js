@@ -351,73 +351,21 @@ sap.ui.define([
             reader.readAsArrayBuffer(oFile);
         } 
     },      
-//     ExcelUpload: function() {
-//         var oData = that.jsonData; 
-//         var oModel = that.getView().getModel(); 
-//         oData.forEach(function(entry) {
-//             var oEntry = {
-//                 FirstName: entry.FirstName,  
-//                 Email: entry.Email,  
-//                 Phone:entry.Phone,
-//                 BloodGroup:entry.BloodGroup,
-//                 Department:entry.Department,
-//                 Position:entry.Position,
-//                 JoiningDate:entry.JoiningDate
-//             };
-//         console.log(oEntry)
-//         oModel.create("/EmployeeInfo", oEntry, {
-//             success: function(response) {
-//                 console.log("Upload successful: ", response);
-//             },
-//             error: function(error) {
-//                 console.error("Upload failed: ", error);
-//             }
-//         });
-//     }); 
-// },  
-
-
-// ExcelUpload: function() {
-//     var oData = that.jsonData;
-//     var oModel = that.getView().getModel();
-//     oData.forEach(function(entry) {
-//         var oEntry = {
-//             ID:entry.ID,
-//             FirstName: entry.FirstName,
-//             Email: entry.Email,
-//             Phone: entry.Phone,
-//             BloodGroup: entry.BloodGroup,
-//             Department: entry.Department,
-//             Position: entry.Position,
-//             JoiningDate: entry.JoiningDate
-//         };
-//         console.log("Uploading entry:", oEntry);
-//         oModel.create("/EmployeeInfo", oEntry, {
-//             success: function(response) {
-//                 console.log("Upload successful: ", response);
-//             },
-//             error: function(error) {
-//                 console.error("Upload failed: ", error);
-//             }
-//         });
-//     });
-// },
-ExcelUpload: function() {
-    var oData = that.jsonData;
-    var oModel = that.getOwnerComponent().getModel();
-    oData.forEach(function(entry) {
-        var oEntry = {
-            FirstName: entry.FirstName,
-            Email: entry.Email,
-            Phone: entry.Phone,
-            BloodGroup: entry.BloodGroup,
-            Department: entry.Department,
-            Position: entry.Position,
-            JoiningDate: entry.JoiningDate
-        };
+    ExcelUpload: function() {
+        var oData = that.jsonData;
+        var oModel = that.getOwnerComponent().getModel();
+        oData.forEach(function(entry) {
+            var oEntry = {
+                FirstName: entry.FirstName,
+                Email: entry.Email,
+                Phone: entry.Phone,
+                BloodGroup: entry.BloodGroup,
+                Department: entry.Department,
+                Position: entry.Position,
+                JoiningDate: entry.JoiningDate
+            };
         console.log("Uploading entry:",oEntry);  
         oModel.create("/EmployeeInfo", oEntry, {
-        
             success: function(response) {
                 console.log("Upload successful: ", response);
             },
@@ -427,7 +375,6 @@ ExcelUpload: function() {
         });
     });
 },
-
     close: function(){
             that.upload.close();
         }
