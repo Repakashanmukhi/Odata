@@ -354,7 +354,9 @@ sap.ui.define([
     ExcelUpload: function() {
         var oData = that.jsonData;
         var oModel = that.getOwnerComponent().getModel();
-        oData.forEach(function(entry) {
+        // oData.forEach(function(entry) {
+            for (var i = 0; i < oData.length; i++) {
+            var entry = oData[i];
             var oEntry = {
                 FirstName: entry.FirstName,
                 Email: entry.Email,
@@ -373,8 +375,8 @@ sap.ui.define([
                 console.error("Upload failed: ", error);
             }
         });
-    });
-},
+    };
+}, 
     close: function(){
             that.upload.close();
         }
