@@ -134,7 +134,7 @@ sap.ui.define([
                     sap.m.MessageToast.show("Cannot delete record");
                 }
             }) 
-        }, 
+        },  
         UpdateBtn: function(oEvent)
         {
             if(!that.update)
@@ -283,6 +283,7 @@ sap.ui.define([
                 ]);
             }   
         });
+        // XLSX is uesed to store spreedsheet data.
         // XLSX.utils.aoa_to_sheet- creates worksheets from array of arrays.
         var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
         // XLSX.utils.book_new- creates a new book.
@@ -292,7 +293,7 @@ sap.ui.define([
         var sFileName = "EmployeeData.xlsx";
         // XLSX.writeFile- Geneates and saves the file in system.
         XLSX.writeFile(oWorkbook, sFileName);
-    },
+    }, 
     handleUpload: function(){
         if (!that.upload) 
             {
@@ -321,32 +322,58 @@ sap.ui.define([
     //         reader.readAsBinaryString(oFile);
     //     }
     // }, 
-    onFileChange: function (oEvent) {
-        // 
+  
+    onFileChange: function(oEvent) {
         var aFile = oEvent.getParameter("files");
-        if (aFile.length>0) {
-            var oFile= aFile[0];
+        if (aFile.length > 0) {
+            var oFile = aFile[0];
+            // Initialising FileReader() to read the content.
             var reader = new FileReader();
             reader.onload = function(e) {
+                  // Get the result from the FileReader.
                 var data = e.target.result;
+                // XLSX.read- Reads the file as an EXCEL workbook
                 var workbook = XLSX.read(data, { 
                     type: 'array'
-                });
+                 });
+                 // Get the sheet names from the workbook
                 var sheetNames = workbook.SheetNames;
+                // Select the first sheet in the workbook
                 var sheet = workbook.Sheets[sheetNames[0]];
+                  //XLSX.utils.sheet_to_json- it Convert the sheet content into a JSON array of objects.
                 var jsonData = XLSX.utils.sheet_to_json(sheet);
-                console.log(jsonData);  
-            };
+                console.log(jsonData);
+                // Store the file for use in ExcelUpload
+                that.selectedFile = oFile;  
+                that.jsonData = jsonData;
+            } 
+            //readAsArrayBuffer()- starts reading the content of specific file 
             reader.readAsArrayBuffer(oFile);
-        } else {
-            MessageToast.show("No file selected");
-        }
-    },
-     ExcelUpload: function(oEvent) {
-    
-     },
-        close: function(){
+        } 
+    },      
+ExcelUpload: function() {
+    var oData = that.jsonData; 
+    var oModel = that.getView().getModel(); 
+    oData.forEach(function(entry) {
+        var oEntry = {
+            Property1: entry.Column1,  
+            Property2: entry.Column2, 
+        };
+        console.log(oEntry)
+        oModel.create("/EmployeeInfo", oEntry, {
+            success: function(response) {
+                console.log("Upload successful: ", response);
+            },
+            error: function(error) {
+                console.error("Upload failed: ", error);
+            }
+        });
+    }); 
+},  
+
+    close: function(){
             that.upload.close();
         }
     });
 });
+
