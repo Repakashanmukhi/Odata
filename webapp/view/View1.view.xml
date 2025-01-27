@@ -59,7 +59,7 @@
                 <Text text="{BloodGroup}"/>
                 <Text text="{Department}"/>
                 <Text text="{Position}"/>
-                <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" />
+                <Text text="{path: 'JoiningDate', formatter: '.formatter.formatJoiningDate'}" />
                 <HBox>
                     <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
                     <Button icon="sap-icon://user-edit" class="sapUiTinyMarginEnd" press="UpdateBtn"></Button>
