@@ -407,7 +407,6 @@ ExcelUpload: function() {
     var oModel = that.getOwnerComponent().getModel();
     oData.forEach(function(entry) {
         var oEntry = {
-            ID: entry.ID,
             FirstName: entry.FirstName,
             Email: entry.Email,
             Phone: entry.Phone,
@@ -418,6 +417,7 @@ ExcelUpload: function() {
         };
         console.log("Uploading entry:",oEntry);  
         oModel.create("/EmployeeInfo", oEntry, {
+        
             success: function(response) {
                 console.log("Upload successful: ", response);
             },
