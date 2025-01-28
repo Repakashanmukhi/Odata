@@ -37,6 +37,13 @@ sap.ui.define([
         {
             that.create.close(); 
         },  
+        formatJoiningDate: function (sDate) {
+            if (sDate) {
+                var oDate = new Date(sDate);
+                var oFormatter = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+                return oFormatter.format(oDate);
+            }
+        },
         onAddRow: function()
         {
             // Get the view object to access its elements and models.
@@ -349,34 +356,65 @@ sap.ui.define([
             } 
             //readAsArrayBuffer()- starts reading the content of specific file 
             reader.readAsArrayBuffer(oFile);
-        } 
+        }
     },      
+    // ExcelUpload: function() {
+    //     var oData = that.jsonData;
+    //     var oModel = that.getOwnerComponent().getModel();
+    //     // oData.forEach(function(entry) {
+    //         for (var i = 0; i < oData.length; i++) {
+    //         var entry = oData[i];
+    //         // var JoiningDate = new Date(entry.JoiningDate);
+    //         let joiningdate  = new Date(entry.JoiningDate)
+    //         sap.ui.export.EdmType.Date
+    //         var oEntry = {
+    //             FirstName: entry.FirstName,
+    //             Email: entry.Email,
+    //             Phone: entry.Phone + "",
+    //             BloodGroup: entry.BloodGroup,
+    //             Department: entry.Department,
+    //             Position: entry.Position,
+    //             JoiningDate: entry.joiningdate
+    //         };
+    //     console.log("Uploading entry:",oEntry);  
+    //     oModel.create("/EmployeeInfo", oEntry,{
+    //         success: function(response){
+    //             console.log("Upload successful: ",response);
+    //         },
+    //         error: function(error){
+    //             console.log("uplod failed: ", error)
+    //         }
+    //     })
+    // }
+    // },
+
     ExcelUpload: function() {
         var oData = that.jsonData;
         var oModel = that.getOwnerComponent().getModel();
-        // oData.forEach(function(entry) {
-            for (var i = 0; i < oData.length; i++) {
+        for (var i = 0; i < oData.length; i++) {
             var entry = oData[i];
+          that.formatJoiningDate(entry.JoiningDate)
             var oEntry = {
                 FirstName: entry.FirstName,
                 Email: entry.Email,
-                Phone: entry.Phone,
+                Phone: entry.Phone + "",
                 BloodGroup: entry.BloodGroup,
                 Department: entry.Department,
                 Position: entry.Position,
                 JoiningDate: entry.JoiningDate
             };
-        console.log("Uploading entry:",oEntry);  
-        oModel.create("/EmployeeInfo", oEntry, {
-            success: function(response) {
-                console.log("Upload successful: ", response);
-            },
-            error: function(error) {
-                console.error("Upload failed: ", error);
-            }
-        });
-    };
-}, 
+            console.log("Uploading entry:", oEntry);
+            oModel.create("/EmployeeInfo", oEntry, {
+                success: function(response) {
+                    console.log("Upload successful: ", response);
+                },
+                error: function(error) {
+                    console.log("Upload failed: ", error);
+                }
+            });
+        }
+    },
+    
     close: function(){
             that.upload.close();
         }

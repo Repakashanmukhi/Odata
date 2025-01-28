@@ -17,7 +17,7 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "/v2/sbp-worksphere/",
+                "uri": "v2/sbp-worksphere",
                 "type": "OData",
                 "settings": {
                     "annotations": [],
