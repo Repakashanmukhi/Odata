@@ -40,7 +40,7 @@ sap.ui.define([
         formatJoiningDate: function (sDate) {
             if (sDate) {
                 var oDate = new Date(sDate);
-                var oFormatter = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+                var oFormatter = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd"});
                 return oFormatter.format(oDate);
             }
         },
@@ -329,7 +329,6 @@ sap.ui.define([
     //         reader.readAsBinaryString(oFile);
     //     }
     // }, 
-  
     onFileChange: function(oEvent) {
         var aFile = oEvent.getParameter("files");
         if (aFile.length > 0) {
@@ -357,43 +356,12 @@ sap.ui.define([
             //readAsArrayBuffer()- starts reading the content of specific file 
             reader.readAsArrayBuffer(oFile);
         }
-    },      
-    // ExcelUpload: function() {
-    //     var oData = that.jsonData;
-    //     var oModel = that.getOwnerComponent().getModel();
-    //     // oData.forEach(function(entry) {
-    //         for (var i = 0; i < oData.length; i++) {
-    //         var entry = oData[i];
-    //         // var JoiningDate = new Date(entry.JoiningDate);
-    //         let joiningdate  = new Date(entry.JoiningDate)
-    //         sap.ui.export.EdmType.Date
-    //         var oEntry = {
-    //             FirstName: entry.FirstName,
-    //             Email: entry.Email,
-    //             Phone: entry.Phone + "",
-    //             BloodGroup: entry.BloodGroup,
-    //             Department: entry.Department,
-    //             Position: entry.Position,
-    //             JoiningDate: entry.joiningdate
-    //         };
-    //     console.log("Uploading entry:",oEntry);  
-    //     oModel.create("/EmployeeInfo", oEntry,{
-    //         success: function(response){
-    //             console.log("Upload successful: ",response);
-    //         },
-    //         error: function(error){
-    //             console.log("uplod failed: ", error)
-    //         }
-    //     })
-    // }
-    // },
-
-    ExcelUpload: function() {
+    },     
+    ExcelUpload: function () {
         var oData = that.jsonData;
         var oModel = that.getOwnerComponent().getModel();
-        for (var i = 0; i < oData.length; i++) {
-            var entry = oData[i];
-          that.formatJoiningDate(entry.JoiningDate)
+        oData.forEach(function (entry) {
+            entry.JoiningDate = that.formatJoiningDate(entry.JoiningDate);
             var oEntry = {
                 FirstName: entry.FirstName,
                 Email: entry.Email,
@@ -405,16 +373,15 @@ sap.ui.define([
             };
             console.log("Uploading entry:", oEntry);
             oModel.create("/EmployeeInfo", oEntry, {
-                success: function(response) {
+                success: function (response) {
                     console.log("Upload successful: ", response);
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log("Upload failed: ", error);
                 }
             });
-        }
+        });
     },
-    
     close: function(){
             that.upload.close();
         }
