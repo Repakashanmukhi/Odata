@@ -424,6 +424,7 @@ sap.ui.define([
             oModel.create("/EmployeeInfo", oEntry, {
                 success: function (response) {
                     console.log("Upload successful: ", response);
+                    that.close();
                 },
                 error: function (error) {
                     console.log("Upload failed: ", error);
@@ -436,4 +437,3 @@ sap.ui.define([
         }
     });
 });
-
