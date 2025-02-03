@@ -40,7 +40,7 @@ sap.ui.define([
         formatJoiningDate: function (sDate) {
             if (sDate) {
                 var oDate = new Date(sDate);
-                var oFormatter = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd"});
+                var oFormatter = sap.ui.core.format.DateFormat.getDateInstance({pattern: "yyyy-MM-dd"});
                 return oFormatter.format(oDate);
             }
         },
@@ -290,7 +290,7 @@ sap.ui.define([
                 ]);
             }   
         });
-        // XLSX is uesed to store spreedsheet data.
+        // XLSX is used to store spreedsheet data.
         // XLSX.utils.aoa_to_sheet- creates worksheets from array of arrays.
         var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
         // XLSX.utils.book_new- creates a new book.
@@ -357,11 +357,58 @@ sap.ui.define([
             reader.readAsArrayBuffer(oFile);
         }
     },     
+    // ExcelUpload: function () {
+    //     // Get the data form onFileChange(jsonData).
+    //     var oData = that.jsonData;
+    //     // get oData model 
+    //     var oModel = that.getOwnerComponent().getModel();
+    //     // use for Each function to check each and every filed in the sheet.
+    //     oData.forEach(function (entry) {
+    //         // converts joiningdate form number format to date format.
+    //         let joiningdate  = new Date(entry.JoiningDate)
+    //         var JoiningDate=toString(joiningdate)
+    //         console.log(joiningdate)
+    //         // stores sheet data in oEntry
+    //         var oEntry = {
+    //             FirstName: entry.FirstName,
+    //             Email: entry.Email,
+    //             Phone: entry.Phone + "",
+    //             BloodGroup: entry.BloodGroup,
+    //             Department: entry.Department,
+    //             Position: entry.Position,
+    //             JoiningDate: entry.JoiningDate
+    //         };  
+    //         console.log("Uploading entry:", oEntry);
+    //         // syntax to ccreate a new data in oData 
+    //         oModel.create("/EmployeeInfo", oEntry, {
+    //             success: function (response) {
+    //                 console.log("Upload successful: ", response);
+    //             },
+    //             error: function (error) {
+    //                 console.log("Upload failed: ", error);
+    //             }
+    //         });
+    //     });
+    // },
     ExcelUpload: function () {
+        // Get the data form onFileChange(jsonData).
         var oData = that.jsonData;
+        // get oData model 
         var oModel = that.getOwnerComponent().getModel();
+        // use for Each function to check each and every filed in the sheet.
         oData.forEach(function (entry) {
-            entry.JoiningDate = that.formatJoiningDate(entry.JoiningDate);
+             // If JoiningDate is a number, convert it to a Date object
+            var joiningdate = entry.JoiningDate;
+            // Excel serial date to JavaScript Date
+            joiningdate = new Date((joiningdate - 25569) * 86400 * 1000);  
+            // Format the date as 'YYYY-MM-DD'
+            var year = joiningdate.getFullYear();
+            var month = ("0" + (joiningdate.getMonth() + 1)).slice(-2); 
+            var day = ("0" + joiningdate.getDate()).slice(-2);
+            // Combine into 'YYYY-MM-DD' format
+            var formattedJoiningDate = `${year}-${month}-${day}`;
+            console.log(formattedJoiningDate);
+            // stores sheet data in oEntry
             var oEntry = {
                 FirstName: entry.FirstName,
                 Email: entry.Email,
@@ -369,9 +416,11 @@ sap.ui.define([
                 BloodGroup: entry.BloodGroup,
                 Department: entry.Department,
                 Position: entry.Position,
-                JoiningDate: entry.JoiningDate
+                // Send the formatted date
+                JoiningDate: formattedJoiningDate 
             };
             console.log("Uploading entry:", oEntry);
+             // syntax to create a new data in oData 
             oModel.create("/EmployeeInfo", oEntry, {
                 success: function (response) {
                     console.log("Upload successful: ", response);

@@ -1,126 +1,143 @@
 {
-    "_version": "1.65.0",
-    "sap.app": {
-        "id": "odata",
-        "type": "application",
-        "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "0.0.1"
-        },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "@sap/generator-fiori:basic",
-            "version": "1.15.7",
-            "toolsId": "372b453d-eadb-4f01-a3ae-7de8161f0576"
-        },
-        "dataSources": {
-            "mainService": {
-                "uri": "v2/sbp-worksphere",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            }
-        }
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "odata",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
     },
-    "sap.ui": {
-        "technology": "UI5",
-        "icons": {
-            "icon": "",
-            "favIcon": "",
-            "phone": "",
-            "phone@2": "",
-            "tablet": "",
-            "tablet@2": ""
-        },
-        "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-        }
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.15.7",
+      "toolsId": "372b453d-eadb-4f01-a3ae-7de8161f0576"
     },
-    "sap.ui5": {
-        "flexEnabled": false,
-        "dependencies": {
-            "minUI5Version": "1.131.1",
-            "libs": {
-                "sap.m": {},
-                "sap.ui.core": {}
-            }
-        },
-        "contentDensities": {
-            "compact": true,
-            "cozy": true
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "odata.i18n.i18n"
-                }
-            },
-            "": {
-                "dataSource": "mainService",
-                "preload": true,
-                "settings": {}
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
-        },
-        "routing": {
-            "config": {
-                "routerClass": "sap.m.routing.Router",
-                "controlAggregation": "pages",
-                "controlId": "app",
-                "transition": "slide",
-                "type": "View",
-                "viewType": "XML",
-                "path": "odata.view",
-                "async": true,
-                "viewPath": "odata.view"
-            },
-            "routes": [
-                {
-                    "name": "RouteView1",
-                    "pattern":"",
-                    "view":"View1",
-                    "target": [
-                        "TargetView1"
-                    ]
-                },
-                {
-                    "name": "view2",
-                    "pattern": "view2/{tableData}",
-                    "view":"view2",
-                    "target":[
-                        "Targetview2"
-                    ]
-                }
-            ],
-            "targets": {
-                "TargetView1": {
-                    "id": "View1",  
-                    "name": "View1"
-                },
-                "Targetview2": {
-                    "id": "view2",
-                    "name": "view2"
-                }
-            }
-        },
-        "rootView": {
-            "viewName": "odata.view.App",
-            "type": "XML",
-            "id": "App"
+    "dataSources": {
+      "mainService": {
+        "uri": "v2/sbp-worksphere",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
         }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "odata-DISPLAY": {
+          "semanticObject": "odata",
+          "action": "DISPLAY",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.131.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "odata.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "odata.view",
+        "async": true,
+        "viewPath": "odata.view"
+      },
+      "routes": [
+        {
+          "name": "RouteView1",
+          "pattern": "",
+          "view": "View1",
+          "target": [
+            "TargetView1"
+          ]
+        },
+        {
+          "name": "view2",
+          "pattern": "view2/{tableData}",
+          "view": "view2",
+          "target": [
+            "Targetview2"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetView1": {
+          "id": "View1",
+          "name": "View1"
+        },
+        "Targetview2": {
+          "id": "view2",
+          "name": "view2"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "odata.view.App",
+      "type": "XML",
+      "id": "App"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "odata"
+  }
 }
