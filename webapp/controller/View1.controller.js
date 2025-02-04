@@ -309,26 +309,6 @@ sap.ui.define([
             }
             that.upload.open();
     }, 
-    // onFileChange: function(oEvent) {
-    //     // Get the file selected by the user
-    //     var oFileUploader = oEvent.getSource();
-    //     var oFile = oFileUploader.getFocusDomRef().files[0];
-    //     if (oFile) {
-    //         var reader = new FileReader();
-    //         reader.onload = function(e) {
-    //             // Parse the Excel file
-    //             var data = e.target.result;
-    //             var workbook = XLSX.read(data, { type: 'binary' });
-    //             // Assuming we have a sheet named 'Sheet1'
-    //             var sheetName = workbook.SheetNames[0];
-    //             var sheet = workbook.Sheets[sheetName];
-    //             // Convert sheet to JSON
-    //             var jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-    //             console.log("Parsed Excel Data:", jsonData);
-    //         };
-    //         reader.readAsBinaryString(oFile);
-    //     }
-    // }, 
     onFileChange: function(oEvent) {
         var aFile = oEvent.getParameter("files");
         if (aFile.length > 0) {
@@ -357,39 +337,6 @@ sap.ui.define([
             reader.readAsArrayBuffer(oFile);
         }
     },     
-    // ExcelUpload: function () {
-    //     // Get the data form onFileChange(jsonData).
-    //     var oData = that.jsonData;
-    //     // get oData model 
-    //     var oModel = that.getOwnerComponent().getModel();
-    //     // use for Each function to check each and every filed in the sheet.
-    //     oData.forEach(function (entry) {
-    //         // converts joiningdate form number format to date format.
-    //         let joiningdate  = new Date(entry.JoiningDate)
-    //         var JoiningDate=toString(joiningdate)
-    //         console.log(joiningdate)
-    //         // stores sheet data in oEntry
-    //         var oEntry = {
-    //             FirstName: entry.FirstName,
-    //             Email: entry.Email,
-    //             Phone: entry.Phone + "",
-    //             BloodGroup: entry.BloodGroup,
-    //             Department: entry.Department,
-    //             Position: entry.Position,
-    //             JoiningDate: entry.JoiningDate
-    //         };  
-    //         console.log("Uploading entry:", oEntry);
-    //         // syntax to ccreate a new data in oData 
-    //         oModel.create("/EmployeeInfo", oEntry, {
-    //             success: function (response) {
-    //                 console.log("Upload successful: ", response);
-    //             },
-    //             error: function (error) {
-    //                 console.log("Upload failed: ", error);
-    //             }
-    //         });
-    //     });
-    // },
     ExcelUpload: function () {
         // Get the data form onFileChange(jsonData).
         var oData = that.jsonData;
