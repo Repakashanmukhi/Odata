@@ -355,8 +355,9 @@ sap.ui.define([
             // Combine into 'YYYY-MM-DD' format
             var formattedJoiningDate = `${year}-${month}-${day}`;
             console.log(formattedJoiningDate);
+            // Filter methods to check duplicate record exists or not 
                 var aFilters = [
-                new sap.ui.model.Filter({
+                new sap.ui.model.Filter({ 
                     path: 'FirstName',  
                     operator: sap.ui.model.FilterOperator.EQ, 
                     value1: entry.FirstName 
@@ -377,11 +378,12 @@ sap.ui.define([
                     value1: entry.BloodGroup
                 }),
             ];
+            // syntax to read table data 
                 oModel.read("/EmployeeInfo", {
                 filters: aFilters, 
                 success: function (response) {
                     if (response.results && response.results.length > 0) {
-                        console.log("Duplicate entry found:", entry);
+                        sap.m.MessageToast.show("Duplicate entries found ", entry);
                         return; 
                     }
                         var oEntry = {
@@ -391,7 +393,6 @@ sap.ui.define([
                         BloodGroup: entry.BloodGroup,
                         Department: entry.Department,
                         Position: entry.Position,
-                        // Send the formatted date
                         JoiningDate: formattedJoiningDate 
                     };
                     console.log("Uploading entry:", oEntry);
@@ -407,14 +408,10 @@ sap.ui.define([
                         }
                     });
                 },
-                error: function (error) {
-                    console.log("Error reading model:", error);
-                }
             });
         });
     },
-    
-       close: function(){
+       close: function() {
             that.upload.close();
         }
     });
