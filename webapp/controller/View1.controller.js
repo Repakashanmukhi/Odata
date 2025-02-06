@@ -338,13 +338,13 @@ sap.ui.define([
         }
     },     
     ExcelUpload: function () {
-        // Get the data form onFileChange(jsonData).
+        // Get the data from onFileChange(jsonData)
         var oData = that.jsonData;
-        // get oData model 
+        // Get oData model 
         var oModel = that.getOwnerComponent().getModel();
-        // use for Each function to check each and every filed in the sheet.
+        // Use forEach function to check each and every field in the sheet
         oData.forEach(function (entry) {
-             // If JoiningDate is a number, convert it to a Date object
+            // If JoiningDate is a number, convert it to a Date object
             var joiningdate = entry.JoiningDate;
             // Excel serial date to JavaScript Date
             joiningdate = new Date((joiningdate - 25569) * 86400 * 1000);  
@@ -355,31 +355,66 @@ sap.ui.define([
             // Combine into 'YYYY-MM-DD' format
             var formattedJoiningDate = `${year}-${month}-${day}`;
             console.log(formattedJoiningDate);
-            // stores sheet data in oEntry
-            var oEntry = {
-                FirstName: entry.FirstName,
-                Email: entry.Email,
-                Phone: entry.Phone + "",
-                BloodGroup: entry.BloodGroup,
-                Department: entry.Department,
-                Position: entry.Position,
-                // Send the formatted date
-                JoiningDate: formattedJoiningDate 
-            };
-            console.log("Uploading entry:", oEntry);
-             // syntax to create a new data in oData 
-            oModel.create("/EmployeeInfo", oEntry, {
+                var aFilters = [
+                new sap.ui.model.Filter({
+                    path: 'FirstName',  
+                    operator: sap.ui.model.FilterOperator.EQ, 
+                    value1: entry.FirstName 
+                }),
+                new sap.ui.model.Filter({
+                    path: 'Email',  
+                    operator: sap.ui.model.FilterOperator.EQ, 
+                    value1: entry.Email 
+                }),
+                new sap.ui.model.Filter({
+                    path: 'Phone',  
+                    operator: sap.ui.model.FilterOperator.EQ, 
+                    value1: entry.Phone
+                }),
+                new sap.ui.model.Filter({
+                    path: 'BloodGroup',  
+                    operator: sap.ui.model.FilterOperator.EQ, 
+                    value1: entry.BloodGroup
+                }),
+            ];
+                oModel.read("/EmployeeInfo", {
+                filters: aFilters, 
                 success: function (response) {
-                    console.log("Upload successful: ", response);
-                    that.close();
+                    if (response.results && response.results.length > 0) {
+                        console.log("Duplicate entry found:", entry);
+                        return; 
+                    }
+                        var oEntry = {
+                        FirstName: entry.FirstName,
+                        Email: entry.Email,
+                        Phone: entry.Phone + "",
+                        BloodGroup: entry.BloodGroup,
+                        Department: entry.Department,
+                        Position: entry.Position,
+                        // Send the formatted date
+                        JoiningDate: formattedJoiningDate 
+                    };
+                    console.log("Uploading entry:", oEntry);
+    
+                    // Syntax to create new data in oData
+                    oModel.create("/EmployeeInfo", oEntry, {
+                        success: function (response) {
+                            console.log("Upload successful: ", response);
+                            that.close();
+                        },
+                        error: function (error) {
+                            console.log("Upload failed: ", error);
+                        }
+                    });
                 },
                 error: function (error) {
-                    console.log("Upload failed: ", error);
+                    console.log("Error reading model:", error);
                 }
             });
         });
     },
-    close: function(){
+    
+       close: function(){
             that.upload.close();
         }
     });
