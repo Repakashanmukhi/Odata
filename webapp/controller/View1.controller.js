@@ -265,7 +265,8 @@ sap.ui.define([
                 tableData: JSON.stringify(aTableData)  
             });
         },
-    onDownload: function(oEvent) {
+    onDownload: function(oEvent) 
+    {
         var oTable = this.getView().byId("employeeTable");
         var aItems = oTable.getItems();
         console.log(aItems)
@@ -273,7 +274,8 @@ sap.ui.define([
         var aTableData = [
             ["EmployeeId", "FirstName", "Email", "Phone", "BloodGroup", "Department", "Position", "JoiningDate"] 
         ];
-        aItems.forEach(function(oItem) {
+        aItems.forEach(function(oItem) 
+        {
             // Get binding context for all properties.
             var oBindingContext = oItem.getBindingContext();
             if (oBindingContext) {
@@ -301,7 +303,8 @@ sap.ui.define([
         // XLSX.writeFile- Geneates and saves the file in system.
         XLSX.writeFile(oWorkbook, sFileName);
     }, 
-    handleUpload: function(){
+    handleUpload: function()
+    {
         if (!that.upload) 
             {
                 that.upload = sap.ui.xmlfragment("odata.Fragments.upload", that);
@@ -309,13 +312,16 @@ sap.ui.define([
             }
             that.upload.open();
     }, 
-    onFileChange: function(oEvent) {
+    onFileChange: function(oEvent) 
+    {
         var aFile = oEvent.getParameter("files");
-        if (aFile.length > 0) {
+        if (aFile.length > 0) 
+        {
             var oFile = aFile[0];
             // Initialising FileReader() to read the content.
             var reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function(e) 
+            {
                   // Get the result from the FileReader.
                 var data = e.target.result;
                 // XLSX.read- Reads the file as an EXCEL workbook
@@ -340,24 +346,23 @@ sap.ui.define([
     ExcelUpload: function () {
         // Get the data from onFileChange(jsonData)
         var oData = that.jsonData;
-        // Get oData model 
+        // Get oData model
         var oModel = that.getOwnerComponent().getModel();
         // Use forEach function to check each and every field in the sheet
         oData.forEach(function (entry) {
             // If JoiningDate is a number, convert it to a Date object
             var joiningdate = entry.JoiningDate;
             // Excel serial date to JavaScript Date
-            joiningdate = new Date((joiningdate - 25569) * 86400 * 1000);  
+            joiningdate = new Date((joiningdate - 25569) * 86400 * 1000);
             // Format the date as 'YYYY-MM-DD'
             var year = joiningdate.getFullYear();
-            var month = ("0" + (joiningdate.getMonth() + 1)).slice(-2); 
+            var month = ("0" + (joiningdate.getMonth() + 1)).slice(-2);
             var day = ("0" + joiningdate.getDate()).slice(-2);
             // Combine into 'YYYY-MM-DD' format
             var formattedJoiningDate = `${year}-${month}-${day}`;
-            console.log(formattedJoiningDate);
             // Filter methods to check duplicate record exists or not 
-                var aFilters = [
-                new sap.ui.model.Filter({ 
+            var aFilters = [
+                new sap.ui.model.Filter({
                     path: 'FirstName',  
                     operator: sap.ui.model.FilterOperator.EQ, 
                     value1: entry.FirstName 
@@ -378,41 +383,62 @@ sap.ui.define([
                     value1: entry.BloodGroup
                 }),
             ];
-            // syntax to read table data 
-                oModel.read("/EmployeeInfo", {
+            oModel.read("/EmployeeInfo", {
                 filters: aFilters, 
                 success: function (response) {
                     if (response.results && response.results.length > 0) {
-                        sap.m.MessageToast.show("Duplicate entries found ", entry);
-                        return; 
-                    }
+                        var existingRecord = response.results[0]; 
+                        console.log("Duplicate entries found ", entry);
                         var oEntry = {
-                        FirstName: entry.FirstName,
-                        Email: entry.Email,
-                        Phone: entry.Phone + "",
-                        BloodGroup: entry.BloodGroup,
-                        Department: entry.Department,
-                        Position: entry.Position,
-                        JoiningDate: formattedJoiningDate 
-                    };
-                    console.log("Uploading entry:", oEntry);
-    
-                    // Syntax to create new data in oData
-                    oModel.create("/EmployeeInfo", oEntry, {
-                        success: function (response) {
-                            console.log("Upload successful: ", response);
-                            that.close();
-                        },
-                        error: function (error) {
-                            console.log("Upload failed: ", error);
-                        }
-                    });
-                },
+                            ID: existingRecord.ID,
+                            FirstName: entry.FirstName,
+                            Email: entry.Email,
+                            Phone: entry.Phone + "",
+                            BloodGroup: entry.BloodGroup,
+                            Department: entry.Department,
+                            Position: entry.Position,
+                            JoiningDate: formattedJoiningDate 
+                        };
+                        oModel.update("/EmployeeInfo(" + existingRecord.ID+ ")", oEntry, {
+                            success: function (response) {
+                                console.log("Record updated successfully:", response);
+                            },
+                            error: function (error) {
+                                console.log("Update failed:", error);
+                            }
+                        });
+                    } 
+                    else {
+                        var oEntry = {
+                            FirstName: entry.FirstName,
+                            Email: entry.Email,
+                            Phone: entry.Phone + "",
+                            BloodGroup: entry.BloodGroup,
+                            Department: entry.Department,
+                            Position: entry.Position,
+                            JoiningDate: formattedJoiningDate 
+                        };
+                        oModel.create("/EmployeeInfo", oEntry, {
+                            success: function (response) {
+                                console.log("Upload successful: ", response);
+                                that.close();
+                            },
+                            error: function (error) {
+                                console.log("Upload failed: ", error);
+                            }
+                        });
+                    }
+                }, 
+                error: function (error) {
+                    console.log("Error fetching data:", error);
+                }
             });
         });
     },
-       close: function() {
-            that.upload.close();
+        close: function() 
+        {
+        that.upload.close();
         }
     });
-});
+}); 
+
