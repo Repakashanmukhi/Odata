@@ -7,6 +7,8 @@ xmlns="sap.m">
                     <Input id="id_E" width="250px" editable="true"/>
                     <Label text="First Name" />
                     <Input id="FirstName_E" width="250px" editable="true"/>
+                     <Label text="Last Name" />
+                    <Input id="LasttName_E" width="250px" editable="true"/>
                     <Label text="Email"/>
                     <Input id="Email_E" width="250px" editable="true"/>
                     <Label text="Phone"/>

@@ -15,6 +15,8 @@ xmlns="sap.m">
                 <!-- <Button icon="sap-icon://add" press="onOpenDialog"></Button> -->
                     <Label text="FirstName" />
                     <Input id="efirstName" width="1000px" editable="true"/>
+                    <Label text="LastName"/>
+                    <Input id="elastName" width="1000px" editable="true"/>
                     <Label text="Email"/>
                     <Input id="eEmail" width="1000px" editable="true"/>
                     <Label text="Phone"/>
@@ -31,6 +33,7 @@ xmlns="sap.m">
             <Table id="TempTable" items="{employeeModel>/Employees}">
             <columns>
                 <Column ><Label text="FirstName"></Label></Column>
+                <Column ><Label text="LastName"></Label></Column>
                 <Column ><Label text="Email"></Label></Column>
                 <Column ><Label text="Phone"></Label></Column>
                 <Column ><Label text="BloodGroup"></Label></Column>
@@ -42,9 +45,10 @@ xmlns="sap.m">
             <ColumnListItem>
             <cells>
             <Input value="{employeeModel>FirstName}"></Input>
+            <Input value="{employeModel>LastName}"></Input>
             <Input value="{employeeModel>Email}"></Input>
             <Input value="{employeeModel>Phone}"></Input>
-              <Input value="{employeeModel>BloodGroup}"></Input>
+            <Input value="{employeeModel>BloodGroup}"></Input>
             <Input value="{employeeModel>Department}"></Input>
             <Input value="{employeeModel>Position}"></Input>
             <Input value="{employeeModel>JoiningDate}"></Input>

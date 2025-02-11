@@ -55,6 +55,7 @@ sap.ui.define([
             // Create a new employee object with data taken from the form inputs.
             var TempEmp = {
                 FirstName: sap.ui.getCore().byId("efirstName").getValue(), 
+                LastName: sap.ui.getCore().byId("elastName").getValue(),
                 Email: sap.ui.getCore().byId("eEmail").getValue(),  
                 Phone: sap.ui.getCore().byId("ePhone").getValue(),  
                 BloodGroup: sap.ui.getCore().byId("eBloodGroup").getValue(),
@@ -63,7 +64,7 @@ sap.ui.define([
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()  
             };
             // Check if all required fields are filled.
-            if (TempEmp.FirstName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.JoiningDate) {
+            if (TempEmp.FirstName && TempEmp.LastName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.JoiningDate) {
                 var oModel = that.getView().getModel();  
                 // Add the new employee object to the list of employees.
                 aEmployees.push(TempEmp);  
@@ -87,7 +88,8 @@ sap.ui.define([
             var oEmployee = aEmployees[i];  
             // Creating a new employee object for sending it to the backend.
             var oNewEmployee = {
-                FirstName: oEmployee.FirstName,  
+                FirstName: oEmployee.FirstName,
+                LastName: oEmployee.LastName,  
                 Email: oEmployee.Email,  
                 Phone: oEmployee.Phone, 
                 BloodGroup: oEmployee.BloodGroup, 
@@ -114,6 +116,7 @@ sap.ui.define([
         onClear: function () 
         {
             sap.ui.getCore().byId("efirstName").setValue(""); 
+            sap.ui.getCore().byId("elastName").setValue(" ");
             sap.ui.getCore().byId("eEmail").setValue("");
             sap.ui.getCore().byId("ePhone").setValue("");
             sap.ui.getCore().byId("eBloodGroup").setValue("");
@@ -153,6 +156,7 @@ sap.ui.define([
             var oContext = oEvent.getSource().getBindingContext().getObject(); 
             sap.ui.getCore().byId("id_E").setValue(oContext.ID);
             sap.ui.getCore().byId("FirstName_E").setValue(oContext.FirstName);
+            sap.ui.getCore().byId("FirstName_E").setValue(oContext.LastName);
             sap.ui.getCore().byId("Email_E").setValue(oContext.Email);
             sap.ui.getCore().byId("Phone_E").setValue(oContext.Phone);
             sap.ui.getCore().byId("BloodGroup_E").setValue(oContext.BloodGroup);
@@ -166,6 +170,7 @@ sap.ui.define([
             // storing the updated value into the table. 
             var sId = sap.ui.getCore().byId("id_E").getValue();
             var sfirstName = sap.ui.getCore().byId("FirstName_E").getValue();
+            var sLastName = sap.ui.getCore().byId("LastName_E").getValue();
             var sEmail = sap.ui.getCore().byId("Email_E").getValue();
             var sPhone = sap.ui.getCore().byId("Phone_E").getValue();
             var sBloodGroup= sap.ui.getCore().byId("BloodGroup_E").getValue();
@@ -176,6 +181,7 @@ sap.ui.define([
                 var oUpdatedEmployee = {
                     ID:sId,
                     FirstName: sfirstName,
+                    LastName: sLastName,
                     Email: sEmail,
                     Phone: sPhone,
                     BloodGroup: sBloodGroup,
@@ -239,6 +245,7 @@ sap.ui.define([
                     if (oBindingContext) {
                     var sEmployeeId = oBindingContext.getProperty("ID");
                     var sFirstName = oBindingContext.getProperty("FirstName");
+                    var sLastName = oBindingContext.getProperty("LastName")
                     var sEmail = oBindingContext.getProperty("Email");
                     var sPhone = oBindingContext.getProperty("Phone");
                     var sBloodGroup = oBindingContext.getProperty("BloodGroup");
@@ -249,6 +256,7 @@ sap.ui.define([
                     aTableData.push({
                         EmployeeId: sEmployeeId,
                         FirstName: sFirstName,
+                        LastName: sLastName,
                         Email: sEmail,
                         Phone: sPhone,
                         BloodGroup: sBloodGroup,
@@ -272,7 +280,7 @@ sap.ui.define([
         console.log(aItems)
         // Initializing the table data array with column headers.
         var aTableData = [
-            ["EmployeeId", "FirstName", "Email", "Phone", "BloodGroup", "Department", "Position", "JoiningDate"] 
+            ["EmployeeId", "FirstName", "LastName", "Email", "Phone", "BloodGroup", "Department", "Position", "JoiningDate"] 
         ];
         aItems.forEach(function(oItem) 
         {
@@ -283,6 +291,7 @@ sap.ui.define([
                 aTableData.push([
                     oBindingContext.getProperty("ID"),
                     oBindingContext.getProperty("FirstName"),
+                    oBindingContext.getProperty("LastName"),
                     oBindingContext.getProperty("Email"),
                     oBindingContext.getProperty("Phone"),
                     oBindingContext.getProperty("BloodGroup"),
@@ -322,7 +331,7 @@ sap.ui.define([
             var reader = new FileReader();
             reader.onload = function(e) 
             {
-                  // Get the result from the FileReader.
+                // Get the result from the FileReader.
                 var data = e.target.result;
                 // XLSX.read- Reads the file as an EXCEL workbook
                 var workbook = XLSX.read(data, { 
@@ -367,21 +376,6 @@ sap.ui.define([
                     operator: sap.ui.model.FilterOperator.EQ, 
                     value1: entry.FirstName 
                 }),
-                new sap.ui.model.Filter({
-                    path: 'Email',  
-                    operator: sap.ui.model.FilterOperator.EQ, 
-                    value1: entry.Email 
-                }),
-                new sap.ui.model.Filter({
-                    path: 'Phone',  
-                    operator: sap.ui.model.FilterOperator.EQ, 
-                    value1: entry.Phone
-                }),
-                new sap.ui.model.Filter({
-                    path: 'BloodGroup',  
-                    operator: sap.ui.model.FilterOperator.EQ, 
-                    value1: entry.BloodGroup
-                }),
             ];
             oModel.read("/EmployeeInfo", {
                 filters: aFilters, 
@@ -392,6 +386,7 @@ sap.ui.define([
                         var oEntry = {
                             ID: existingRecord.ID,
                             FirstName: entry.FirstName,
+                            LastName: entry.LastName,
                             Email: entry.Email,
                             Phone: entry.Phone + "",
                             BloodGroup: entry.BloodGroup,
@@ -411,6 +406,7 @@ sap.ui.define([
                     else {
                         var oEntry = {
                             FirstName: entry.FirstName,
+                            LastName: entry.LastName,
                             Email: entry.Email,
                             Phone: entry.Phone + "",
                             BloodGroup: entry.BloodGroup,

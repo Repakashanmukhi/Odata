@@ -51,7 +51,7 @@
         <ColumnListItem type="Active" press="OnNavigate">
             <cells>
                 <Text text="{ID}"/>
-                <Text text="{FirstName}"/>
+                <Text text="{FirstName} {LastName}"/>
                 <Text text="{Email}"/>
                 <Text text="{Phone}"/>
                 <Text text="{BloodGroup}"/>
