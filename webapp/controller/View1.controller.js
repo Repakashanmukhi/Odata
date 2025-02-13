@@ -154,7 +154,7 @@ sap.ui.define([
             sap.ui.getCore().byId("BloodGroup_E").setValue(oContext.BloodGroup);
             sap.ui.getCore().byId("Department_E").setValue(oContext.Department);
             sap.ui.getCore().byId("Position_E").setValue(oContext.Position);
-            sap.ui.getCore().byId("Salary_E").setValue(oContext.Position);
+            sap.ui.getCore().byId("Salary_E").setValue(oContext.Salary);
             sap.ui.getCore().byId("JoiningDate_E").setValue(oContext.JoiningDate);
             that.update.open();
         },
@@ -392,7 +392,7 @@ sap.ui.define([
                         // update method to update the record 
                         oModel.update("/EmployeeInfo(" + existingRecord.ID+ ")", oEntry, {
                             success: function (response) {
-                                console.log("Record updated successfully:", response);
+                                MessageToast.show("Record updated successfully");
                             },
                             error: function (error) {
                                 console.log("Update failed:", error);
