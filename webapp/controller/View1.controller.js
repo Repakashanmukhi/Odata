@@ -18,10 +18,8 @@ sap.ui.define([
                 Employees: []
             });
             that.getView().setModel(TempEmployee, "employeeModel");
-            // Create a new model.
             var oModel = new sap.ui.model.json.JSONModel();
             oModel.setData({ selectedItems: [] });
-            // Set the model to the component.
             this.getOwnerComponent().setModel(oModel, "selectedDataModel");
         },
         onOpenDialog: function () 
@@ -46,9 +44,7 @@ sap.ui.define([
         },
         onAddRow: function()
         {
-            // Get the view object to access its elements and models.
             var oView = that.getView(); 
-             // Get the employee model.
             var oEmployeeModel = that.getView().getModel("employeeModel");
             // Get the current list of employees from the model.
             var aEmployees = oEmployeeModel.getProperty("/Employees"); 
@@ -61,32 +57,29 @@ sap.ui.define([
                 BloodGroup: sap.ui.getCore().byId("eBloodGroup").getValue(),
                 Department: sap.ui.getCore().byId("edepartment").getValue(), 
                 Position: sap.ui.getCore().byId("eposition").getValue(),
+                Salary: sap.ui.getCore().byId("esalary").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()  
             };
             // Check if all required fields are filled.
-            if (TempEmp.FirstName && TempEmp.LastName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.JoiningDate) {
+            if (TempEmp.FirstName && TempEmp.LastName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.Salary && TempEmp.JoiningDate) {
                 var oModel = that.getView().getModel();  
                 // Add the new employee object to the list of employees.
                 aEmployees.push(TempEmp);  
                 // Update the model with the new list of employees.
                 oEmployeeModel.setProperty("/Employees", aEmployees);  
-                // Clear the form after adding the employee.
                 that.onClear();  
             } else {
                 MessageToast.show("Please fill all the fields!");
             }
         },
         onSubmitDialog: function () {
-        // Get the employee model which holds the employee data.
         var oEmployeeModel = that.getView().getModel("employeeModel");
          // Get the list of employees from the model.
         var aEmployees = oEmployeeModel.getProperty("/Employees"); 
         // Get the OData model.
         var oData = that.getOwnerComponent().getModel();  
-        // Looping for each employee and sending the data to the OData service.
         for (var i = 0; i < aEmployees.length; i++) {
             var oEmployee = aEmployees[i];  
-            // Creating a new employee object for sending it to the backend.
             var oNewEmployee = {
                 FirstName: oEmployee.FirstName,
                 LastName: oEmployee.LastName,  
@@ -95,24 +88,23 @@ sap.ui.define([
                 BloodGroup: oEmployee.BloodGroup, 
                 Department: oEmployee.Department,  
                 Position: oEmployee.Position, 
+                Salary: oEmployee.Salary,
                 JoiningDate: oEmployee.JoiningDate 
                 };
             // Syntax to create an employee data in oData service.
             oData.create("/EmployeeInfo", oNewEmployee, { 
                 success: function () {
-                            //success message.
                             MessageToast.show("Employee data submitted successfully!");
                         },
                         error: function (error) {
-                            //error message.
                             MessageToast.show("Error submitting employee data!");
                         }
                     });
                 }
         // After submitting, clear the employees list in the model. 
         oEmployeeModel.setProperty("/Employees", []);
+        that.onclose();
 },
-          // To clear the data.
         onClear: function () 
         {
             sap.ui.getCore().byId("efirstName").setValue(""); 
@@ -122,6 +114,7 @@ sap.ui.define([
             sap.ui.getCore().byId("eBloodGroup").setValue("");
             sap.ui.getCore().byId("edepartment").setValue("");
             sap.ui.getCore().byId("eposition").setValue("");
+            sap.ui.getCore().byId("esalary").setValue("");
             sap.ui.getCore().byId("eJoiningDate").setValue("");
         },
         DeleteBtn: function(oEvent)
@@ -131,7 +124,6 @@ sap.ui.define([
             var oContext=oButton.getBindingContext();
             // Get the path of the context (Location).
             var sPath=oContext.getPath();
-            // Get the model from the view which holds the data. 
             var oModel=that.getView().getModel();
             // Syntax to Delete the record in oData Serivice.
             oModel.remove(sPath,{
@@ -162,6 +154,7 @@ sap.ui.define([
             sap.ui.getCore().byId("BloodGroup_E").setValue(oContext.BloodGroup);
             sap.ui.getCore().byId("Department_E").setValue(oContext.Department);
             sap.ui.getCore().byId("Position_E").setValue(oContext.Position);
+            sap.ui.getCore().byId("Salary_E").setValue(oContext.Position);
             sap.ui.getCore().byId("JoiningDate_E").setValue(oContext.JoiningDate);
             that.update.open();
         },
@@ -176,6 +169,7 @@ sap.ui.define([
             var sBloodGroup= sap.ui.getCore().byId("BloodGroup_E").getValue();
             var sDepartment = sap.ui.getCore().byId("Department_E").getValue();
             var sPosition = sap.ui.getCore().byId("Position_E").getValue();
+            var sSalary = sap.ui.getCore().byId("Salary_E").getValue();
             var sJoiningDate=sap.ui.getCore().byId("JoiningDate_E").getValue();
             // Object to store the updated values.
                 var oUpdatedEmployee = {
@@ -187,6 +181,7 @@ sap.ui.define([
                     BloodGroup: sBloodGroup,
                     Department: sDepartment,
                     Position: sPosition,
+                    Salary: sSalary,
                     JoiningDate: sJoiningDate
                 };
                 // Getting the model and storing it into oData. 
@@ -232,13 +227,10 @@ sap.ui.define([
         // },
         // MultiNavigation for complete table. 
         MultiNavigate: function () {
-            // Bring the view of table and storing them into oTable.
             var oTable = this.getView().byId("employeeTable");
             // Bring items of the table and storing them into aItem.
             var aItems = oTable.getItems(); 
-            // Creating an array to push each and every column.
             var aTableData=[];
-            // Using forEach method we call a function for each element in array. 
             aItems.forEach(function (oItem) {
             // Binding the context- binding context is used to bind the elements into the specific object in a model. 
                 var oBindingContext = oItem.getBindingContext();
@@ -251,6 +243,7 @@ sap.ui.define([
                     var sBloodGroup = oBindingContext.getProperty("BloodGroup");
                     var sDepartment = oBindingContext.getProperty("Department");
                     var sPosition = oBindingContext.getProperty("Positon");
+                    var sSalary = oBindingContext.getProperty("Salary");
                     var sJoiningDate = oBindingContext.getProperty("JoiningDate");
                     // Pushing the binded data into aTableData.
                     aTableData.push({
@@ -262,6 +255,7 @@ sap.ui.define([
                         BloodGroup: sBloodGroup,
                         Department: sDepartment,
                         Position: sPosition,
+                        Salary: sSalary,
                         JoiningDate: sJoiningDate
                     });
                 } 
@@ -280,7 +274,7 @@ sap.ui.define([
         console.log(aItems)
         // Initializing the table data array with column headers.
         var aTableData = [
-            ["EmployeeId", "FirstName", "LastName", "Email", "Phone", "BloodGroup", "Department", "Position", "JoiningDate"] 
+            ["EmployeeId", "FirstName", "LastName", "Email", "Phone", "BloodGroup", "Department", "Position", "Salary", "JoiningDate"] 
         ];
         aItems.forEach(function(oItem) 
         {
@@ -297,6 +291,7 @@ sap.ui.define([
                     oBindingContext.getProperty("BloodGroup"),
                     oBindingContext.getProperty("Department"),
                     oBindingContext.getProperty("Position"),
+                    oBindingContext.getProperty("Salary"),
                     oBindingContext.getProperty("JoiningDate")
                 ]);
             }   
@@ -355,9 +350,7 @@ sap.ui.define([
     ExcelUpload: function () {
         // Get the data from onFileChange(jsonData)
         var oData = that.jsonData;
-        // Get oData model
         var oModel = that.getOwnerComponent().getModel();
-        // Use forEach function to check each and every field in the sheet
         oData.forEach(function (entry) {
             // If JoiningDate is a number, convert it to a Date object
             var joiningdate = entry.JoiningDate;
@@ -369,7 +362,7 @@ sap.ui.define([
             var day = ("0" + joiningdate.getDate()).slice(-2);
             // Combine into 'YYYY-MM-DD' format
             var formattedJoiningDate = `${year}-${month}-${day}`;
-            // Filter methods to check duplicate record exists or not 
+            // Filter method to check duplicate record exists or not 
             var aFilters = [
                 new sap.ui.model.Filter({
                     path: 'FirstName',  
@@ -377,6 +370,7 @@ sap.ui.define([
                     value1: entry.FirstName 
                 }),
             ];
+            // Read method to check Duplitcate records 
             oModel.read("/EmployeeInfo", {
                 filters: aFilters, 
                 success: function (response) {
@@ -392,8 +386,10 @@ sap.ui.define([
                             BloodGroup: entry.BloodGroup,
                             Department: entry.Department,
                             Position: entry.Position,
+                            Salary: entry.Salary + "",
                             JoiningDate: formattedJoiningDate 
                         };
+                        // update method to update the record 
                         oModel.update("/EmployeeInfo(" + existingRecord.ID+ ")", oEntry, {
                             success: function (response) {
                                 console.log("Record updated successfully:", response);
@@ -412,8 +408,10 @@ sap.ui.define([
                             BloodGroup: entry.BloodGroup,
                             Department: entry.Department,
                             Position: entry.Position,
+                            Salary: entry.Salary + "",
                             JoiningDate: formattedJoiningDate 
                         };
+                        // create method to create a record if record doesn't exists 
                         oModel.create("/EmployeeInfo", oEntry, {
                             success: function (response) {
                                 console.log("Upload successful: ", response);
@@ -425,14 +423,11 @@ sap.ui.define([
                         });
                     }
                 }, 
-                error: function (error) {
-                    console.log("Error fetching data:", error);
-                }
             });
         });
     },
         close: function() 
-        {
+        {   
         that.upload.close();
         }
     });

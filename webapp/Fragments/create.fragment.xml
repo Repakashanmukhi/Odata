@@ -27,6 +27,8 @@ xmlns="sap.m">
                     <Input id="edepartment" width="1000px" editable="true"/>
                     <Label text="Position" />
                     <Input id="eposition" width="1000px" editable="true"/>
+                    <Label text="Salary" />
+                    <Input id="esalary" width="250px" editable="true"/>
                     <Label text="Joining Date" />
                     <Input id="eJoiningDate" width="1000px" editable="true"/> 
                     </f:SimpleForm>
@@ -39,6 +41,7 @@ xmlns="sap.m">
                 <Column ><Label text="BloodGroup"></Label></Column>
                 <Column ><Label text="Department"></Label></Column>
                 <Column ><Label text="Position"></Label></Column>
+                <Column><Label text="Salary"></Label></Column>
                 <Column ><Label text="Joining Date"></Label></Column>
             </columns>
             <items>
@@ -51,6 +54,7 @@ xmlns="sap.m">
             <Input value="{employeeModel>BloodGroup}"></Input>
             <Input value="{employeeModel>Department}"></Input>
             <Input value="{employeeModel>Position}"></Input>
+            <Input value="{employeeModel>Salary}"></Input>
             <Input value="{employeeModel>JoiningDate}"></Input>
             </cells>
             </ColumnListItem>

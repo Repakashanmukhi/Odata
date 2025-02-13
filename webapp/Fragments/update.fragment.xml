@@ -19,6 +19,8 @@ xmlns="sap.m">
                     <Input id="Department_E" width="250px" editable="true"/>
                     <Label text="Position" />
                     <Input id="Position_E" width="250px" editable="true"/>
+                    <Label text="Salary" />
+                    <Input id="Salary_E" width="250px" editable="true"/>
                     <Label text="Joining Date" />
                     <Input id="JoiningDate_E" width="250px" editable="true" type="Date"/>
                </VBox>
