@@ -363,16 +363,20 @@ sap.ui.define([
             // Combine into 'YYYY-MM-DD' format
             var formattedJoiningDate = `${year}-${month}-${day}`;
             // Filter method to check duplicate record exists or not 
-            var aFilters = [
-                new sap.ui.model.Filter({
+            // var aFilters = [
+            //     new sap.ui.model.Filter({
+            //         path: 'FirstName',  
+            //         operator: sap.ui.model.FilterOperator.EQ, 
+            //         value1: entry.FirstName 
+            //     }),
+            // ];
+            // Read method to check Duplitcate records 
+            oModel.read("/EmployeeInfo", {
+                filters: new sap.ui.model.Filter({
                     path: 'FirstName',  
                     operator: sap.ui.model.FilterOperator.EQ, 
                     value1: entry.FirstName 
                 }),
-            ];
-            // Read method to check Duplitcate records 
-            oModel.read("/EmployeeInfo", {
-                filters: aFilters, 
                 success: function (response) {
                     if (response.results && response.results.length > 0) {
                         var existingRecord = response.results[0]; 

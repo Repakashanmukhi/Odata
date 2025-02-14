@@ -6,7 +6,6 @@ sap.ui.define([
     "sap/m/MessageToast"
 ], function (Controller, JSONModel, ODataModel, MessageBox, MessageToast) {
     "use strict";
-
     return Controller.extend("odata.controller.view2", {
         onInit: function () {
             var oRouter = this.getOwnerComponent().getRouter();
