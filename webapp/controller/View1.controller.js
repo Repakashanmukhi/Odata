@@ -9,7 +9,6 @@ sap.ui.define([
     "use strict";
     var that;
     return Controller.extend("odata.controller.View1", {
-        // passing formatter details to formatter property.
         formatter: formatter,
         onInit: function () 
         {
@@ -46,9 +45,7 @@ sap.ui.define([
         {
             var oView = that.getView(); 
             var oEmployeeModel = that.getView().getModel("employeeModel");
-            // Get the current list of employees from the model.
             var aEmployees = oEmployeeModel.getProperty("/Employees"); 
-            // Create a new employee object with data taken from the form inputs.
             var TempEmp = {
                 FirstName: sap.ui.getCore().byId("efirstName").getValue(), 
                 LastName: sap.ui.getCore().byId("elastName").getValue(),
@@ -60,12 +57,9 @@ sap.ui.define([
                 Salary: sap.ui.getCore().byId("esalary").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()  
             };
-            // Check if all required fields are filled.
             if (TempEmp.FirstName && TempEmp.LastName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.Salary && TempEmp.JoiningDate) {
                 var oModel = that.getView().getModel();  
-                // Add the new employee object to the list of employees.
                 aEmployees.push(TempEmp);  
-                // Update the model with the new list of employees.
                 oEmployeeModel.setProperty("/Employees", aEmployees);  
                 that.onClear();  
             } else {
@@ -74,9 +68,7 @@ sap.ui.define([
         },
         onSubmitDialog: function () {
         var oEmployeeModel = that.getView().getModel("employeeModel");
-         // Get the list of employees from the model.
         var aEmployees = oEmployeeModel.getProperty("/Employees"); 
-        // Get the OData model.
         var oData = that.getOwnerComponent().getModel();  
         for (var i = 0; i < aEmployees.length; i++) {
             var oEmployee = aEmployees[i];  
@@ -91,7 +83,6 @@ sap.ui.define([
                 Salary: oEmployee.Salary,
                 JoiningDate: oEmployee.JoiningDate 
                 };
-            // Syntax to create an employee data in oData service.
             oData.create("/EmployeeInfo", oNewEmployee, { 
                 success: function () {
                             MessageToast.show("Employee data submitted successfully!");
@@ -101,7 +92,6 @@ sap.ui.define([
                         }
                     });
                 }
-        // After submitting, clear the employees list in the model. 
         oEmployeeModel.setProperty("/Employees", []);
         that.onclose();
 },
@@ -125,7 +115,6 @@ sap.ui.define([
             // Get the path of the context (Location).
             var sPath=oContext.getPath();
             var oModel=that.getView().getModel();
-            // Syntax to Delete the record in oData Serivice.
             oModel.remove(sPath,{
                 success: function()
                 {
@@ -144,7 +133,6 @@ sap.ui.define([
                 that.update=sap.ui.xmlfragment("odata.Fragments.update", that)
             }
             that.update.open();
-            // Bring the value from the table to update fragment using Id's.
             var oContext = oEvent.getSource().getBindingContext().getObject(); 
             sap.ui.getCore().byId("id_E").setValue(oContext.ID);
             sap.ui.getCore().byId("FirstName_E").setValue(oContext.FirstName);
@@ -160,7 +148,6 @@ sap.ui.define([
         },
         onUpdateDialog: function()
         {
-            // storing the updated value into the table. 
             var sId = sap.ui.getCore().byId("id_E").getValue();
             var sfirstName = sap.ui.getCore().byId("FirstName_E").getValue();
             var sLastName = sap.ui.getCore().byId("LastName_E").getValue();
@@ -171,7 +158,6 @@ sap.ui.define([
             var sPosition = sap.ui.getCore().byId("Position_E").getValue();
             var sSalary = sap.ui.getCore().byId("Salary_E").getValue();
             var sJoiningDate=sap.ui.getCore().byId("JoiningDate_E").getValue();
-            // Object to store the updated values.
                 var oUpdatedEmployee = {
                     ID:sId,
                     FirstName: sfirstName,
@@ -184,25 +170,19 @@ sap.ui.define([
                     Salary: sSalary,
                     JoiningDate: sJoiningDate
                 };
-                // Getting the model and storing it into oData. 
                 var oData = that.getOwnerComponent().getModel();
-                // Binding with EntityName of the table.
                 var updatePath = `/EmployeeInfo(guid'${sId}')`
-                // Syntax to update the record in oData Serivice. 
                 oData.update(updatePath, oUpdatedEmployee,{
-                    // Success Message.
                     success: function()
                     {
                         sap.m.MessageToast.show("Record updated successfully!");
                     },
-                    // Eroor Message.
                 error: function (error) 
                 {
                 console.log(error)
                 MessageToast.show("Cannot update record");
                 }   
            })
-           // Closing the fragment once the data get updated in table. 
            that.update.close()
         },
         onCancleDialog: function()
@@ -228,7 +208,6 @@ sap.ui.define([
         // MultiNavigation for complete table. 
         MultiNavigate: function () {
             var oTable = this.getView().byId("employeeTable");
-            // Bring items of the table and storing them into aItem.
             var aItems = oTable.getItems(); 
             var aTableData=[];
             aItems.forEach(function (oItem) {
@@ -245,7 +224,6 @@ sap.ui.define([
                     var sPosition = oBindingContext.getProperty("Positon");
                     var sSalary = oBindingContext.getProperty("Salary");
                     var sJoiningDate = oBindingContext.getProperty("JoiningDate");
-                    // Pushing the binded data into aTableData.
                     aTableData.push({
                         EmployeeId: sEmployeeId,
                         FirstName: sFirstName,
@@ -260,7 +238,6 @@ sap.ui.define([
                     });
                 } 
             });
-            // Navigation for view 2.
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("view2", {
                 // JSON.stringify is used to convert an object into a string. 
@@ -348,7 +325,6 @@ sap.ui.define([
         }
     },     
     ExcelUpload: function () {
-        // Get the data from onFileChange(jsonData)
         var oData = that.jsonData;
         var oModel = that.getOwnerComponent().getModel();
         oData.forEach(function (entry) {
@@ -363,14 +339,6 @@ sap.ui.define([
             // Combine into 'YYYY-MM-DD' format
             var formattedJoiningDate = `${year}-${month}-${day}`;
             // Filter method to check duplicate record exists or not 
-            // var aFilters = [
-            //     new sap.ui.model.Filter({
-            //         path: 'FirstName',  
-            //         operator: sap.ui.model.FilterOperator.EQ, 
-            //         value1: entry.FirstName 
-            //     }),
-            // ];
-            // Read method to check Duplitcate records 
             oModel.read("/EmployeeInfo", {
                 filters: new sap.ui.model.Filter({
                     path: 'FirstName',  
@@ -393,7 +361,6 @@ sap.ui.define([
                             Salary: entry.Salary + "",
                             JoiningDate: formattedJoiningDate 
                         };
-                        // update method to update the record 
                         oModel.update("/EmployeeInfo(" + existingRecord.ID+ ")", oEntry, {
                             success: function (response) {
                                 MessageToast.show("Record updated successfully");
@@ -415,7 +382,6 @@ sap.ui.define([
                             Salary: entry.Salary + "",
                             JoiningDate: formattedJoiningDate 
                         };
-                        // create method to create a record if record doesn't exists 
                         oModel.create("/EmployeeInfo", oEntry, {
                             success: function (response) {
                                 console.log("Upload successful: ", response);

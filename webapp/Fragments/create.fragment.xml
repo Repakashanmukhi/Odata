@@ -28,7 +28,7 @@ xmlns="sap.m">
                     <Label text="Position" />
                     <Input id="eposition" width="1000px" editable="true"/>
                     <Label text="Salary" />
-                    <Input id="esalary" width="250px" editable="true"/>
+                    <Input id="esalary" width="1000px" editable="true"/>
                     <Label text="Joining Date" />
                     <Input id="eJoiningDate" width="1000px" editable="true"/> 
                     </f:SimpleForm>
