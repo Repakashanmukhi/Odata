@@ -48,7 +48,6 @@ sap.ui.define([
             var aEmployees = oEmployeeModel.getProperty("/Employees"); 
             var TempEmp = {
                 FirstName: sap.ui.getCore().byId("efirstName").getValue(), 
-                LastName: sap.ui.getCore().byId("elastName").getValue(),
                 Email: sap.ui.getCore().byId("eEmail").getValue(),  
                 Phone: sap.ui.getCore().byId("ePhone").getValue(),  
                 BloodGroup: sap.ui.getCore().byId("eBloodGroup").getValue(),
@@ -57,7 +56,7 @@ sap.ui.define([
                 Salary: sap.ui.getCore().byId("esalary").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()  
             };
-            if (TempEmp.FirstName && TempEmp.LastName && TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.Salary && TempEmp.JoiningDate) {
+            if (TempEmp.FirstName &&  TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.Salary && TempEmp.JoiningDate) {
                 var oModel = that.getView().getModel();  
                 aEmployees.push(TempEmp);  
                 oEmployeeModel.setProperty("/Employees", aEmployees);  
@@ -98,7 +97,6 @@ sap.ui.define([
         onClear: function () 
         {
             sap.ui.getCore().byId("efirstName").setValue(""); 
-            sap.ui.getCore().byId("elastName").setValue(" ");
             sap.ui.getCore().byId("eEmail").setValue("");
             sap.ui.getCore().byId("ePhone").setValue("");
             sap.ui.getCore().byId("eBloodGroup").setValue("");
@@ -136,7 +134,6 @@ sap.ui.define([
             var oContext = oEvent.getSource().getBindingContext().getObject(); 
             sap.ui.getCore().byId("id_E").setValue(oContext.ID);
             sap.ui.getCore().byId("FirstName_E").setValue(oContext.FirstName);
-            sap.ui.getCore().byId("FirstName_E").setValue(oContext.LastName);
             sap.ui.getCore().byId("Email_E").setValue(oContext.Email);
             sap.ui.getCore().byId("Phone_E").setValue(oContext.Phone);
             sap.ui.getCore().byId("BloodGroup_E").setValue(oContext.BloodGroup);
@@ -150,7 +147,6 @@ sap.ui.define([
         {
             var sId = sap.ui.getCore().byId("id_E").getValue();
             var sfirstName = sap.ui.getCore().byId("FirstName_E").getValue();
-            var sLastName = sap.ui.getCore().byId("LastName_E").getValue();
             var sEmail = sap.ui.getCore().byId("Email_E").getValue();
             var sPhone = sap.ui.getCore().byId("Phone_E").getValue();
             var sBloodGroup= sap.ui.getCore().byId("BloodGroup_E").getValue();
@@ -161,7 +157,6 @@ sap.ui.define([
                 var oUpdatedEmployee = {
                     ID:sId,
                     FirstName: sfirstName,
-                    LastName: sLastName,
                     Email: sEmail,
                     Phone: sPhone,
                     BloodGroup: sBloodGroup,

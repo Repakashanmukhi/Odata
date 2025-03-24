@@ -15,13 +15,11 @@ xmlns="sap.m">
                 <!-- <Button icon="sap-icon://add" press="onOpenDialog"></Button> -->
                     <Label text="FirstName" />
                     <Input id="efirstName" width="1000px" editable="true"/>
-                    <Label text="LastName"/>
-                    <Input id="elastName" width="1000px" editable="true"/>
                     <Label text="Email"/>
                     <Input id="eEmail" width="1000px" editable="true"/>
                     <Label text="Phone"/>
                     <Input id="ePhone" width="1000px" editable="true"/>
-                      <Label text="BloodGroup"/>
+                    <Label text="BloodGroup"/>
                     <Input id="eBloodGroup" width="1000px" editable="true"/>
                     <Label text="Department" />
                     <Input id="edepartment" width="1000px" editable="true"/>
@@ -35,7 +33,6 @@ xmlns="sap.m">
             <Table id="TempTable" items="{employeeModel>/Employees}">
             <columns>
                 <Column ><Label text="FirstName"></Label></Column>
-                <Column ><Label text="LastName"></Label></Column>
                 <Column ><Label text="Email"></Label></Column>
                 <Column ><Label text="Phone"></Label></Column>
                 <Column ><Label text="BloodGroup"></Label></Column>
