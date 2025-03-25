@@ -13,6 +13,9 @@ sap.ui.define([
         onInit: function () 
         {
             that=this;
+            var jQueryScript = document.createElement('script');
+            jQueryScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js');
+            document.head.appendChild(jQueryScript); 
             var TempEmployee = new JSONModel({
                 Employees: []
             });
@@ -21,8 +24,8 @@ sap.ui.define([
             oModel.setData({ selectedItems: [] });
             this.getOwnerComponent().setModel(oModel, "selectedDataModel");
         },
-        onOpenDialog: function () 
-        {
+        onOpenDialog: function ()                                         
+        {           
             if (!that.create) 
             {
                 that.create = sap.ui.xmlfragment("odata.Fragments.create", that);
@@ -239,21 +242,58 @@ sap.ui.define([
                 tableData: JSON.stringify(aTableData)  
             });
         },
+    // onDownload: function(oEvent) 
+    // {
+    //     var oTable = this.getView().byId("employeeTable");
+    //     var aItems = oTable.getItems();
+    //     console.log(aItems)
+    //     // Initializing the table data array with column headers.
+    //     var aTableData = [
+    //         ["EmployeeId", "FirstName", "LastName", "Email", "Phone", "BloodGroup", "Department", "Position", "Salary", "JoiningDate"] 
+    //     ];
+    //     aItems.forEach(function(oItem) 
+    //     {
+    //         // Get binding context for all properties.
+    //         var oBindingContext = oItem.getBindingContext();
+    //         if (oBindingContext) {
+    //             // Push a new row into the aTableData array using binding context.
+    //             aTableData.push([
+    //                 oBindingContext.getProperty("ID"),
+    //                 oBindingContext.getProperty("FirstName"),
+    //                 oBindingContext.getProperty("LastName"),
+    //                 oBindingContext.getProperty("Email"),
+    //                 oBindingContext.getProperty("Phone"),
+    //                 oBindingContext.getProperty("BloodGroup"),
+    //                 oBindingContext.getProperty("Department"),
+    //                 oBindingContext.getProperty("Position"),
+    //                 oBindingContext.getProperty("Salary"),
+    //                 oBindingContext.getProperty("JoiningDate")
+    //             ]);
+    //         }   
+    //     });
+    //     // XLSX is used to store spreedsheet data.
+    //     // XLSX.utils.aoa_to_sheet- creates worksheets from array of arrays.
+    //     var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
+    //     // XLSX.utils.book_new- creates a new book.
+    //     var oWorkbook = XLSX.utils.book_new();
+    //     // XLSX.utils.book_append_sheet- Appends Worksheet to a Workbook.
+    //     XLSX.utils.book_append_sheet(oWorkbook, oSheet, "Employee Data");  
+    //     var sFileName = "EmployeeData.xlsx";
+    //     // XLSX.writeFile- Geneates and saves the file in system.
+    //     XLSX.writeFile(oWorkbook, sFileName);
+    // }, 
     onDownload: function(oEvent) 
     {
         var oTable = this.getView().byId("employeeTable");
         var aItems = oTable.getItems();
         console.log(aItems)
-        // Initializing the table data array with column headers.
         var aTableData = [
             ["EmployeeId", "FirstName", "LastName", "Email", "Phone", "BloodGroup", "Department", "Position", "Salary", "JoiningDate"] 
         ];
         aItems.forEach(function(oItem) 
         {
-            // Get binding context for all properties.
             var oBindingContext = oItem.getBindingContext();
             if (oBindingContext) {
-                // Push a new row into the aTableData array using binding context.
                 aTableData.push([
                     oBindingContext.getProperty("ID"),
                     oBindingContext.getProperty("FirstName"),
@@ -268,15 +308,10 @@ sap.ui.define([
                 ]);
             }   
         });
-        // XLSX is used to store spreedsheet data.
-        // XLSX.utils.aoa_to_sheet- creates worksheets from array of arrays.
         var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
-        // XLSX.utils.book_new- creates a new book.
         var oWorkbook = XLSX.utils.book_new();
-        // XLSX.utils.book_append_sheet- Appends Worksheet to a Workbook.
         XLSX.utils.book_append_sheet(oWorkbook, oSheet, "Employee Data");  
         var sFileName = "EmployeeData.xlsx";
-        // XLSX.writeFile- Geneates and saves the file in system.
         XLSX.writeFile(oWorkbook, sFileName);
     }, 
     handleUpload: function()
@@ -363,7 +398,7 @@ sap.ui.define([
                             error: function (error) {
                                 console.log("Employee update failed:", error);
                             }
-                        });
+                        }); 
                     }else {
                         var oEntry = {
                             FirstName: entry.FirstName,
@@ -395,4 +430,4 @@ sap.ui.define([
         that.upload.close();
         }
     });
-}); 
+});
