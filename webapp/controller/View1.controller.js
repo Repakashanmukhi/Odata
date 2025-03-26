@@ -75,8 +75,8 @@ sap.ui.define([
         for (var i = 0; i < aEmployees.length; i++) {
             var oEmployee = aEmployees[i];  
             var oNewEmployee = {
-                FirstName: oEmployee.FirstName,
-                LastName: oEmployee.LastName,  
+               FirstName: oEmployee.FirstName,
+                LastName: oEmployee.LastName,   
                 Email: oEmployee.Email,  
                 Phone: oEmployee.Phone, 
                 BloodGroup: oEmployee.BloodGroup, 
@@ -224,7 +224,7 @@ sap.ui.define([
                     var sJoiningDate = oBindingContext.getProperty("JoiningDate");
                     aTableData.push({
                         EmployeeId: sEmployeeId,
-                        FirstName: sFirstName,
+                        FirstName: sFirstName, 
                         LastName: sLastName,
                         Email: sEmail,
                         Phone: sPhone,
@@ -242,62 +242,20 @@ sap.ui.define([
                 tableData: JSON.stringify(aTableData)  
             });
         },
-    // onDownload: function(oEvent) 
-    // {
-    //     var oTable = this.getView().byId("employeeTable");
-    //     var aItems = oTable.getItems();
-    //     console.log(aItems)
-    //     // Initializing the table data array with column headers.
-    //     var aTableData = [
-    //         ["EmployeeId", "FirstName", "LastName", "Email", "Phone", "BloodGroup", "Department", "Position", "Salary", "JoiningDate"] 
-    //     ];
-    //     aItems.forEach(function(oItem) 
-    //     {
-    //         // Get binding context for all properties.
-    //         var oBindingContext = oItem.getBindingContext();
-    //         if (oBindingContext) {
-    //             // Push a new row into the aTableData array using binding context.
-    //             aTableData.push([
-    //                 oBindingContext.getProperty("ID"),
-    //                 oBindingContext.getProperty("FirstName"),
-    //                 oBindingContext.getProperty("LastName"),
-    //                 oBindingContext.getProperty("Email"),
-    //                 oBindingContext.getProperty("Phone"),
-    //                 oBindingContext.getProperty("BloodGroup"),
-    //                 oBindingContext.getProperty("Department"),
-    //                 oBindingContext.getProperty("Position"),
-    //                 oBindingContext.getProperty("Salary"),
-    //                 oBindingContext.getProperty("JoiningDate")
-    //             ]);
-    //         }   
-    //     });
-    //     // XLSX is used to store spreedsheet data.
-    //     // XLSX.utils.aoa_to_sheet- creates worksheets from array of arrays.
-    //     var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
-    //     // XLSX.utils.book_new- creates a new book.
-    //     var oWorkbook = XLSX.utils.book_new();
-    //     // XLSX.utils.book_append_sheet- Appends Worksheet to a Workbook.
-    //     XLSX.utils.book_append_sheet(oWorkbook, oSheet, "Employee Data");  
-    //     var sFileName = "EmployeeData.xlsx";
-    //     // XLSX.writeFile- Geneates and saves the file in system.
-    //     XLSX.writeFile(oWorkbook, sFileName);
-    // }, 
-    onDownload: function(oEvent) 
-    {
+    onDownload: function(oEvent) {
         var oTable = this.getView().byId("employeeTable");
         var aItems = oTable.getItems();
-        console.log(aItems)
+        console.log(aItems);
         var aTableData = [
-            ["EmployeeId", "FirstName", "LastName", "Email", "Phone", "BloodGroup", "Department", "Position", "Salary", "JoiningDate"] 
+            ["EmployeeId", "FullName", "Email", "Phone", "BloodGroup", "Department", "Position", "Salary", "JoiningDate"]
         ];
-        aItems.forEach(function(oItem) 
-        {
+        aItems.forEach(function(oItem) {
             var oBindingContext = oItem.getBindingContext();
             if (oBindingContext) {
+                var fullName = oBindingContext.getProperty("FirstName") + " " + oBindingContext.getProperty("LastName"); 
                 aTableData.push([
                     oBindingContext.getProperty("ID"),
-                    oBindingContext.getProperty("FirstName"),
-                    oBindingContext.getProperty("LastName"),
+                    fullName,  
                     oBindingContext.getProperty("Email"),
                     oBindingContext.getProperty("Phone"),
                     oBindingContext.getProperty("BloodGroup"),
@@ -306,14 +264,14 @@ sap.ui.define([
                     oBindingContext.getProperty("Salary"),
                     oBindingContext.getProperty("JoiningDate")
                 ]);
-            }   
+            }
         });
         var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
         var oWorkbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(oWorkbook, oSheet, "Employee Data");  
+        XLSX.utils.book_append_sheet(oWorkbook, oSheet, "Employee Data");
         var sFileName = "EmployeeData.xlsx";
         XLSX.writeFile(oWorkbook, sFileName);
-    }, 
+    },
     handleUpload: function()
     {
         if (!that.upload) 
@@ -349,7 +307,15 @@ sap.ui.define([
         } 
         //readAsArrayBuffer()- starts reading the content of specific file 
         reader.readAsArrayBuffer(aFile); 
-    },     
+    },      
+    onFileChange: function(){
+        var aFile=oEvent.getParameter("files")[0];
+        var reader = new FileReader();
+        reader.onload=function(e)
+        {
+            var data = e.target.result;
+        }
+    },
     ExcelUpload: function () {
         var oData = that.jsonData;
         var oModel = that.getOwnerComponent().getModel();
