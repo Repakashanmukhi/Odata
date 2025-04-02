@@ -46,7 +46,6 @@ sap.ui.define([
         },
         onAddRow: function()
         {
-            var oView = that.getView(); 
             var oEmployeeModel = that.getView().getModel("employeeModel");
             var aEmployees = oEmployeeModel.getProperty("/Employees"); 
             var TempEmp = {
@@ -255,7 +254,7 @@ sap.ui.define([
                 var fullName = oBindingContext.getProperty("FirstName") + " " + oBindingContext.getProperty("LastName"); 
                 aTableData.push([
                     oBindingContext.getProperty("ID"),
-                    fullName,  
+                    fullName, 
                     oBindingContext.getProperty("Email"),
                     oBindingContext.getProperty("Phone"),
                     oBindingContext.getProperty("BloodGroup"),
@@ -265,7 +264,7 @@ sap.ui.define([
                     oBindingContext.getProperty("JoiningDate")
                 ]);
             }
-        });
+        }); 
         var oSheet = XLSX.utils.aoa_to_sheet(aTableData);
         var oWorkbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(oWorkbook, oSheet, "Employee Data");

@@ -45,7 +45,6 @@ xmlns="sap.m">
             <ColumnListItem>
             <cells>
             <Input value="{employeeModel>FirstName}"></Input>
-            <Input value="{employeModel>LastName}"></Input>
             <Input value="{employeeModel>Email}"></Input>
             <Input value="{employeeModel>Phone}"></Input>
             <Input value="{employeeModel>BloodGroup}"></Input>
