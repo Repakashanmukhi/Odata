@@ -22,7 +22,7 @@ sap.ui.define([
             that.getView().setModel(TempEmployee, "employeeModel");
             var oModel = new sap.ui.model.json.JSONModel();
             oModel.setData({ selectedItems: [] });
-            this.getOwnerComponent().setModel(oModel, "selectedDataModel");
+            this.getOwnerComponent().setModel(oModel, "selectedDataModel");            
         },
         onOpenDialog: function ()                                         
         {           
@@ -95,7 +95,7 @@ sap.ui.define([
                 }
         oEmployeeModel.setProperty("/Employees", []);
         that.onclose();
-},
+    },
         onClear: function () 
         {
             sap.ui.getCore().byId("efirstName").setValue(""); 
@@ -235,8 +235,7 @@ sap.ui.define([
                     });
                 } 
             });
-            var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("view2", {
+            var oRouter = this.getOwnerComponent().getRouter().navTo("view2", {
                 // JSON.stringify is used to convert an object into a string. 
                 tableData: JSON.stringify(aTableData)  
             });
