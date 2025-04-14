@@ -392,6 +392,9 @@ sap.ui.define([
         close: function() 
         {   
         that.upload.close();
+        },
+        Exit:function(oEvent){
+            sap.m.MessageToast.show("Exit from page");        
         }
     });
 });

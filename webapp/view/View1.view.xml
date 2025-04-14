@@ -71,6 +71,12 @@
         </ColumnListItem>
     </items>
 </Table>
+<Toolbar >
+    <ToolbarSpacer ></ToolbarSpacer>
+    <Button text="Exit" press="Exit"></Button>
+</Toolbar>
+       
+
 </Page>
 </mvc:View> 
    
