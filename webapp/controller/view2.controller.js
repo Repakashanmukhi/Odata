@@ -86,17 +86,15 @@ sap.ui.define([
                 var aNewCells = [];
                 aFields.forEach(function (sField) {
                     if (this._bEditMode) {
-                        var oInput = new sap.m.Input({
-                            value: "{path: '" + sField + "', mode: 'TwoWay'}"
-                        });
-                        oInput.setBindingContext(oContext); 
-                        aNewCells.push(oInput);
+                        var oCell = new sap.m.Input({
+                        value: "{path: '" + sField + "', mode: 'OneWay'}"
+                    });
+                    oCell.setBindingContext(oContext);
                     } else {
-                        var oText = new sap.m.Text({
-                            text: oModel.getProperty(sPath + "/" + sField)
-                        });
-                        aNewCells.push(oText);
-                    }
+                    var sValue = oModel.getProperty(sPath + "/" + sField);
+                    oCell = new sap.m.Text({ text: sValue });
+                }
+                aNewCells.push(oCell);
                 }, this);
                 var oActionCell = new sap.m.HBox({
                     items: [
@@ -123,7 +121,6 @@ sap.ui.define([
                     });
             }, this);
         },
-        
       onPDFDownload: function () {
         var oTable = that.getView().byId("Employee");
         var aItems = oTable.getItems();
