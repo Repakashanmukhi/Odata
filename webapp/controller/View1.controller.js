@@ -145,43 +145,43 @@ sap.ui.define([
             sap.ui.getCore().byId("JoiningDate_E").setValue(oContext.JoiningDate);
             that.update.open();
         },
-        onUpdateDialog: function()
-        {
+        onUpdateDialog: function () {
             var sId = sap.ui.getCore().byId("id_E").getValue();
             var sfirstName = sap.ui.getCore().byId("FirstName_E").getValue();
             var sEmail = sap.ui.getCore().byId("Email_E").getValue();
             var sPhone = sap.ui.getCore().byId("Phone_E").getValue();
-            var sBloodGroup= sap.ui.getCore().byId("BloodGroup_E").getValue();
+            var sBloodGroup = sap.ui.getCore().byId("BloodGroup_E").getValue();
             var sDepartment = sap.ui.getCore().byId("Department_E").getValue();
             var sPosition = sap.ui.getCore().byId("Position_E").getValue();
             var sSalary = sap.ui.getCore().byId("Salary_E").getValue();
-            var sJoiningDate=sap.ui.getCore().byId("JoiningDate_E").getValue();
-                var oUpdatedEmployee = {
-                    ID:sId,
-                    FirstName: sfirstName,
-                    Email: sEmail,
-                    Phone: sPhone,
-                    BloodGroup: sBloodGroup,
-                    Department: sDepartment,
-                    Position: sPosition,
-                    Salary: sSalary,
-                    JoiningDate: sJoiningDate
-                };
-                var oData = that.getOwnerComponent().getModel();
-                var updatePath = `/EmployeeInfo(guid'${sId}')`
-                oData.update(updatePath, oUpdatedEmployee,{
-                    success: function()
-                    {
-                        sap.m.MessageToast.show("Record updated successfully!");
-                    },
-                error: function (error) 
-                {
-                console.log(error)
-                MessageToast.show("Cannot update record");
-                }   
-           })
-           that.update.close()
-        },
+            var sJoiningDate = sap.ui.getCore().byId("JoiningDate_E").getValue();
+        
+            var oUpdatedEmployee = {
+                ID: sId,
+                FirstName: sfirstName,
+                Email: sEmail,
+                Phone: sPhone,
+                BloodGroup: sBloodGroup,
+                Department: sDepartment,
+                Position: sPosition,
+                Salary: sSalary,
+                JoiningDate: sJoiningDate
+            };
+        
+            var oData = that.getOwnerComponent().getModel();
+            var updatePath = "/EmployeeInfo('" + sId + "')";
+            oData.update(updatePath, oUpdatedEmployee, {
+                success: function () {
+                    sap.m.MessageToast.show("Record updated successfully!");
+                },
+                error: function (error) {
+                    console.log(error);
+                    sap.m.MessageToast.show("Cannot update record");
+                }
+            });
+        
+            that.update.close();
+        },        
         onCancleDialog: function()
         { 
             that.update.close()
