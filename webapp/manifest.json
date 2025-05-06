@@ -112,7 +112,7 @@
         },
         {
           "name": "view2",
-          "pattern": "view2/{tableData}",
+          "pattern": "view2",
           "view": "view2",
           "target": [
             "Targetview2"

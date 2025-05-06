@@ -1,8 +1,8 @@
 <core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
 xmlns="sap.m">
-<Dialog id="Personalinfo" title=" Thomas ">
+<Dialog id="Emergency">
     <VBox class="sapUiSmallMargin">
-		<f:SimpleForm id="Information" 
+		<f:SimpleForm id="Contact" 
 			editable="true"
 			layout="ResponsiveGridLayout"
 			labelSpanXL="3"
@@ -20,25 +20,25 @@ xmlns="sap.m">
 			singleContainerFullSize="false" >
 			<f:content>
       	<Label text="EmployeeID" />
-				<Input id="eEmployee_Id" value="{EmployeeID_ID}" />
+				<Input id="Employee_Id" value="{EmployeeID_ID}" />
 				<Label text="ContactName" />
-				<Input id="eContactName" value="{ContactName}" />
+				<Input id="ContactName" value="{ContactName}" />
         	<Label text="Relationship" />
-				<Input id="eRelationship" value="{Relationship}" />
+				<Input id="Relationship" value="{Relationship}" />
         	<Label text="ContactPhone" />
-				<Input id="eContactPhone" value="{ContactPhone}" />
+				<Input id="ContactPhone" value="{ContactPhone}" />
         	<Label text="ContactEmail" />
-				<Input id="eContactEmail" value="{ContactEmail}" />
+				<Input id="Contactmail" value="{ContactEmail}" />
 			</f:content>
 		</f:SimpleForm>
 	</VBox> 
                <footer>
                <Toolbar>
                <ToolbarSpacer/>
+			   <Button text="Submit" press="onSubmit"></Button>
                   <Button text="Close" press="OnClose"></Button>
                 </Toolbar>
                </footer>
 </Dialog>
 </core:FragmentDefinition>
  
-

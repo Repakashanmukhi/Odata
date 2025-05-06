@@ -16,6 +16,9 @@ sap.ui.define([
             var jQueryScript = document.createElement('script');
             jQueryScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js');
             document.head.appendChild(jQueryScript); 
+            jQuery.sap.includeScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js", "jsPDF");
+            jQuery.sap.includeScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js", "jsPDFAutoTable");
+            // jQuery.sap.includeScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
             var TempEmployee = new JSONModel({
                 Employees: []
             });
@@ -240,7 +243,7 @@ sap.ui.define([
                 tableData: JSON.stringify(aTableData)  
             });
         },
-    onDownload: function(oEvent) {
+        onExcelDownload: function(oEvent) {
         var oTable = this.getView().byId("employeeTable");
         var aItems = oTable.getItems();
         console.log(aItems);
@@ -393,8 +396,5 @@ sap.ui.define([
         {   
         that.upload.close();
         },
-        Exit:function(oEvent){
-            sap.m.MessageToast.show("Exit from page");        
-        }
     });
 });

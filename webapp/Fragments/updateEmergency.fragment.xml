@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
+xmlns="sap.m">
+<Dialog id="updateEmergency" title="Update Details" >
+          
+               <VBox class="sapUiTinyMargin" >
+                    <Label text="Employee ID" />
+                    <Input id="EmployeeID" width="250px" editable="true"/>
+                    <Label text="Contact Name" />
+                    <Input id="ContactName_E" width="250px" editable="true"/>
+                    <Label text="Relationship" />
+                    <Input id="Relationship_E" width="250px" editable="true"/>
+                    <Label text="Contact Phone"/>
+                    <Input id="Contactphn" width="250px" editable="true"/>
+                     <Label text="Contact Email"/>
+                    <Input id="ContactEmail" width="250px" editable="true"/>     
+               </VBox>
+          <footer>
+               <Toolbar>
+               <ToolbarSpacer/>
+                <Button text="Update" press="onUpdateDialog"></Button>
+                <Button text="Close" press="onCancleDialog"></Button>
+              </Toolbar>
+           </footer>
+</Dialog>
+</core:FragmentDefinition>

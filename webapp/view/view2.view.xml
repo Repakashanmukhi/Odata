@@ -6,15 +6,61 @@
     </content>
 	<Bar>
 	<contentRight>
-        <Button icon="sap-icon://add" press="onOpenDialog"></Button>
+    <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
+	<Button icon="sap-icon://user-edit" text="Update" press="UpdateBtn"></Button>
+	<Button icon="sap-icon://pdf-attachment" text="PDF Download" press="onPDFDownload"></Button>
+	<Button text="Leave Log" icon="sap-icon://navigation-right-arrow" press="onNavigation"></Button>
+
     </contentRight>
 	<contentMiddle>
-	    <Title text="Employee Details" ></Title>
+	    <Title text="Employee Emergnecy Contact Details" ></Title>
 	</contentMiddle>
 	  <contentLeft>
 	  <Button icon="sap-icon://nav-back" press="NavBack "></Button>
 	  </contentLeft>
 	</Bar>
+<Table id="Employee" items="{/EmployeeInfoEmergencyContact}">
+    <columns>
+        <Column>
+            <Text text="EmployeeID"/>
+        </Column>
+        <Column>
+            <Text text="ContactName"/>
+        </Column>
+        <Column>
+            <Text text="Relationship"/>
+        </Column>
+        <Column>
+            <Text text="ContactPhone"/>
+        </Column>
+           <Column>
+            <Text text="ContactEmail"/>
+        </Column>
+		<Column >
+			<Text text="Actions"/>
+		</Column>
+    </columns>
+    <items>
+        <ColumnListItem type="Active" press="OnNavigate">
+            <cells>
+            <Text text="{EmployeeID}"></Text>
+            <Text text="{ContactName}"></Text>
+            <Text text="{Relationship}"></Text>
+            <Text text="{ContactPhone}"></Text>
+            <Text text="{ContactEmail}"></Text>
+                <HBox>
+                    <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
+                </HBox>
+            </cells>
+        </ColumnListItem>
+    </items>
+</Table>	
+<footer>
+	<Toolbar >
+		<ToolbarSpacer ></ToolbarSpacer>
+		
+	</Toolbar>
+</footer>
     </Page>
 </mvc:View>
 
