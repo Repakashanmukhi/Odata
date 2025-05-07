@@ -98,8 +98,7 @@
         "type": "View",
         "viewType": "XML",
         "path": "odata.view",
-        "async": true,
-        "viewPath": "odata.view"
+        "async": true
       },
       "routes": [
         {
@@ -117,6 +116,14 @@
           "target": [
             "Targetview2"
           ]
+        },
+        {
+          "name": "view3",
+          "pattern": "view3",
+          "view": "view3",
+          "target": [
+            "Targetview3"
+          ]
         }
       ],
       "targets": {
@@ -127,6 +134,10 @@
         "Targetview2": {
           "id": "view2",
           "name": "view2"
+        },
+        "Targetview3": {
+          "id": "view3",
+          "name": "view3"
         }
       }
     },

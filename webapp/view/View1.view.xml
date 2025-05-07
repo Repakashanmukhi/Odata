@@ -12,7 +12,7 @@
                     <Button icon="sap-icon://add" press="onOpenDialog"></Button>
                     <Button icon="sap-icon://download" text="Excel Download" press="onExcelDownload"></Button>
                     <Button icon="sap-icon://upload-to-cloud" text="Excel Upload" press="handleUpload"  ariaHasPopup="Dialog"></Button>
-                    <Button icon="sap-icon://begin" press="MultiNavigate"></Button>
+                    <Button icon="sap-icon://navigation-right-arrow" press="MultiNavigate" text="Employee Emergency Contact"></Button>
                 </contentRight>
             </Bar>
         </subHeader>

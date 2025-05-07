@@ -110,11 +110,9 @@ sap.ui.define([
             sap.ui.getCore().byId("esalary").setValue("");
             sap.ui.getCore().byId("eJoiningDate").setValue("");
         },
-        DeleteBtn: function(oEvent)
+        teBtn: function(oEvent)
         {
             var oButton=oEvent.getSource();
-            // Bringing the binding context of the button.
-            var oContext=oButton.getBindingContext();
             // Get the path of the context (Location).
             var sPath=oContext.getPath();
             var oModel=that.getView().getModel();
@@ -395,6 +393,6 @@ sap.ui.define([
         close: function() 
         {   
         that.upload.close();
-        },
+        }
     });
 });

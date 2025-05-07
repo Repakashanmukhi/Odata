@@ -1,0 +1,67 @@
+<mvc:View controllerName="odata.controller.view3"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="paging" showHeader="false">
+    <content>
+    </content>
+    <Bar>
+	    <contentRight>
+            <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
+	        <Button icon="sap-icon://user-edit" text="Update" press="UpdateBtn"></Button>
+        </contentRight>
+	    <contentMiddle>
+	        <Title text="Employee Emergnecy Contact Details" ></Title>
+	    </contentMiddle>
+	    <contentLeft>
+	        <Button icon="sap-icon://nav-back" press="NavBack "></Button>
+	    </contentLeft>
+	</Bar>
+    <Table id="EmployeeLeave" items="{/EmployeeLeaveLog}">
+        <columns>
+            <Column>
+                <Text text="ID"/>
+            </Column>
+            <Column>
+                <Text text="LeaveStartDate"/>
+            </Column>
+            <Column>
+                <Text text="LeaveEndDate"/>
+            </Column>
+            <Column>
+                <Text text="LeaveType"/>
+            </Column>
+            <Column>
+                <Text text="Reason"/>
+            </Column>
+		    <Column >
+			    <Text text="Status"/>
+		    </Column>
+            <Column >
+                <Text text="Action"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{EmployeeID_ID}"></Text>
+                    <Text text="{path: 'LeaveStartDate',formatter: '.formatDate'}"/>
+                    <Text text="{path: 'LeaveEndDate',formatter: '.formatDate'}"/>
+                    <Text text="{LeaveType}"></Text>
+                    <Text text="{Reason}"></Text>
+                    <ObjectStatus text="{Status}" state="{path: 'Status',formatter: '.formatStatus'}"/>
+                    <HBox>
+                    <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
+                    </HBox>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>	
+    </Page>
+</mvc:View>
+
+
+
+
+  
+
+  
