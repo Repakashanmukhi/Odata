@@ -76,7 +76,6 @@ sap.ui.define([
             oEmployeeModel.setProperty("/Employees", aEmployees);
         }
     },
-    
     onSubmitDialog: function () { 
         var oLeaveModel = this.getView().getModel("employeeModel"); 
         var aLeaves = oLeaveModel.getProperty("/Employees"); 
