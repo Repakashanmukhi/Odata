@@ -21,49 +21,49 @@
 	    </contentLeft>
 	</Bar>
     <Table id="EmployeePay" items="{/EmployeePayslips}" mode="MultiSelect" selectionChange="oSelectedItems">
-    
-    <columns>
-        <Column>
-            <Text text="Employee ID"/>
-        </Column>
-        <Column>
-            <Text text="Pay Date"/>
-        </Column>
-        <Column>
-            <Text text="Basic Pay"/>
-        </Column>
-        <Column>
-            <Text text="Deductions"/>
-        </Column>
-        <Column>
-            <Text text="Net Pay"/>
-        </Column>
-        <Column>
-            <Text text="Pay Slips Document"/>
-        </Column>
-        <Column>
-            <Text text="Action"/>
-        </Column>
-    </columns>
-    
-    <items>
-        <ColumnListItem>
-            <cells>
-                <Text text="{EmployeeID_ID}"/>
-                <!-- <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" /> -->
-                <Text text="{path: 'PayDate', formatter: '.formatPayDate'}"/>
-                <Text text="{BasicPay}"/>
-                <Text text="{Deductions}"/>
-                <Text text="{NetPay}"/>
-                <Text text="{PayslipDocument}"/>
-                <HBox>
-                    <Button icon="sap-icon://delete" type="Reject" class="sapUiTinyMarginEnd" press="DeleteBtn"/>
-                </HBox>
-            </cells>
-        </ColumnListItem>
-    </items>
-</Table>
-
+        <columns>
+            <Column>
+                <Text text="Employee ID"/>
+            </Column>
+            <Column>
+                <Text text="Pay Date"/>
+            </Column>
+            <Column>
+                <Text text="Basic Pay"/>
+            </Column>
+            <Column>
+                <Text text="Deductions"/>
+            </Column>
+            <Column>
+                <Text text="Net Pay"/>
+            </Column>
+            <Column>
+                <Text text="Pay Slips"/>
+            </Column>
+            <Column>
+                <Text text="Action"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{EmployeeID_ID}"/>
+                    <!-- <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" /> -->
+                    <Text text="{path: 'PayDate', formatter: '.formatPayDate'}"/>
+                    <Text text="{BasicPay}"/>
+                    <Text text="{Deductions}"/>
+                    <Text text="{NetPay}"/>
+                    <!-- <Text text="{PayslipDocument}"/> -->
+                    <HBox >
+                        <Button text=" View Pay Slip Document" press="onPDFDocument"></Button>
+                    </HBox>
+                    <HBox>
+                        <Button icon="sap-icon://delete" type="Reject" class="sapUiTinyMarginEnd" press="DeleteBtn"/>
+                    </HBox>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
     </Page>
 </mvc:View>
 

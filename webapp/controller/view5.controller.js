@@ -118,8 +118,11 @@ sap.ui.define([
         })
       })
     },
+    onPDFDocument: function(){
+
+    },
     onClose: function(){
-      that.updatepay.open();
+      that.updatepay.close();
     },
       NavBack: function(){
         that.getOwnerComponent().getRouter().navTo("RouteView1")
