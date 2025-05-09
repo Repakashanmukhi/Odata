@@ -1,0 +1,63 @@
+
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
+xmlns="sap.m">
+<Dialog id="Leave" title="Employee Leave Details ">
+         <customHeader>
+             <Bar>
+                <contentLeft>
+                     <Text text="Employee Leave Details"></Text>
+                </contentLeft>
+                <contentRight>
+                    <Button icon="sap-icon://add" press="onAddRow"></Button>
+                </contentRight>
+             </Bar>
+         </customHeader> 
+            <f:SimpleForm>
+            <Label text="ID" />
+            <Input id="LID" width="1000px" editable="true"/>
+            <Label text="EmployeeId" />
+            <Input id="LemployeeID" width="1000px" editable="true"/>
+            <Label text="LeaveStartDate"/>
+            <Input id="LSD" width="1000px" editable="true" type="Date"/>
+            <Label text="LeaveEndDate"/>
+            <Input id="LED" width="1000px" editable="true" type="Date"/>
+            <Label text="LeaveType"/>
+            <Input id="LeaveType" width="1000px" editable="true"/>
+            <Label text="Reason" />
+            <Input id="LReason" width="1000px" editable="true"/>
+            <Label text="Status" />
+            <Input id="LStatus" width="1000px" editable="true"/>
+        </f:SimpleForm>
+              <Table id="LeaveInfo" items="{employeeModel>/Employees}">
+            <columns>
+                <Column><Label text="Id" /></Column>
+                <Column><Label text="EmployeeId" /></Column>
+                <Column><Label text="LeaveStartDate" /></Column>
+                <Column><Label text="LeaveEndDate" /></Column>
+                <Column><Label text="LeaveType" /></Column>
+                <Column><Label text="Reason" /></Column>
+                <Column><Label text="Status" /></Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Input value="{employeeModel>ID}" editable="false"/>
+                        <Input value="{employeeModel>EmployeeID_ID}" editable="false"/>
+                        <Input value="{employeeModel>LeaveStartDate}" editable="false"/>
+                        <Input value="{employeeModel>LeaveEndDate}" editable="false"/>
+                        <Input value="{employeeModel>LeaveType}" editable="false"/>
+                        <Input value="{employeeModel>Reason}" editable="false"/>
+                        <Input value="{employeeModel>Status}" editable="false"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+       <footer>
+               <Toolbar>
+                <ToolbarSpacer/>
+                    <Button text="Close" press="onClose"></Button>
+                    <Button text="Submit" press="onSubmitDialog"></Button>
+           </Toolbar>
+        </footer>
+    </Dialog>
+</core:FragmentDefinition>

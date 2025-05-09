@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
+xmlns="sap.m">
+<Dialog id="updateLeave" title="Update Leave Details" >
+        <f:SimpleForm>
+            <Label text="EmployeeId" />
+            <Input id="inputEmployeeID" width="300px" editable="true"/>
+            <Label text="LeaveStartDate"/>
+            <Input id="inputLeaveStartDate" width="300px" editable="true" type="Date"/>
+            <Label text="LeaveEndDate"/>
+            <Input id="inputLeaveEndDate" width="300px" editable="true" type="Date"/>
+            <Label text="LeaveType"/>
+            <Input id="inputLeaveType" width="300px" editable="true"/>
+            <Label text="Reason" />
+            <Input id="inputReason" width="300px" editable="true"/>
+            <Label text="Status" />
+            <Input id="inputStatus" width="300px" editable="true"/>
+        </f:SimpleForm>
+    <footer>
+        <Toolbar>
+            <ToolbarSpacer/>
+                <Button text="Update" press="onUpdateDialog"></Button>
+                <Button text="Close" press="onCancleDialog"></Button>
+        </Toolbar>
+    </footer>
+</Dialog>
+</core:FragmentDefinition>

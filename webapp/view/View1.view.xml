@@ -61,7 +61,6 @@
                 <Text text="{Department}"/>
                 <Text text="{Position}"/>
                 <Text text="{Salary}"/>
-                <!-- <Text text="{path: 'JoiningDate', formatter: '.formatter.formatJoiningDate'}" />  -->
                 <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" />
                 <HBox>
                     <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>

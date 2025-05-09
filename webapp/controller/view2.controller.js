@@ -75,52 +75,6 @@ sap.ui.define([
         {
             that.Emergency.close()
         },
-        // UpdateBtn: function () {
-        //     var oTable = this.byId("Employee");
-        //     var oModel = this.getView().getModel(); 
-        //     this._bEditMode = !this._bEditMode;
-        //     var aFields = ["EmployeeID", "ContactName", "Relationship", "ContactPhone", "ContactEmail"];
-        //     oTable.getItems().forEach(function (oItem) {
-        //         var oContext = oItem.getBindingContext(); 
-        //         var sPath = oContext.getPath();
-        //         var aNewCells = [];
-        //         aFields.forEach(function (sField) {
-        //             if (this._bEditMode) {
-        //                 var oCell = new sap.m.Input({
-        //                 value: "{path: '" + sField + "', mode: 'OneWay'}"
-        //             });
-        //             oCell.setBindingContext(oContext);
-        //             } else {
-        //             var sValue = oModel.getProperty(sPath + "/" + sField);
-        //             oCell = new sap.m.Text({ text: sValue });
-        //         }
-        //         aNewCells.push(oCell);
-        //         }, this);
-        //         var oActionCell = new sap.m.HBox({
-        //             items: [
-        //                 new sap.m.Button({
-        //                     icon: "sap-icon://delete",
-        //                     press: this.DeleteBtn.bind(this),
-        //                     type: "Reject"
-        //                 })
-        //             ]
-        //         });
-        //         aNewCells.push(oActionCell);
-        //         oItem.removeAllCells();
-        //         aNewCells.forEach(function (oCell) {
-        //             oItem.addCell(oCell);
-        //         });
-        //             var oUpdatedData = oModel.getProperty(sPath);
-        //             oModel.update(sPath, oUpdatedData, {
-        //                 success: function () {
-        //                     console.log("Updated successfully");
-        //                 },
-        //                 error: function (oError) {
-        //                     console.error("Update failed", oError);
-        //                 }
-        //             });
-        //     }, this);
-        // },
         UpdateBtn: function () {
             var oTable = this.byId("Employee");
             var oModel = this.getView().getModel(); 

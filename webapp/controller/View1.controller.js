@@ -110,7 +110,7 @@ sap.ui.define([
             sap.ui.getCore().byId("esalary").setValue("");
             sap.ui.getCore().byId("eJoiningDate").setValue("");
         },
-        teBtn: function(oEvent)
+        DeleteBtn: function(oEvent)
         {
             var oButton=oEvent.getSource();
             // Get the path of the context (Location).

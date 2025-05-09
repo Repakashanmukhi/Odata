@@ -1,0 +1,75 @@
+<mvc:View controllerName="odata.controller.view5"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:mdc="sap.ui.mdc"
+	xmlns:mdct="sap.ui.mdc.table"
+    	xmlns:f="sap.f"
+	xmlns:vm="sap.ui.fl.variants">
+    <Page id="pageDescription" showHeader="false">
+    <content>
+    </content>
+    <Bar>
+	    <contentRight>
+            <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
+            <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog"></Button>
+        </contentRight>
+	    <contentMiddle>
+	        <Title text="Employee Pay Details" ></Title>
+	    </contentMiddle>
+	    <contentLeft>
+	        <Button icon="sap-icon://nav-back" press="NavBack "></Button>
+	    </contentLeft>
+	</Bar>
+    <Table id="EmployeePay" items="{/EmployeePayslips}" mode="MultiSelect" selectionChange="oSelectedItems">
+    
+    <columns>
+        <Column>
+            <Text text="Employee ID"/>
+        </Column>
+        <Column>
+            <Text text="Pay Date"/>
+        </Column>
+        <Column>
+            <Text text="Basic Pay"/>
+        </Column>
+        <Column>
+            <Text text="Deductions"/>
+        </Column>
+        <Column>
+            <Text text="Net Pay"/>
+        </Column>
+        <Column>
+            <Text text="Pay Slips Document"/>
+        </Column>
+        <Column>
+            <Text text="Action"/>
+        </Column>
+    </columns>
+    
+    <items>
+        <ColumnListItem>
+            <cells>
+                <Text text="{EmployeeID_ID}"/>
+                <!-- <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" /> -->
+                <Text text="{path: 'PayDate', formatter: '.formatPayDate'}"/>
+                <Text text="{BasicPay}"/>
+                <Text text="{Deductions}"/>
+                <Text text="{NetPay}"/>
+                <Text text="{PayslipDocument}"/>
+                <HBox>
+                    <Button icon="sap-icon://delete" type="Reject" class="sapUiTinyMarginEnd" press="DeleteBtn"/>
+                </HBox>
+            </cells>
+        </ColumnListItem>
+    </items>
+</Table>
+
+    </Page>
+</mvc:View>
+
+
+
+
+  
+
+  

@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout.form">
+  <Dialog id="PayDialog" title="Payment">
+    <content>
+    </content>
+    <layout:SimpleForm>
+      <layout:content>
+        <Label text="ID"/>
+        <Input id="IDInputPay" value="{ID}"/>
+        <Label text="EmployeeID"/>
+        <Input id="employeeIdInput" value="{EmployeeID_ID}"/>
+        <Label text="Pay Date"/>
+        <DatePicker value="{PayDate}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" id="payDatePicker"/>
+        <Label text="Basic Pay"/>
+        <Input value="{BasicPay}" type="Number" id="basicPayInput"/> 
+        <Label text="Deduction"/>
+        <Input value="{Deduction}" type="Number" id="DeductionInput"/>
+      </layout:content>
+    </layout:SimpleForm>
+    <footer>
+      <Toolbar >
+        <ToolbarSpacer ></ToolbarSpacer>
+          <Button text="Submit" press="onCreatePayslip"></Button>
+          <Button text="Close" press="onClose"></Button>
+      </Toolbar>
+    </footer>
+  </Dialog>
+</core:FragmentDefinition>

@@ -2,17 +2,16 @@
 xmlns="sap.m">
 <Dialog id="create" title="Employee Details ">
          <customHeader>
-             <Bar>
+            <Bar>
                 <contentLeft>
-                     <Text text="Employee Details"></Text>
+                    <Text text="Employee Details"></Text>
                 </contentLeft>
                 <contentRight>
                     <Button icon="sap-icon://add" press="onAddRow"></Button>
                 </contentRight>
-             </Bar>
-         </customHeader> 
+            </Bar>
+        </customHeader> 
                <f:SimpleForm >
-                <!-- <Button icon="sap-icon://add" press="onOpenDialog"></Button> -->
                     <Label text="FirstName" />
                     <Input id="efirstName" width="1000px" editable="true"/>
                     <Label text="Email"/>
@@ -56,13 +55,13 @@ xmlns="sap.m">
             </ColumnListItem>
             </items>
         </Table>
-       <footer>
-               <Toolbar>
+        <footer>
+            <Toolbar>
                <ToolbarSpacer/>
-            <Button text="Submit" press="onSubmitDialog"></Button>
-            <Button text="Reset" press="onClear"></Button>
-            <Button text="Close" press="onclose"></Button>
-           </Toolbar>
+                    <Button text="Submit" press="onSubmitDialog"></Button>
+                    <Button text="Reset" press="onClear"></Button>
+                    <Button text="Close" press="onclose"></Button>
+            </Toolbar>
         </footer>
 </Dialog>
 </core:FragmentDefinition>

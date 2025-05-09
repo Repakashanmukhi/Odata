@@ -1,41 +1,36 @@
-<mvc:View controllerName="odata.controller.view3"
+<mvc:View controllerName="odata.controller.view4"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Page id="paging" showHeader="false">
+    <Page id="pageDes" showHeader="false">
     <content>
     </content>
     <Bar>
 	    <contentRight>
             <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
-            <Button text="Leave description" icon="sap-icon://navigation-right-arrow" press="onNavigation"></Button>
+            <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog"></Button>
+            <Button text="Pay Slips" icon="sap-icon://navigation-right-arrow" press="onNavigation"></Button>
         </contentRight>
 	    <contentMiddle>
-	        <Title text="Employee Emergnecy Contact Details" ></Title>
+	        <Title text="Employee Leave Description" ></Title>
 	    </contentMiddle>
 	    <contentLeft>
 	        <Button icon="sap-icon://nav-back" press="NavBack "></Button>
 	    </contentLeft>
 	</Bar>
-    <Table id="EmployeeLeave" items="{/EmployeeLeaveLog}">
+    <Table id="EmployeeLeaveDes" items="{/EmployeeLeaveSet}" mode="MultiSelect" selectionChange="oSelectedItems">
         <columns>
             <Column>
                 <Text text="ID"/>
             </Column>
             <Column>
-                <Text text="LeaveStartDate"/>
+                <Text text="Total Leaves"/>
             </Column>
             <Column>
-                <Text text="LeaveEndDate"/>
+                <Text text="Leaves Used"/>
             </Column>
             <Column>
-                <Text text="LeaveType"/>
+                <Text text="Leave Balance"/>
             </Column>
-            <Column>
-                <Text text="Reason"/>
-            </Column>
-		    <Column >
-			    <Text text="Status"/>
-		    </Column>
             <Column >
                 <Text text="Action"/>
             </Column>
@@ -44,14 +39,11 @@
             <ColumnListItem>
                 <cells>
                     <Text text="{EmployeeID_ID}"></Text>
-                    <Text text="{path: 'LeaveStartDate',formatter: '.formatDate'}"/>
-                    <Text text="{path: 'LeaveEndDate',formatter: '.formatDate'}"/>
-                    <Text text="{LeaveType}"></Text>
-                    <Text text="{Reason}"></Text>
-                    <ObjectStatus text="{Status}" state="{path: 'Status',formatter: '.formatStatus'}"/>
+                    <Text text="{TotalLeaves}"/>
+                    <Text text="{LeavesUsed}"/>
+                    <Text text="{LeaveBalance}"></Text>
                     <HBox>
                     <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
-                    <Button icon="sap-icon://user-edit" press="onUpdate"></Button>
                     </HBox>
                 </cells>
             </ColumnListItem>
