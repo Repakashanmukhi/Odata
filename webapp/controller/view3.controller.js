@@ -145,6 +145,9 @@ sap.ui.define([
                  }
              });
          },
+    onFilter: function(){
+        
+    },
     NavBack: function(){
         that.getOwnerComponent().getRouter().navTo("RouteView1")
     },

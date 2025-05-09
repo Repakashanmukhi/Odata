@@ -7,6 +7,7 @@
     <Bar>
 	    <contentRight>
             <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
+            <Button icon="sap-icon://filter" text="Filter based on ID's " press="onFilter"></Button>
             <Button text="Leave description" icon="sap-icon://navigation-right-arrow" press="onNavigation"></Button>
         </contentRight>
 	    <contentMiddle>
