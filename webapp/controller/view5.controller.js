@@ -118,9 +118,18 @@ sap.ui.define([
         })
       })
     },
-    onPDFDocument: function(){
-
-    },
+    onPDFDocument: function (oEvent) {
+      var oButton = oEvent.getSource();
+      var oContext = oButton.getBindingContext();
+      var oData = oContext.getObject();
+      var sPdfUrl = oData.PayslipDocument;
+  
+      if (sPdfUrl) {
+          window.open(sPdfUrl, "_blank");
+      } else {
+          MessageBox.warning("No payslip document available.");
+      }
+  },
     onClose: function(){
       that.updatepay.close();
     },

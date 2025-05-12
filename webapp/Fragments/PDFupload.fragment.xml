@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:layout="sap.ui.layout" xmlns:core= "sap.ui.core" xmlns:f="sap.ui.layout.form" 
+xmlns="sap.m">
+<Dialog id="uploadPdf" title="Upload Excel File">
+        <ToolbarSpacer />
+        <unified:FileUploader 
+  id="fileUploader"
+  name="uploadPdf"
+  uploadUrl="/sap/opu/odata/sap/Z_EMP_PAY_SRV/PayslipDocumentSet('123')/$value"
+  uploadOnChange="false"
+  change="onFileChange"/>
+    <footer>
+        <Toolbar>
+            <ToolbarSpacer/>
+            <Button text="Upload File" press="PDFUpload"/>
+            <Button text="Cancel" press="close"/>
+        </Toolbar>
+    </footer>
+</Dialog>
+</core:FragmentDefinition>
+
+

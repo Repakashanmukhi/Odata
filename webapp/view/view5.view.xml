@@ -12,6 +12,8 @@
 	    <contentRight>
             <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
             <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog"></Button>
+            <Button icon="sap-icon://pdf-attachment" text="Upload PDF" press="onPdf"></Button>
+            
         </contentRight>
 	    <contentMiddle>
 	        <Title text="Employee Pay Details" ></Title>
@@ -20,6 +22,7 @@
 	        <Button icon="sap-icon://nav-back" press="NavBack "></Button>
 	    </contentLeft>
 	</Bar>
+    
     <Table id="EmployeePay" items="{/EmployeePayslips}" mode="MultiSelect" selectionChange="oSelectedItems">
         <columns>
             <Column>

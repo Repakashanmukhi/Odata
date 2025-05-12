@@ -15,7 +15,7 @@ sap.ui.define([
           oRoute.attachPatternMatched(that._onRouteMatched, that);
       },
       _onRouteMatched: function (oEvent) {
-        
+        this.syncLeaveUsage();
       },
       onOpenDialog: function(){
         if(!that.LeaveSetCreate){
@@ -104,6 +104,60 @@ sap.ui.define([
       }); 
       that.updateLeaveSet.close(); 
   },
+    syncLeaveUsage: function () {
+      var oModel = this.getView().getModel();
+      oModel.read("/EmployeeLeaveLog", {
+        success: function (logData) {
+          var logs = logData.results;
+          var leaveUsedByEmployee = {};
+          logs.forEach(function (log) {
+              if (log.Status === "Approved") {
+                  var startDate = new Date(log.LeaveStartDate);
+                  var endDate = new Date(log.LeaveEndDate);
+                  var days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                  var empId = log.EmployeeID_ID;
+                  if (!leaveUsedByEmployee[empId]) {
+                      leaveUsedByEmployee[empId] = days;
+                  } else {
+                      leaveUsedByEmployee[empId] += days;
+                  }
+              }
+          });
+          oModel.read("/EmployeeLeaveSet", {
+              success: function (summaryData) {
+                  var summaries = summaryData.results;
+                  summaries.forEach(function (record) {
+                      var empId = record.EmployeeID_ID;
+                      if (leaveUsedByEmployee[empId] !== undefined) {
+                          var usedLeaves = leaveUsedByEmployee[empId];
+                          var balance = record.TotalLeaves - usedLeaves;
+                          var payload = {
+                              LeavesUsed: usedLeaves,
+                              LeaveBalance: balance
+                          };
+                          var path = "/EmployeeLeaveSet('" + record.ID + "')";
+                          oModel.update(path, payload, {
+                              success: function () {
+                                  console.log("Updated leave summary for", empId);
+                              },
+                              error: function () {
+                                  MessageBox.error("Failed to update data for " + empId);
+                              }
+                          });
+                      }
+                  });
+                  MessageToast.show("Leave usage synced successfully.");
+              },
+              error: function () {
+                  MessageBox.error("Could not load employee leave summary data.");
+              }
+          });
+      },
+      error: function () {
+          MessageBox.error("Could not load leave log data.");
+      }
+  });
+},
   onNavigation: function(){
     that.getOwnerComponent().getRouter().navTo("view5")
   },

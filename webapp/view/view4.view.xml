@@ -8,6 +8,7 @@
 	    <contentRight>
             <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
             <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog"></Button>
+            <Button text="Sync Leaves Used" icon="sap-icon://refresh" press="syncLeaveUsage" />
             <Button text="Pay Slips" icon="sap-icon://navigation-right-arrow" press="onNavigation"></Button>
         </contentRight>
 	    <contentMiddle>

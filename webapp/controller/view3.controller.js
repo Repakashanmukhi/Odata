@@ -143,10 +143,7 @@ sap.ui.define([
                      sap.m.MessageBox.error("Failed to update leave log. Please try again.");
                  }
              });
-         },
-    onFilter: function(){
-        
-    },
+         }, 
     NavBack: function(){
         that.getOwnerComponent().getRouter().navTo("RouteView1")
     },
