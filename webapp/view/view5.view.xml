@@ -22,7 +22,6 @@
 	        <Button icon="sap-icon://nav-back" press="NavBack "></Button>
 	    </contentLeft>
 	</Bar>
-    
     <Table id="EmployeePay" items="{/EmployeePayslips}" mode="MultiSelect" selectionChange="oSelectedItems">
         <columns>
             <Column>

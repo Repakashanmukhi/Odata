@@ -52,7 +52,9 @@ sap.ui.define([
             var oEmployeeModel = that.getView().getModel("employeeModel");
             var aEmployees = oEmployeeModel.getProperty("/Employees"); 
             var TempEmp = {
-                FirstName: sap.ui.getCore().byId("efirstName").getValue(), 
+                ID: sap.ui.getCore().byId("eID").getValue(),
+                FirstName: sap.ui.getCore().byId("efirstName").getValue(),
+                LastName: sap.ui.getCore().byId("eLastName").getValue(), 
                 Email: sap.ui.getCore().byId("eEmail").getValue(),  
                 Phone: sap.ui.getCore().byId("ePhone").getValue(),  
                 BloodGroup: sap.ui.getCore().byId("eBloodGroup").getValue(),
@@ -61,7 +63,7 @@ sap.ui.define([
                 Salary: sap.ui.getCore().byId("esalary").getValue(),
                 JoiningDate: sap.ui.getCore().byId("eJoiningDate").getValue()  
             };
-            if (TempEmp.FirstName &&  TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.Salary && TempEmp.JoiningDate) {
+            if (TempEmp.ID && TempEmp.FirstName && TempEmp.LastName &&  TempEmp.Email && TempEmp.Phone && TempEmp.BloodGroup && TempEmp.Department && TempEmp.Position && TempEmp.Salary && TempEmp.JoiningDate) {
                 var oModel = that.getView().getModel();  
                 aEmployees.push(TempEmp);  
                 oEmployeeModel.setProperty("/Employees", aEmployees);  
@@ -77,7 +79,8 @@ sap.ui.define([
         for (var i = 0; i < aEmployees.length; i++) {
             var oEmployee = aEmployees[i];  
             var oNewEmployee = {
-               FirstName: oEmployee.FirstName,
+                ID: oEmployee.ID,
+                FirstName: oEmployee.FirstName,
                 LastName: oEmployee.LastName,   
                 Email: oEmployee.Email,  
                 Phone: oEmployee.Phone, 

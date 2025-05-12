@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form"xmlns="sap.m">
+<core:FragmentDefinition xmlns:layout="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns="sap.m">
   <Dialog id="LeaveSetCreate">
     <VBox class="sapUiSmallMargin">
       <f:SimpleForm id="Set" editable="true" layout="ResponsiveGridLayout" singleContainerFullSize="false">

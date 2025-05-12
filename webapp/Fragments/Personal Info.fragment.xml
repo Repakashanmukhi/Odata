@@ -19,15 +19,17 @@ xmlns="sap.m">
 			columnsM="1"
 			singleContainerFullSize="false" >
 			<f:content>
-      	<Label text="EmployeeID" />
-				<Input id="Employee_Id" value="{EmployeeID_ID}" />
+				<Label text="ID"/>
+				<Input id="id" value="{ID}"/>
+      			<Label text="EmployeeID" />
+				<Input id="Employee_Id" value="{EmployeeID}" />
 				<Label text="ContactName" />
 				<Input id="ContactName" value="{ContactName}" />
-        	<Label text="Relationship" />
+        		<Label text="Relationship" />
 				<Input id="Relationship" value="{Relationship}" />
-        	<Label text="ContactPhone" />
+        		<Label text="ContactPhone" />
 				<Input id="ContactPhone" value="{ContactPhone}" />
-        	<Label text="ContactEmail" />
+        		<Label text="ContactEmail" />
 				<Input id="Contactmail" value="{ContactEmail}" />
 			</f:content>
 		</f:SimpleForm>

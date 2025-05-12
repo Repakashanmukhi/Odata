@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/odata/v2/ODataModel",
      "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], function (Controller, JSONModel, ODataModel, MessageBox, MessageToast) {
+    "sap/m/MessageToast",
+     "sap/ui/core/Fragment"
+], function (Controller, JSONModel, ODataModel, MessageBox, MessageToast,Fragment) {
     "use strict";
     var that;
     return Controller.extend("odata.controller.view4", {
@@ -15,12 +16,12 @@ sap.ui.define([
           oRoute.attachPatternMatched(that._onRouteMatched, that);
       },
       _onRouteMatched: function (oEvent) {
-        this.syncLeaveUsage();
+        that.syncLeaveUsage();
       },
       onOpenDialog: function(){
         if(!that.LeaveSetCreate){
-          that.LeaveSetCreate = sap.ui.xmlfragment("odata.Fragments.LeavesetCreate", that);        
-      }
+          that.LeaveSetCreate= sap.ui.xmlfragment("odata.Fragments.LeavesetCreate", that)
+        }
         that.LeaveSetCreate.open();
       },
       onSubmit: function () {
@@ -42,7 +43,7 @@ sap.ui.define([
         oModel.create("/EmployeeLeaveSet", oPayload, {
             success: function () {
                 MessageToast.show("Leave record created successfully.");
-                that.LeaveSet.close();
+                that.LeaveSetCreate.close();
             },
             error: function (oError) {
                 MessageBox.error("could not create record");

@@ -12,8 +12,12 @@ xmlns="sap.m">
             </Bar>
         </customHeader> 
                <f:SimpleForm >
+                    <Label text="ID" />
+                    <Input id="eID" width="1000px" editable="true"/>
                     <Label text="FirstName" />
                     <Input id="efirstName" width="1000px" editable="true"/>
+                    <Label text="LastName" />
+                    <Input id="eLastName" width="1000px" editable="true"/>
                     <Label text="Email"/>
                     <Input id="eEmail" width="1000px" editable="true"/>
                     <Label text="Phone"/>
@@ -31,7 +35,9 @@ xmlns="sap.m">
                     </f:SimpleForm>
             <Table id="TempTable" items="{employeeModel>/Employees}">
             <columns>
+                <Column ><Label text="ID"></Label></Column>
                 <Column ><Label text="FirstName"></Label></Column>
+                <Column ><Label text="LastName"></Label></Column>
                 <Column ><Label text="Email"></Label></Column>
                 <Column ><Label text="Phone"></Label></Column>
                 <Column ><Label text="BloodGroup"></Label></Column>
@@ -43,7 +49,9 @@ xmlns="sap.m">
             <items>
             <ColumnListItem>
             <cells>
+            <Input value="{employeeModel>ID}"></Input>
             <Input value="{employeeModel>FirstName}"></Input>
+            <Input value="{employeeModel>LastName}"></Input>
             <Input value="{employeeModel>Email}"></Input>
             <Input value="{employeeModel>Phone}"></Input>
             <Input value="{employeeModel>BloodGroup}"></Input>

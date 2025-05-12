@@ -53,11 +53,12 @@ sap.ui.define([
         },
         onSubmit: function(){
             let oEmg = {
+                ID: sap.ui.getCore().byId("id").getValue(),
                 EmployeeID :sap.ui.getCore().byId("Employee_Id").getValue(),
                 ContactName :sap.ui.getCore().byId("ContactName").getValue(),
                 Relationship :sap.ui.getCore().byId("Relationship").getValue(),
                 ContactPhone :sap.ui.getCore().byId("ContactPhone").getValue(),
-                ContactEmail: sap.ui.getCore().byId("ContactEmail").getValue()            
+                ContactEmail: sap.ui.getCore().byId("Contactmail").getValue()            
             }
             var oModel = that.getOwnerComponent().getModel();
             oModel.create("/EmployeeInfoEmergencyContact",oEmg,{
