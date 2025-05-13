@@ -19,11 +19,11 @@ sap.ui.define([
       },
       
       _onRouteMatched: function (oEvent) {
-        // to get parameters 
-          var oArgs = oEvent.getParameter("arguments");
-          // JSON.Parse is used to return array instead of an object
-          var aTableData = JSON.parse(oArgs.tableData);   
-          console.log("Complete Table Data:", aTableData); 
+        var oTable = this.getView().byId("Employee");
+        var oBinding = oTable.getBinding("items");
+        oBinding.filter([]);
+        var oSorter = new sap.ui.model.Sorter("EmployeeID", false); 
+        oBinding.sort(oSorter); 
       },
       DeleteBtn: function(oEvent)
         {

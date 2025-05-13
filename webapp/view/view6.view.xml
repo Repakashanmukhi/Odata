@@ -1,0 +1,22 @@
+<mvc:View controllerName="odata.controller.view6"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:mdc="sap.ui.mdc"
+	xmlns:mdct="sap.ui.mdc.table"
+    	xmlns:f="sap.f"
+	xmlns:vm="sap.ui.fl.variants">
+    <Page id="pagePayRole" showHeader="false">
+    <content>
+    </content>
+    <VBox> 
+    <Button text="Download Payslip as PDF" press="onDownloadPayslip" /> 
+    </VBox> 
+    </Page>
+</mvc:View>
+
+
+
+
+  
+
+  

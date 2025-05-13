@@ -16,7 +16,11 @@ sap.ui.define([
           oRoute.attachPatternMatched(that._onRouteMatched, that);
       },
       _onRouteMatched: function (oEvent) {
-        
+        var oTable = this.getView().byId("EmployeePay");
+        var oBinding = oTable.getBinding("items");
+        oBinding.filter([]);
+        var oSorter = new sap.ui.model.Sorter("EmployeeID_ID", false); 
+        oBinding.sort(oSorter);
       },
       formatPayDate: function (sDate) {
         if (sDate) {
@@ -118,6 +122,12 @@ sap.ui.define([
         })
       })
     },
+    onPdf: function(){
+      if(!that.uploadPdf){
+        that.uploadPdf = sap.ui.xmlfragment("odata.Fragments.PDFupload", that)
+      }
+      that.uploadPdf.open();
+    },
     onPDFDocument: function (oEvent) {
       var oButton = oEvent.getSource();
       var oContext = oButton.getBindingContext();
@@ -133,9 +143,11 @@ sap.ui.define([
     onClose: function(){
       that.updatepay.close();
     },
-      NavBack: function(){
-        that.getOwnerComponent().getRouter().navTo("RouteView1")
+    NavBack: function(){
+      that.getOwnerComponent().getRouter().navTo("RouteView1")
+    },
+      onPay: function(){
+        that.getOwnerComponent().getRouter().navTo("view6")
       }
     })
  });
-

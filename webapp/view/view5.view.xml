@@ -13,7 +13,7 @@
             <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
             <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog"></Button>
             <Button icon="sap-icon://pdf-attachment" text="Upload PDF" press="onPdf"></Button>
-            
+            <Button icon="sap-icon://navigation-right-arrow" press="onPay"></Button>
         </contentRight>
 	    <contentMiddle>
 	        <Title text="Employee Pay Details" ></Title>
@@ -57,7 +57,7 @@
                     <Text text="{NetPay}"/>
                     <!-- <Text text="{PayslipDocument}"/> -->
                     <HBox >
-                        <Button text=" View Pay Slip Document" press="onPDFDocument"></Button>
+                        <Button icon="sap-icon://show" press="onPDFDocument"></Button>
                     </HBox>
                     <HBox>
                         <Button icon="sap-icon://delete" type="Reject" class="sapUiTinyMarginEnd" press="DeleteBtn"/>

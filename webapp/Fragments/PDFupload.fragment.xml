@@ -5,7 +5,6 @@ xmlns="sap.m">
         <unified:FileUploader 
   id="fileUploader"
   name="uploadPdf"
-  uploadUrl="/sap/opu/odata/sap/Z_EMP_PAY_SRV/PayslipDocumentSet('123')/$value"
   uploadOnChange="false"
   change="onFileChange"/>
     <footer>

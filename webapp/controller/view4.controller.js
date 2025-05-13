@@ -16,7 +16,11 @@ sap.ui.define([
           oRoute.attachPatternMatched(that._onRouteMatched, that);
       },
       _onRouteMatched: function (oEvent) {
-        that.syncLeaveUsage();
+        var oTable = this.getView().byId("EmployeeLeaveDes");
+        var oBinding = oTable.getBinding("items");
+        oBinding.filter([]);
+        var oSorter = new sap.ui.model.Sorter("EmployeeID_ID", false); 
+        oBinding.sort(oSorter);
       },
       onOpenDialog: function(){
         if(!that.LeaveSetCreate){
