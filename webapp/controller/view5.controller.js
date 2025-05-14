@@ -121,7 +121,7 @@ sap.ui.define([
           }
         })
       })
-    },
+    },                      
     onPdf: function(oEvent) {
       if (!that.uploadPdf) {
           that.uploadPdf = sap.ui.xmlfragment("odata.Fragments.PDFupload", that);
