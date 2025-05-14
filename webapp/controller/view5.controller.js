@@ -122,12 +122,47 @@ sap.ui.define([
         })
       })
     },
-    onPdf: function(){
-      if(!that.uploadPdf){
-        that.uploadPdf = sap.ui.xmlfragment("odata.Fragments.PDFupload", that)
+    onPdf: function(oEvent) {
+      if (!that.uploadPdf) {
+          that.uploadPdf = sap.ui.xmlfragment("odata.Fragments.PDFupload", that);
       }
+      var oTable = oEvent.getSource().getBindingContext().getProperty("EmployeeID_ID");
+      that._selectedEmployeeId = oTable; 
       that.uploadPdf.open();
-    },
+  },
+  onFileChange: function(oEvent) {
+    var aFile = oEvent.getParameter("files")[0];
+    if (aFile) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var fileContent = e.target.result;
+            var sEmployeeId = that._selectedEmployeeId;
+            if (!sEmployeeId) {
+                MessageBox.error("No employee selected. Please try again.");
+                return;
+            }
+            var updatedData = {
+                PayslipDocument: fileContent
+            };
+            var sPath = "/EmployeePayslips('" + sEmployeeId + "')";
+            var oModel = that.getView().getModel();
+            oModel.update(sPath, updatedData, {
+                success: function() {
+                    MessageToast.show("Payslip uploaded successfully!");
+                    that.uploadPdf.close(); 
+                },
+                error: function(oError) {
+                    MessageBox.error("Failed to upload the payslip. Please try again.");
+                    console.error(oError);
+                }
+            });
+        };
+        reader.readAsDataURL(aFile);
+    } else {
+        MessageBox.warning("Please select a file to upload.");
+    }
+},
+
     onPDFDocument: function (oEvent) {
       var oButton = oEvent.getSource();
       var oContext = oButton.getBindingContext();
