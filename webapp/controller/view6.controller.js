@@ -5,19 +5,14 @@ sap.ui.define([
     "sap/ui/core/Fragment" 
   ], function (Controller, MessageToast, jQuery, Fragment) { 
     "use strict"; 
-   
     return Controller.extend("odata.controller.view6", { 
-   
       onInit: function () { 
-
         var jQueryScript1 = document.createElement('script');
             jQueryScript1.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js');
             document.head.appendChild(jQueryScript1);
-
             var jQueryScript2 = document.createElement('script');
             jQueryScript2.setAttribute('src','https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js');
             document.head.appendChild(jQueryScript2);
-
         var oData = { 
           FirstName: "Rahul", 
           LastName: "Bajaj", 
@@ -38,14 +33,11 @@ sap.ui.define([
       },  
     onDownloadPayslip: function () {
       var oData = this.getView().getModel().getData();
-    
       var deductions = [
         { type: "Provident Fund (PF)", amount: 4000 },
         { type: "Professional Tax", amount: 2000 },
         { type: "Other Deductions", amount: 4000 }
       ];
-      
-    
       var deductionTableBody = [
         [
           { text: "Deduction Type", style: "tableHeader" },
@@ -58,7 +50,6 @@ sap.ui.define([
           { text: ded.amount.toFixed(2), alignment: 'right', margin: [0, 4, 0, 4] }
         ]);
       });
-    
       var employeeDetailsTable = {
         layout: {
           hLineWidth: function () { return 0; },
@@ -81,8 +72,6 @@ sap.ui.define([
         },
         margin: [0, 0, 0, 10]
       };
-    
-      // Salary summary for a given month
       function createSalarySection(month, pageBreak = false) {
         return [
           ...(pageBreak ? [{ text: '', pageBreak: 'before' }] : []),
@@ -119,8 +108,6 @@ sap.ui.define([
           }
         ];
       }
-    
-      // Final PDF document definition
       var docDefinition = {
         content: [
           { text: 'SBP Consulting Pvt. Ltd.', style: 'companyHeader' },
@@ -137,14 +124,12 @@ sap.ui.define([
             layout: 'lightHorizontalLines',
             margin: [0, 0, 0, 10]
           },
-    
           { text: '\nMonthly Salary Summary', style: 'sectionHeader' },
           ...createSalarySection("January"),
           ...createSalarySection("February"),
           ...createSalarySection("March", true), // Page break before March
           { text: `\nGenerated On: ${new Date().toLocaleDateString()}`, style: 'footer' }
         ],
-    
         styles: {
           companyHeader: {
             fontSize: 20,
@@ -182,11 +167,8 @@ sap.ui.define([
           fontSize: 10
         }
       };
-    
-      pdfMake.createPdf(docDefinition).download("EMP03.pdf");    }
-    
-
-  
+      pdfMake.createPdf(docDefinition).download("EMP03.pdf");    
+    }
     }); 
   });
 
