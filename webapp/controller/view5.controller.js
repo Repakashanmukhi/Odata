@@ -10,10 +10,10 @@ sap.ui.define([
     var that;
     return Controller.extend("odata.controller.view5", {
         onInit: function () {
-          that= this;
+          that= this;    
           var oRouter = that.getOwnerComponent().getRouter();
           var oRoute = oRouter.getRoute("view5");
-          oRoute.attachPatternMatched(that._onRouteMatched, that);
+      oRoute.attachPatternMatched(that._onRouteMatched, that);
       },
       _onRouteMatched: function (oEvent) {
         var oTable = this.getView().byId("EmployeePay");
@@ -129,39 +129,58 @@ sap.ui.define([
       var oTable = oEvent.getSource().getBindingContext().getProperty("EmployeeID_ID");
       that._selectedEmployeeId = oTable; 
       that.uploadPdf.open();
-  },
-  onFileChange: function(oEvent) {
-    var aFile = oEvent.getParameter("files")[0];
-    if (aFile) {
+    },
+    onFileChange: function(oEvent) {
+      var aFile = oEvent.getParameter("files")[0];
+      if (aFile) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            var fileContent = e.target.result;
-            var sEmployeeId = that._selectedEmployeeId;
-            if (!sEmployeeId) {
-                MessageBox.error("No employee selected. Please try again.");
-                return;
-            }
-            var updatedData = {
-                PayslipDocument: fileContent
-            };
-            var sPath = "/EmployeePayslips('" + sEmployeeId + "')";
-            var oModel = that.getView().getModel();
-            oModel.update(sPath, updatedData, {
-                success: function() {
-                    MessageToast.show("Payslip uploaded successfully!");
-                    that.uploadPdf.close(); 
-                },
-                error: function(oError) {
-                    MessageBox.error("Failed to upload the payslip. Please try again.");
-                    console.error(oError);
-                }
-            });
+          var fileContent = e.target.result; 
+          that._pdfBase64Content = fileContent; 
+          var sEmployeeId = that._selectedEmployeeId;
+          var updatedData = {
+              PayslipDocument: fileContent
+          };
+          var sPath = "/EmployeePayslips('" + sEmployeeId + "')";
+          var oModel = that.getView().getModel();
+          oModel.update(sPath, updatedData, {
+              success: function() {
+                  MessageToast.show("Payslip uploaded successfully!");
+                  that.uploadPdf.close(); 
+              },
+              error: function(oError) {
+                  MessageBox.error("Failed to upload the payslip. Please try again.");
+                  console.error(oError);
+              }
+          });
         };
-        reader.readAsDataURL(aFile);
-    } else {
+        reader.readAsDataURL(aFile); 
+      } else {
         MessageBox.warning("Please select a file to upload.");
-    }
-},
+      }
+    },
+    downloadPDF: function() {
+      if (!that._pdfBase64Content) {
+        MessageBox.error("No PDF content available.");
+      return;
+      }
+      var base64Content = that._pdfBase64Content.split(',')[1]; 
+      var binaryData = atob(base64Content);
+      var arrayBuffer = new ArrayBuffer(binaryData.length);
+      var uint8Array = new Uint8Array(arrayBuffer);
+      for (var i = 0; i < binaryData.length; i++) {
+        uint8Array[i] = binaryData.charCodeAt(i);
+      }
+      var blob = new Blob([uint8Array], { type: 'application/pdf' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'Payslip.pdf'; 
+      document.body.appendChild(a);
+      a.click(); 
+      document.body.removeChild(a); 
+      URL.revokeObjectURL(url); 
+    },
 
     onPDFDocument: function (oEvent) {
       var oButton = oEvent.getSource();
@@ -174,15 +193,15 @@ sap.ui.define([
       } else {
           MessageBox.warning("No payslip document available.");
       }
-  },
+    },
     onClose: function(){
       that.updatepay.close();
     },
     NavBack: function(){
       that.getOwnerComponent().getRouter().navTo("RouteView1")
     },
-      onPay: function(){
-        that.getOwnerComponent().getRouter().navTo("view6")
-      }
+    onPay: function(){
+      that.getOwnerComponent().getRouter().navTo("view6")
+    }
     })
- });
+});
