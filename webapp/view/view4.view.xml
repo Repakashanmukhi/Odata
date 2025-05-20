@@ -1,61 +1,50 @@
 <mvc:View controllerName="odata.controller.view4"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="pageDes" showHeader="false">
-    <content>
-    </content>
-    <Bar>
-	    <contentRight>
-            <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
-            <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog"></Button>
-            <Button text="Sync Leaves Used" icon="sap-icon://refresh" press="syncLeaveUsage" />
-            <Button text="Pay Slips" icon="sap-icon://navigation-right-arrow" press="onNavigation"></Button>
-        </contentRight>
-	    <contentMiddle>
-	        <Title text="Employee Leave Description" ></Title>
-	    </contentMiddle>
-	    <contentLeft>
-	        <Button icon="sap-icon://nav-back" press="NavBack "></Button>
-	    </contentLeft>
-	</Bar>
-    <Table id="EmployeeLeaveDes" items="{/EmployeeLeaveSet}" mode="MultiSelect" selectionChange="oSelectedItems">
-        <columns>
-            <Column>
-                <Text text="ID"/>
-            </Column>
-            <Column>
-                <Text text="Total Leaves"/>
-            </Column>
-            <Column>
-                <Text text="Leaves Used"/>
-            </Column>
-            <Column>
-                <Text text="Leave Balance"/>
-            </Column>
-            <Column >
-                <Text text="Action"/>
-            </Column>
-        </columns>
-        <items>
-            <ColumnListItem>
-                <cells>
-                    <Text text="{EmployeeID_ID}"></Text>
-                    <Text text="{TotalLeaves}"/>
-                    <Text text="{LeavesUsed}"/>
-                    <Text text="{LeaveBalance}"></Text>
-                    <HBox>
-                    <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
-                    </HBox>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>	
-    </Page>
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+    <f:DynamicPage id="leaveDescriptionPage" showFooter="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:navigationActions>
+                    <Button icon="sap-icon://nav-back" press="NavBack" />
+                </f:navigationActions>
+                <f:heading>
+                    <Title text="Employee Leave Description" />
+                </f:heading>
+                <f:actions>
+                    <Button icon="sap-icon://add" text="Add" press="onOpenDialog" />
+                    <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog" />
+                    <Button icon="sap-icon://refresh" text="Sync Leaves Used" press="syncLeaveUsage" />
+                    <Button icon="sap-icon://navigation-right-arrow" text="Pay Slips" press="onNavigation" />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <Table id="EmployeeLeaveDes"
+                   items="{/EmployeeLeaveSet}"
+                   mode="MultiSelect"
+                   selectionChange="oSelectedItems">
+                <columns>
+                    <Column><Text text="ID" /></Column>
+                    <Column><Text text="Total Leaves" /></Column>
+                    <Column><Text text="Leaves Used" /></Column>
+                    <Column><Text text="Leave Balance" /></Column>
+                    <Column><Text text="Action" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{EmployeeID_ID}" />
+                            <Text text="{TotalLeaves}" />
+                            <Text text="{LeavesUsed}" />
+                            <Text text="{LeaveBalance}" />
+                            <HBox>
+                                <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject" />
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>
-
-
-
-
-  
-
-  

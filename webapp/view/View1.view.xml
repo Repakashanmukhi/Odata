@@ -1,83 +1,72 @@
-<mvc:View xmlns:table="sap.ui.table" controllerName="odata.controller.View1"
+<mvc:View
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
     xmlns:l="sap.ui.layout"
     xmlns:u="sap.ui.unified"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-    <content>
-    </content>
-    <subHeader>
-            <Bar>
-                <contentRight>
-                    <Button icon="sap-icon://add" press="onOpenDialog"></Button>
-                    <Button icon="sap-icon://download" text="Excel Download" press="onExcelDownload"></Button>
-                    <Button icon="sap-icon://upload-to-cloud" text="Excel Upload" press="handleUpload"  ariaHasPopup="Dialog"></Button>
-                    <Button icon="sap-icon://navigation-right-arrow" press="MultiNavigate" text="Employee Emergency Contact"></Button>
-                </contentRight>
-            </Bar>
-        </subHeader>
-    <Table id="employeeTable"  items="{path: '/EmployeeInfo', sorter: {path: 'Department',  group: true}}" mode="MultiSelect" selectionChange="oSelectedItems">
-    <columns>
-        <Column>
-            <Text text="EmpId"/>
-        </Column>
-        <Column>
-            <Text text="FirstName"/>
-        </Column>
-        <Column>
-            <Text text="Email"/>
-        </Column>
-        <Column>
-            <Text text="Phone"/>
-        </Column>
-           <Column>
-            <Text text="BloodGroup"/>
-        </Column>
-        <Column> 
-            <Text text="Department"/>
-        </Column>
-        <Column>
-            <Text text="Position"/>
-        </Column>
-         <Column>
-            <Text text="Salary"/>
-        </Column>
-        <Column>
-            <Text text="JoiningDate"/>
-        </Column>
-        <Column>
-            <Text text="Actions"/>
-        </Column>
-    </columns>
-    <items>
-    <GroupHeaderListItem title="{Department}" />
-        <ColumnListItem type="Active" press="OnNavigate">
-            <cells>
-                <Text text="{ID}"/>
-                <Text text="{FirstName} {LastName}"/>
-                <Text text="{Email}"/>
-                <Text text="{Phone}"/>
-                <Text text="{BloodGroup}"/>
-                <Text text="{Department}"/>
-                <Text text="{Position}"/>
-                <Text text="{Salary}"/>
-                <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" />
-                <HBox>
-                    <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject"></Button>
-                    <Button icon="sap-icon://user-edit" class="sapUiTinyMarginEnd" press="UpdateBtn"></Button>
-                </HBox>
-            </cells>
-        </ColumnListItem>
-    </items>
-</Table>
-<Toolbar >
-    <ToolbarSpacer ></ToolbarSpacer>
-    <Button text="Exit" press="Exit"></Button>
-</Toolbar>
-       
+    xmlns:table="sap.ui.table"
+    controllerName="odata.controller.View1">
 
-</Page>
-</mvc:View> 
-   
+    <f:DynamicPage id="dynamic" showFooter="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Employee Information" />
+                </f:heading>
+                <f:actions>
+                    <Button icon="sap-icon://add" press="onOpenDialog" />
+                    <Button icon="sap-icon://download" text="Excel Download" press="onExcelDownload" />
+                    <Button icon="sap-icon://upload-to-cloud" text="Excel Upload" press="handleUpload" ariaHasPopup="Dialog" />
+                    <Button icon="sap-icon://navigation-right-arrow" text="Employee Emergency Contact" press="MultiNavigate" />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <VBox>
+                <Table
+                    id="employeeTable"
+                    items="{path: '/EmployeeInfo', sorter: {path: 'Department', group: true}}"
+                    mode="MultiSelect"
+                    selectionChange="oSelectedItems">
+                    <columns>
+                        <Column><Text text="EmpId" /></Column>
+                        <Column><Text text="FirstName" /></Column>
+                        <Column><Text text="Email" /></Column>
+                        <Column><Text text="Phone" /></Column>
+                        <Column><Text text="BloodGroup" /></Column>
+                        <Column><Text text="Department" /></Column>
+                        <Column><Text text="Position" /></Column>
+                        <Column><Text text="Salary" /></Column>
+                        <Column><Text text="JoiningDate" /></Column>
+                        <Column><Text text="Actions" /></Column>
+                    </columns>
+                    <items>
+                        <GroupHeaderListItem title="{Department}" />
+                        <ColumnListItem type="Active" press="OnNavigate">
+                            <cells>
+                                <Text text="{ID}" />
+                                <Text text="{FirstName} {LastName}" />
+                                <Text text="{Email}" />
+                                <Text text="{Phone}" />
+                                <Text text="{BloodGroup}" />
+                                <Text text="{Department}" />
+                                <Text text="{Position}" />
+                                <Text text="{Salary}" />
+                                <Text text="{path: 'JoiningDate', formatter: '.formatJoiningDate'}" />
+                                <HBox>
+                                    <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject" />
+                                    <Button icon="sap-icon://user-edit" class="sapUiTinyMarginEnd" press="UpdateBtn" />
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
 
-                       
+                <Toolbar>
+                    <ToolbarSpacer />
+                    <Button text="Exit" press="Exit" />
+                </Toolbar>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

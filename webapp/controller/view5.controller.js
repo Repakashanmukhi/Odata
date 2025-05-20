@@ -190,7 +190,6 @@ sap.ui.define([
       this.byId("pdfDialog").close();
     },
 
-
     NavBack: function(){
       that.getOwnerComponent().getRouter().navTo("RouteView1")
     },
