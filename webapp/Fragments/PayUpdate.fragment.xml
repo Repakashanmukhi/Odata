@@ -3,6 +3,9 @@ xmlns="sap.m">
     <Dialog id="updatepay" title="Update Details">
         <Table id="updatePay" items="{selectedEmployeesModel>/selectedEmployees}">
             <columns>
+                <Column >
+                    <Text text="ID"></Text>
+                </Column>
                 <Column>
                     <Text text="Employee ID"/>
                 </Column>
@@ -22,7 +25,8 @@ xmlns="sap.m">
             <items>
                 <ColumnListItem>
                     <cells>
-                        <Input value="{selectedEmployeesModel>EmployeeID_ID}" editable="false"></Input>
+                        <Input value="{selectedEmployeesModel>ID}"></Input>
+                        <Input value="{selectedEmployeesModel>EmployeeID_ID}"></Input>
                         <Input value="{selectedEmployeesModel>PayDate}"></Input>
                         <Input value="{selectedEmployeesModel>BasicPay}"></Input>
                         <Input value="{selectedEmployeesModel>Deductions}"></Input>

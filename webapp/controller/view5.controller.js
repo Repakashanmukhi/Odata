@@ -13,7 +13,7 @@ sap.ui.define([
           that= this;    
           var oRouter = that.getOwnerComponent().getRouter();
           var oRoute = oRouter.getRoute("view5");
-      oRoute.attachPatternMatched(that._onRouteMatched, that);
+          oRoute.attachPatternMatched(that._onRouteMatched, that);
       },
       _onRouteMatched: function (oEvent) {
         var oTable = this.getView().byId("EmployeePay");
@@ -35,6 +35,7 @@ sap.ui.define([
         }
         that.payDialog.open();
       },
+    
       onCreatePayslip: function () {
         var oView = this.getView();
         var oModel = oView.getModel(); 
@@ -101,11 +102,15 @@ sap.ui.define([
       var oDataModel= that.getView().getModel();
       var aEmployees= oModel.getProperty("/selectedEmployees");
       aEmployees.forEach(function(employee) {
+        var ID = employee.ID;
+        var EmployeeID_ID = employee.EmployeeID_ID;
         var payDate = employee.PayDate;
         var BasicPay = employee.BasicPay;
         var Deductions = employee.Deductions;
         var netpay = BasicPay - Deductions;
         var oUpdatedData = {
+          ID: ID,
+          EmployeeID_ID: EmployeeID_ID,
           PayDate: payDate,
           BasicPay: BasicPay,
           Deductions: Deductions,
@@ -121,7 +126,10 @@ sap.ui.define([
           }
         })
       })
-    },                      
+    },        
+    onClose: function(){
+      that.updatepay.close();
+    },              
     onPdf: function(oEvent) {
       if (!that.uploadPdf) {
           that.uploadPdf = sap.ui.xmlfragment("odata.Fragments.PDFupload", that);
@@ -159,43 +167,18 @@ sap.ui.define([
         MessageBox.warning("Please select a file to upload.");
       }
     },
-    downloadPDF: function() {
-      if (!that._pdfBase64Content) {
-        MessageBox.error("No PDF content available.");
-      return;
-      }
-      var base64Content = that._pdfBase64Content.split(',')[1]; 
-      var binaryData = atob(base64Content);
-      var arrayBuffer = new ArrayBuffer(binaryData.length);
-      var uint8Array = new Uint8Array(arrayBuffer);
-      for (var i = 0; i < binaryData.length; i++) {
-        uint8Array[i] = binaryData.charCodeAt(i);
-      }
-      var blob = new Blob([uint8Array], { type: 'application/pdf' });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = 'Payslip.pdf'; 
-      document.body.appendChild(a);
-      a.click(); 
-      document.body.removeChild(a); 
-      URL.revokeObjectURL(url); 
-    },
-
     onPDFDocument: function (oEvent) {
-      var oButton = oEvent.getSource();
-      var oContext = oButton.getBindingContext();
-      var oData = oContext.getObject();
-      var sPdfUrl = oData.PayslipDocument;
-  
-      if (sPdfUrl) {
-          window.open(sPdfUrl, "_blank");
-      } else {
-          MessageBox.warning("No payslip document available.");
+      var sBase64PDF = oEvent.getSource().getBindingContext().getProperty("PayslipDocument");
+      if (!sBase64PDF.startsWith("data:application/pdf;base64,")) {
+        sBase64PDF = "data:application/pdf;base64," + sBase64PDF;
       }
+      var oDialog = this.byId("pdfDialog");
+      var oHtml = this.byId("pdfHtml");
+      oHtml.setContent("<iframe src='" + sBase64PDF + "' style='width:100%; height:1000px; border:none;'></iframe>");
+    oDialog.open();
     },
-    onClose: function(){
-      that.updatepay.close();
+    onClosePDFDialog: function () {
+      this.byId("pdfDialog").close();
     },
     NavBack: function(){
       that.getOwnerComponent().getRouter().navTo("RouteView1")
