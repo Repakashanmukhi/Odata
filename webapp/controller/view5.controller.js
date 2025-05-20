@@ -15,37 +15,38 @@ sap.ui.define([
           var oRoute = oRouter.getRoute("view5");
           oRoute.attachPatternMatched(that._onRouteMatched, that);
       },
-      _onRouteMatched: function (oEvent) {
-        var oTable = this.getView().byId("EmployeePay");
-        var oBinding = oTable.getBinding("items");
-        oBinding.filter([]);
-        var oSorter = new sap.ui.model.Sorter("EmployeeID_ID", false); 
-        oBinding.sort(oSorter);
-      },
-      formatPayDate: function (sDate) {
-        if (sDate) {
-            var oDate = new Date(sDate);
-            var oFormatter = sap.ui.core.format.DateFormat.getDateInstance({pattern: "yyyy-MM-dd"});
-            return oFormatter.format(oDate);
-        }
+    _onRouteMatched: function (oEvent) {
+      var oTable = this.getView().byId("EmployeePay");
+      var oBinding = oTable.getBinding("items");
+      oBinding.filter([]);
+      var oSorter = new sap.ui.model.Sorter("EmployeeID_ID", false); 
+      oBinding.sort(oSorter);
     },
-      onOpenDialog: function(){
-        if(!that.payDialog){
-          that.payDialog = sap.ui.xmlfragment("odata.Fragments.PayCreate", that)
-        }
-        that.payDialog.open();
-      },
     
-      onCreatePayslip: function () {
-        var oView = this.getView();
-        var oModel = oView.getModel(); 
-        var id = sap.ui.getCore().byId("IDInputPay").getValue();
-        var employeeId = sap.ui.getCore().byId("employeeIdInput").getValue();
-        var payDate = sap.ui.getCore().byId("payDatePicker").getDateValue(); 
-        var basicPay = parseFloat(sap.ui.getCore().byId("basicPayInput").getValue());
-        var deduction = parseFloat(sap.ui.getCore().byId("DeductionInput").getValue());
-        var netPay = basicPay - deduction;
-        oModel.setProperty("/NetPay", netPay);
+    
+    formatPayDate: function (sDate) {
+      if (sDate) {
+        var oDate = new Date(sDate);
+        var oFormatter = sap.ui.core.format.DateFormat.getDateInstance({pattern: "yyyy-MM-dd"});
+        return oFormatter.format(oDate);
+      }
+    },
+    onOpenDialog: function(){
+      if(!that.payDialog){
+        that.payDialog = sap.ui.xmlfragment("odata.Fragments.PayCreate", that)
+      }
+      that.payDialog.open();
+    },
+    onCreatePayslip: function () {
+      var oView = this.getView();
+      var oModel = oView.getModel(); 
+      var id = sap.ui.getCore().byId("IDInputPay").getValue();
+      var employeeId = sap.ui.getCore().byId("employeeIdInput").getValue();
+      var payDate = sap.ui.getCore().byId("payDatePicker").getDateValue(); 
+      var basicPay = parseFloat(sap.ui.getCore().byId("basicPayInput").getValue());
+      var deduction = parseFloat(sap.ui.getCore().byId("DeductionInput").getValue());
+      var netPay = basicPay - deduction;
+      oModel.setProperty("/NetPay", netPay);
         var oPayslipData = {
             ID: id,
             EmployeeID_ID: employeeId,
@@ -66,6 +67,8 @@ sap.ui.define([
             }
         });
     },
+    
+    
     DeleteBtn: function(oEvent){
       var oButton=oEvent.getSource();
       var oContext=oButton.getBindingContext();
@@ -80,6 +83,8 @@ sap.ui.define([
         }
       }) 
     }, 
+    
+    
     onUpdateDialog: function(){
       if(!that.updatepay){
         that.updatepay = sap.ui.xmlfragment("odata.Fragments.PayUpdate", that)
@@ -130,6 +135,8 @@ sap.ui.define([
     onClose: function(){
       that.updatepay.close();
     },              
+    
+    
     onPdf: function(oEvent) {
       if (!that.uploadPdf) {
           that.uploadPdf = sap.ui.xmlfragment("odata.Fragments.PDFupload", that);
@@ -167,6 +174,8 @@ sap.ui.define([
         MessageBox.warning("Please select a file to upload.");
       }
     },
+
+
     onPDFDocument: function (oEvent) {
       var sBase64PDF = oEvent.getSource().getBindingContext().getProperty("PayslipDocument");
       if (!sBase64PDF.startsWith("data:application/pdf;base64,")) {
@@ -180,6 +189,8 @@ sap.ui.define([
     onClosePDFDialog: function () {
       this.byId("pdfDialog").close();
     },
+
+
     NavBack: function(){
       that.getOwnerComponent().getRouter().navTo("RouteView1")
     },

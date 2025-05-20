@@ -1,97 +1,58 @@
-<mvc:View controllerName="odata.controller.view5"
+   <mvc:View controllerName="odata.controller.view5"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:mdc="sap.ui.mdc"
-	xmlns:mdct="sap.ui.mdc.table"
-    	xmlns:f="sap.f"
     xmlns:core="sap.ui.core"
-	xmlns:vm="sap.ui.fl.variants">
-    <Page id="pageDescription" showHeader="false">
-    <content>
-    </content>
-    <Bar>
-	    <contentRight>
-            <Button icon="sap-icon://add" text= "Add" press="onOpenDialog"></Button>
-            <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog"></Button>
-            <Button icon="sap-icon://navigation-right-arrow" press="onPay"></Button>
-        
-        </contentRight>
-	    <contentMiddle>
-	        <Title text="Employee Pay Details" ></Title>
-	    </contentMiddle>
-	    <contentLeft>
-	        <Button icon="sap-icon://nav-back" press="NavBack "></Button>
-	    </contentLeft>
-	</Bar>
-    <Table id="EmployeePay" items="{/EmployeePayslips}" mode="MultiSelect" selectionChange="oSelectedItems">
-        <columns>
-            <Column>
-                <Text text="Employee ID"/>
-            </Column>
-            <Column>
-                <Text text="Pay Date"/>
-            </Column>
-            <Column>
-                <Text text="Basic Pay"/>
-            </Column>
-            <Column>
-                <Text text="Deductions"/>
-            </Column>
-            <Column>
-                <Text text="Net Pay"/>
-            </Column>
-            <Column>
-                <Text text="Pay Slips"/>
-            </Column>
-            <Column>
-                <Text text="Action"/>
-            </Column>
-        </columns>
-        <items>
-            <ColumnListItem>
-                <cells>
-                    <!-- <Text text="{ID}"></Text> -->
-                    <Text text="{EmployeeID_ID}"/>
-                    <Text text="{path: 'PayDate', formatter: '.formatPayDate'}"/>
-                    <Text text="{BasicPay}"/>
-                    <Text text="{Deductions}"/>
-                    <Text text="{NetPay}"/>
-                    <!-- <Text text="{PayslipDocument}"/> -->
-                    <HBox >
-                        <Button icon="sap-icon://show" press="onPDFDocument" class="sapUiTinyMarginEnd"></Button>
-                        <!-- <Button icon="sap-icon://pdf-attachment" text="Upload PDF" press="onPdf"></Button> -->
-                    </HBox>
-                    <HBox>
-                        <Button icon="sap-icon://delete" type="Reject" class="sapUiTinyMarginEnd" press="DeleteBtn"/>
-                    </HBox>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
+    xmlns:f="sap.f"
+    xmlns:mdc="sap.ui.mdc"
+    xmlns:mdct="sap.ui.mdc.table"
+    xmlns:vm="sap.ui.fl.variants">
+
+    <f:DynamicPage id="dynamicPage" showFooter="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Employee Pay Details" />
+                </f:heading>
+                <f:actions>
+                    <Button icon="sap-icon://add" text="Add" press="onOpenDialog" />
+                    <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog" />
+                </f:actions>
+                <f:navigationActions>
+                    <Button icon="sap-icon://nav-back" press="NavBack" />
+                </f:navigationActions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:content>
+            <List id="employeePayList" 
+                items="{/EmployeePayslips}" 
+                selectionChange="oSelectedItems">
+                <CustomListItem>
+                    <VBox class="sapUiSmallMargin">
+                        <HBox justifyContent="SpaceBetween">
+                            <VBox>
+                                <Text text="{EmployeeID_ID}" />
+                            </VBox>
+                            <HBox>
+                                <Button icon="sap-icon://show" press="onPDFDocument" tooltip="View PDF" class="sapUiTinyMarginEnd"/>
+                                <Button icon="sap-icon://delete" type="Reject" press="DeleteBtn" tooltip="Delete" class="sapUiTinyMarginEnd"/>
+                            </HBox>
+                        </HBox>
+                        <Text text="Click the Button to View pay slip document" />
+                    </VBox>
+                </CustomListItem>
+            </List>
+        </f:content>
+    </f:DynamicPage>
+
     <Dialog id="pdfDialog"
         title="PDF Viewer"
-        contentWidth="100%"
-        contentHeight="100%"
         stretch="true">
-    <ScrollContainer 
-        horizontal="false"
-        vertical="true"
-        height="100%"
-        width="100%"
-        focusable="true">
-        <core:HTML id="pdfHtml" content="" />
-    </ScrollContainer>
-    <endButton>
-        <Button text="Close" press="onClosePDFDialog" />
-    </endButton>
-</Dialog>
-
-    </Page>
+        <ScrollContainer>
+            <core:HTML id="pdfHtml" />
+        </ScrollContainer>
+        <endButton>
+            <Button text="Close" press="onClosePDFDialog" />
+        </endButton>
+    </Dialog>
 </mvc:View>
-
-
-
-
-  
-
-  
