@@ -5,11 +5,11 @@
     <f:DynamicPage id="leaveDescriptionPage" showFooter="false">
         <f:title>
             <f:DynamicPageTitle>
-                <f:navigationActions>
-                    <Button icon="sap-icon://nav-back" press="NavBack" />
-                </f:navigationActions>
                 <f:heading>
-                    <Title text="Employee Leave Description" />
+                   <HBox alignItems="Center">
+                        <Button icon="sap-icon://nav-back" press="NavBack" type="Transparent" tooltip="Back" />
+                        <Title text="Employee Leave Description" level="H2" />
+                    </HBox>
                 </f:heading>
                 <f:actions>
                     <Button icon="sap-icon://add" text="Add" press="onOpenDialog" />

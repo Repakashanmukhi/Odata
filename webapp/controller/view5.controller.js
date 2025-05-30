@@ -89,7 +89,7 @@ sap.ui.define([
       if(!that.updatepay){
         that.updatepay = sap.ui.xmlfragment("odata.Fragments.PayUpdate", that)
       }
-      var oTable = that.getView().byId("EmployeePay"); 
+      var oTable = that.getView().byId("employeePayList"); 
       var oSelectedItems = oTable.getSelectedItems(); 
       var selectedEmployees = [];
       for (var i = 0; i < oSelectedItems.length; i++) { 

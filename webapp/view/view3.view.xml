@@ -1,4 +1,4 @@
-<mvc:View controllerName="odata.controller.view3"
+<!-- <mvc:View controllerName="odata.controller.view3"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:f="sap.f">
@@ -11,6 +11,59 @@
                 </f:navigationActions>
                 <f:heading>
                     <Title text="Employee Leave Log" />
+                </f:heading>
+                <f:actions>
+                    <Button icon="sap-icon://add" text="Add" press="onOpenDialog" />
+                    <Button icon="sap-icon://navigation-right-arrow" text="Leave description" press="onNavigation" />
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <Table id="EmployeeLeave" items="{/EmployeeLeaveLog}">
+                <columns>
+                    <Column><Text text="ID" /></Column>
+                    <Column><Text text="LeaveStartDate" /></Column>
+                    <Column><Text text="LeaveEndDate" /></Column>
+                    <Column><Text text="LeaveType" /></Column>
+                    <Column><Text text="Reason" /></Column>
+                    <Column><Text text="Status" /></Column>
+                    <Column><Text text="Action" /></Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{EmployeeID_ID}" />
+                            <Text text="{path: 'LeaveStartDate', formatter: '.formatDate'}" />
+                            <Text text="{path: 'LeaveEndDate', formatter: '.formatDate'}" />
+                            <Text text="{LeaveType}" />
+                            <Text text="{Reason}" />
+                            <ObjectStatus text="{Status}" state="{path: 'Status', formatter: '.formatStatus'}" />
+                            <HBox>
+                                <Button icon="sap-icon://delete" class="sapUiTinyMarginEnd" press="DeleteBtn" type="Reject" />
+                                <Button icon="sap-icon://user-edit" press="onUpdate" />
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View> -->
+
+<mvc:View controllerName="odata.controller.view3"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core">
+
+    <f:DynamicPage id="leaveLogPage" showFooter="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox alignItems="Center">
+                        <Button icon="sap-icon://nav-back" press="NavBack" type="Transparent" tooltip="Back" />
+                        <Title text="Employee Leave Log" level="H2" />
+                    </HBox>
                 </f:heading>
                 <f:actions>
                     <Button icon="sap-icon://add" text="Add" press="onOpenDialog" />

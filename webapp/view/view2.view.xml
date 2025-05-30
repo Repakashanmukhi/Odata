@@ -5,11 +5,11 @@
     <f:DynamicPage id="dynamicPage2" showFooter="true">
         <f:title>
             <f:DynamicPageTitle>
-                <f:navigationActions>
-                    <Button icon="sap-icon://nav-back" press="NavBack" />
-                </f:navigationActions>
                 <f:heading>
-                    <Title text="Employee Emergency Contact Details" />
+                <HBox alignItems="Center">
+                        <Button icon="sap-icon://nav-back" press="NavBack" type="Transparent" tooltip="Back" />
+                        <Title text="Employee Emergency Contact Details" level="H2" />
+                    </HBox>
                 </f:heading>
                 <f:actions>
                     <Button icon="sap-icon://add" text="Add" press="onOpenDialog" />
@@ -23,7 +23,7 @@
             <Table id="Employee" items="{/EmployeeInfoEmergencyContact}">
                 <columns>
                     <Column><Text text="EmployeeID" /></Column>
-                    <Column><Text text="ContactName" /></Column>
+                    <Column><Text text="ContactName" /></Column> 
                     <Column><Text text="Relationship" /></Column>
                     <Column><Text text="ContactPhone" /></Column>
                     <Column><Text text="ContactEmail" /></Column>

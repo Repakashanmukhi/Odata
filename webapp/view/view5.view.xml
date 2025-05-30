@@ -6,23 +6,21 @@
     xmlns:mdc="sap.ui.mdc"
     xmlns:mdct="sap.ui.mdc.table"
     xmlns:vm="sap.ui.fl.variants">
-
     <f:DynamicPage id="dynamicPage" showFooter="false">
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="Employee Pay Details" />
+                   <HBox alignItems="Center">
+                        <Button icon="sap-icon://nav-back" press="NavBack" type="Transparent" tooltip="Back" />
+                        <Title text="Employee Pay Details" level="H2" />
+                    </HBox>
                 </f:heading>
                 <f:actions>
                     <Button icon="sap-icon://add" text="Add" press="onOpenDialog" />
                     <Button icon="sap-icon://user-edit" text="Update" press="onUpdateDialog" />
                 </f:actions>
-                <f:navigationActions>
-                    <Button icon="sap-icon://nav-back" press="NavBack" />
-                </f:navigationActions>
             </f:DynamicPageTitle>
         </f:title>
-
         <f:content>
             <List id="employeePayList" 
                 items="{/EmployeePayslips}" 
@@ -44,7 +42,6 @@
             </List>
         </f:content>
     </f:DynamicPage>
-
     <Dialog id="pdfDialog"
         title="PDF Viewer"
         stretch="true">
