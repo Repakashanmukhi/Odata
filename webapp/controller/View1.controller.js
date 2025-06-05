@@ -18,7 +18,6 @@ sap.ui.define([
             document.head.appendChild(jQueryScript); 
             jQuery.sap.includeScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js", "jsPDF");
             jQuery.sap.includeScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js", "jsPDFAutoTable");
-            // jQuery.sap.includeScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
             var TempEmployee = new JSONModel({
                 Employees: []
             });
@@ -171,7 +170,6 @@ sap.ui.define([
                 Salary: sSalary,
                 JoiningDate: sJoiningDate
             };
-        
             var oData = that.getOwnerComponent().getModel();
             var updatePath = "/EmployeeInfo('" + sId + "')";
             oData.update(updatePath, oUpdatedEmployee, {
@@ -190,62 +188,70 @@ sap.ui.define([
         { 
             that.update.close()
         },
-        // Multi navigation for only selected ids.
-        // MultiNavigate: function () {
-        //     var oTable = this.getView().byId("employeeTable");
-        //     var aSelectedItems = oTable.getSelectedItems();
-        //     if (aSelectedItems && aSelectedItems.length > 0) {
-        //         var aSelectedIds = [];
-        //         aSelectedItems.forEach(function (oItem) {
-        //             var sEmployeeId = oItem.getBindingContext().getProperty("ID");
-        //             aSelectedIds.push(sEmployeeId);
-        //         });
-        //         var oRouter = this.getOwnerComponent().getRouter();
-        //         oRouter.navTo("view2", {
-        //             selectedIds: JSON.stringify(aSelectedIds)
-        //         });
-        //     } 
-        // },
-        // MultiNavigation for complete table. 
-        MultiNavigate: function () {
-            var oTable = this.getView().byId("employeeTable");
-            var aItems = oTable.getItems(); 
-            var aTableData=[];
-            aItems.forEach(function (oItem) {
-            // Binding the context- binding context is used to bind the elements into the specific object in a model. 
-                var oBindingContext = oItem.getBindingContext();
-                    if (oBindingContext) {
-                    var sEmployeeId = oBindingContext.getProperty("ID");
-                    var sFirstName = oBindingContext.getProperty("FirstName");
-                    var sLastName = oBindingContext.getProperty("LastName")
-                    var sEmail = oBindingContext.getProperty("Email");
-                    var sPhone = oBindingContext.getProperty("Phone");
-                    var sBloodGroup = oBindingContext.getProperty("BloodGroup");
-                    var sDepartment = oBindingContext.getProperty("Department");
-                    var sPosition = oBindingContext.getProperty("Positon");
-                    var sSalary = oBindingContext.getProperty("Salary");
-                    var sJoiningDate = oBindingContext.getProperty("JoiningDate");
-                    aTableData.push({
-                        EmployeeId: sEmployeeId,
-                        FirstName: sFirstName, 
-                        LastName: sLastName,
-                        Email: sEmail,
-                        Phone: sPhone,
-                        BloodGroup: sBloodGroup,
-                        Department: sDepartment,
-                        Position: sPosition,
-                        Salary: sSalary,
-                        JoiningDate: sJoiningDate
-                    });
-                } 
+        onLeaveRequest: function () {
+            if (!that._wizardDialog) {
+                sap.ui.core.Fragment.load({
+                name: "odata.Fragments.LeaveRequest",
+                controller: that,
+                id: "wizardDialog" 
+            }).then(function (oDialog) {
+                that._wizardDialog = oDialog;
+                var oModel = new sap.ui.model.json.JSONModel({
+                    FirstName: "",
+                    Email: "",
+                    Department: "",
+                    backButtonVisible: true,
+                    nextButtonVisible: true,
+                    reviewButtonVisible: true,
+                    finishButtonVisible: true,
+                    nextButtonEnabled: true
+                });
+                that.getView().setModel(oModel); 
+                that.getView().addDependent(oDialog);
+                oDialog.open();
             });
-            var oRouter = this.getOwnerComponent().getRouter().navTo("view2", {
-                // JSON.stringify is used to convert an object into a string. 
-                tableData: JSON.stringify(aTableData)  
+            } else {
+                that._wizardDialog.open();
+            }
+        },
+        onDialogNextButton: function () {
+            var oWizard = sap.ui.core.Fragment.byId("wizardDialog", "CreateProductWizard");
+            oWizard.nextStep();
+            var iStepIndex = oWizard._getProgressNavigator().getCurrentStepIndex();
+            var oModel = that.getView().getModel();
+            oModel.setProperty("/backButtonVisible", iStepIndex > 0);
+            oModel.setProperty("/nextButtonVisible", iStepIndex < 1);
+            oModel.setProperty("/reviewButtonVisible", iStepIndex === 1);
+            oModel.setProperty("/finishButtonVisible", iStepIndex === 2);
+        },
+        onDialogBackButton: function () {
+        var oWizard = sap.ui.core.Fragment.byId("wizardDialog", "CreateProductWizard");
+        oWizard.previousStep();
+        var iStepIndex = oWizard._getProgressNavigator().getCurrentStepIndex();
+        var oModel = that.getView().getModel();
+        oModel.setProperty("/backButtonVisible", iStepIndex > 0);
+        oModel.setProperty("/nextButtonVisible", iStepIndex < 1);
+        oModel.setProperty("/reviewButtonVisible", iStepIndex === 1);
+        oModel.setProperty("/finishButtonVisible", iStepIndex === 2);
+        },
+        handleWizardCancel: function () {
+            sap.m.MessageBox.confirm("Are you sure you want to cancel?", {
+                onClose: function (sAction) {
+                    if (sAction === "OK" && that._wizardDialog) {
+                        that._wizardDialog.close();
+                    }
+                }
             });
         },
+        handleWizardSubmit: function () {
+            var oModel = that.getView().getModel();
+            var oData = oModel.getData();
+            console.log("Leave Request Submitted:", oData);
+            sap.m.MessageToast.show("Leave request submitted!");
+            that._wizardDialog.close();
+        },
         onExcelDownload: function(oEvent) {
-        var oTable = this.getView().byId("employeeTable");
+        var oTable = that.getView().byId("employeeTable");
         var aItems = oTable.getItems();
         console.log(aItems);
         var aTableData = [
@@ -393,9 +399,63 @@ sap.ui.define([
             });
         });
     },
-        close: function() 
-        {   
+    // Multi navigation for only selected ids.
+        // MultiNavigate: function () {
+        //     var oTable = this.getView().byId("employeeTable");
+        //     var aSelectedItems = oTable.getSelectedItems();
+        //     if (aSelectedItems && aSelectedItems.length > 0) {
+        //         var aSelectedIds = [];
+        //         aSelectedItems.forEach(function (oItem) {
+        //             var sEmployeeId = oItem.getBindingContext().getProperty("ID");
+        //             aSelectedIds.push(sEmployeeId);
+        //         });
+        //         var oRouter = this.getOwnerComponent().getRouter();
+        //         oRouter.navTo("view2", {
+        //             selectedIds: JSON.stringify(aSelectedIds)
+        //         });
+        //     } 
+        // },
+        // MultiNavigation for complete table. 
+    MultiNavigate: function () {
+        var oTable = this.getView().byId("employeeTable");
+        var aItems = oTable.getItems(); 
+        var aTableData=[];
+        aItems.forEach(function (oItem) {
+        // Binding the context- binding context is used to bind the elements into the specific object in a model. 
+            var oBindingContext = oItem.getBindingContext();
+            if (oBindingContext) {
+                var sEmployeeId = oBindingContext.getProperty("ID");
+                var sFirstName = oBindingContext.getProperty("FirstName");
+                var sLastName = oBindingContext.getProperty("LastName")
+                var sEmail = oBindingContext.getProperty("Email");
+                var sPhone = oBindingContext.getProperty("Phone");
+                var sBloodGroup = oBindingContext.getProperty("BloodGroup");
+                var sDepartment = oBindingContext.getProperty("Department");
+                var sPosition = oBindingContext.getProperty("Positon");
+                var sSalary = oBindingContext.getProperty("Salary");
+                var sJoiningDate = oBindingContext.getProperty("JoiningDate");
+                aTableData.push({
+                    EmployeeId: sEmployeeId,
+                    FirstName: sFirstName, 
+                    LastName: sLastName,
+                    Email: sEmail,
+                    Phone: sPhone,
+                    BloodGroup: sBloodGroup,
+                    Department: sDepartment,
+                    Position: sPosition,
+                    Salary: sSalary,
+                    JoiningDate: sJoiningDate
+                });
+            } 
+         });
+        var oRouter = this.getOwnerComponent().getRouter().navTo("view2", {
+        // JSON.stringify is used to convert an object into a string. 
+            tableData: JSON.stringify(aTableData)  
+        });
+    },
+    close: function() 
+    {   
         that.upload.close();
-        }
+    }
     });
 });

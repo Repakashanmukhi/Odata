@@ -1,0 +1,100 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:u="sap.ui.unified"
+	xmlns:layout="sap.ui.layout">
+	<Dialog id="wizardDialog" showHeader="false" verticalScrolling="false" contentHeight="70%" contentWidth="80%">
+		<f:DynamicPage showFooter="true">
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Leave request Form"/>
+					</f:heading>
+				</f:DynamicPageTitle>
+			</f:title>
+			<f:content>
+				<Wizard id="CreateProductWizard" navigationChange="handleNavigationChange" showNextButton="false" renderMode="Page">
+					<WizardStep id="EmpInfo" title="Employee Information">
+                        <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                            <Label text="Employee Name"></Label>
+                            <Input placeholder="Enter your Name" value="{/FirstName}"></Input>
+                            <Label text="EmailID"></Label>
+                            <Input placeholder="Enter your Email" value="{/Email}"></Input>
+                            <Label text="Department"></Label>
+                            <Select selectedKey="{/Department}" >
+                                <core:Item key="SAP UI5" text="SAP UI5"></core:Item>
+                                <core:Item key="SAP ABAP" text="SAP ABAP"></core:Item>
+                                <core:Item key="SAP IBP" text="SAP IBP"></core:Item>
+                                <core:Item key="SAP BAAS" text="SAP BAAS"></core:Item>
+                            </Select>
+                        </form:SimpleForm>
+					</WizardStep>
+                    <WizardStep id="LeaveDetails" title="Leave Details" activate="additionalInfoValidation">
+                        <MessageStrip class="sapUiSmallMarginBottom" text="Enter your Leave Details" showIcon="true"/>
+                        <form:SimpleForm layout="ResponsiveGridLayout" editable="true" labelSpanM="4" labelSpanL="4" adjustLabelSpan="false" 
+                        emptySpanL="2" emptySpanM="2" columnsL="2" columnsM="2">
+                            <Label text="Leave Start Date"/>
+                            <DatePicker 
+                                value="{path: '/LeaveStartDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" 
+                                displayFormat="yyyy-MM-dd"/>
+                            <Label text="Leave End Date"/>
+                            <DatePicker 
+                            value="{path: '/LeaveEndDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" 
+                            displayFormat="yyyy-MM-dd"/>
+                            <Label text="Leave Type"/>
+                                <SegmentedButton selectedKey="{/LeaveType}">
+                                <Button text="Sick Leave"/>
+                                <Button text="Casual Leave" />
+                                <Button text="Work from Home" />
+                            </SegmentedButton>
+                            <Label text="Reason"/>
+                            <TextArea value="{/Reason}" rows="4" placeholder="Enter the reason for leave"/>
+                        </form:SimpleForm>
+                    </WizardStep>
+                    <WizardStep id="ReviewPage" activate="reviewActivate" complete="reviewComplete" validated="true" title="Review page">
+                        <form:SimpleForm layout="ResponsiveGridLayout" editable="false"
+                            labelSpanM="4" labelSpanL="4"
+                            adjustLabelSpan="false"
+                            emptySpanL="2" emptySpanM="2" columnsL="2" columnsM="2">
+                            <form:content>
+                                <Title text="Employee Details" />
+                                <Label text="Name"/>
+                                <Text text="{/FirstName}"/>
+                                <Label text="Email ID"/>
+                                <Text text="{/Email}"/>
+                                <Label text="Department"/>
+                                <Text text="{/Department}"/>
+                                </form:content>
+                            </form:SimpleForm>
+                            <form:SimpleForm layout="ResponsiveGridLayout" editable="false"
+                            labelSpanM="4" labelSpanL="4"
+                            adjustLabelSpan="false"
+                            emptySpanL="2" emptySpanM="2" columnsL="2" columnsM="2">
+                                <Title text="Leave Details" />
+                                <Label text="Leave Start Date"/>
+                                <Text text="{path: '/LeaveStartDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}"/>
+                                <Label text="Leave End Date"/>
+                                <Text text="{path: '/LeaveEndDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}"/>
+                                <Label text="Leave Type"/>
+                                <Text text="{/LeaveType}"/>
+                                <Label text="Reason"/>
+                                <Text text="{/Reason}"/>
+                            </form:SimpleForm>
+                    </WizardStep> 
+				</Wizard>
+			</f:content>
+			<f:footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Previous Step" visible="{/backButtonVisible}" press="onDialogBackButton" />
+					<Button text="Next Step" type="Emphasized" enabled="{/nextButtonEnabled}" visible="{/nextButtonVisible}" press="onDialogNextButton" />
+					<Button text="Review" type="Emphasized" visible="{/reviewButtonVisible}" press="onDialogNextButton" />
+					<Button text="Finish" type="Emphasized" visible="{/finishButtonVisible}" press="handleWizardSubmit" />
+					<Button	text="Cancel" type="Transparent" press="handleWizardCancel"/>
+				</OverflowToolbar>
+			</f:footer>
+		</f:DynamicPage>
+	</Dialog>
+</core:FragmentDefinition>

@@ -14,7 +14,8 @@
                     <Title text="Employee Information" />
                 </f:heading>
                 <f:actions>
-                    <Button icon="sap-icon://add" press="onOpenDialog" />
+                    <Button icon="sap-icon://add" text="Add Employees" press="onOpenDialog" />
+                    <Button icon="sap-icon://request" text="Request for Permission" press="onLeaveRequest"></Button>
                     <Button icon="sap-icon://download" text="Excel Download" press="onExcelDownload" />
                     <Button icon="sap-icon://upload-to-cloud" text="Excel Upload" press="handleUpload" ariaHasPopup="Dialog" />
                     <Button icon="sap-icon://navigation-right-arrow" text="Employee Emergency Contact" press="MultiNavigate" />
