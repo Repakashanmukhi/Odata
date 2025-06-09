@@ -219,21 +219,21 @@ sap.ui.define([
             oWizard.nextStep();
             var iStepIndex = oWizard._getProgressNavigator().getCurrentStepIndex();
             var oModel = that.getView().getModel();
-            oModel.setProperty("/backButtonVisible", iStepIndex > 0);
-            oModel.setProperty("/nextButtonVisible", iStepIndex < 1);
-            oModel.setProperty("/reviewButtonVisible", iStepIndex === 1);
-            oModel.setProperty("/finishButtonVisible", iStepIndex === 2);
+            oModel.setProperty("/backButtonVisible");
+            oModel.setProperty("/nextButtonVisible");
+            oModel.setProperty("/reviewButtonVisible");
+            oModel.setProperty("/finishButtonVisible");
         },
         onDialogBackButton: function () {
         var oWizard = sap.ui.core.Fragment.byId("wizardDialog", "CreateProductWizard");
         oWizard.previousStep();
         var iStepIndex = oWizard._getProgressNavigator().getCurrentStepIndex();
         var oModel = that.getView().getModel();
-        oModel.setProperty("/backButtonVisible", iStepIndex > 0);
-        oModel.setProperty("/nextButtonVisible", iStepIndex < 1);
-        oModel.setProperty("/reviewButtonVisible", iStepIndex === 1);
-        oModel.setProperty("/finishButtonVisible", iStepIndex === 2);
-        },
+        oModel.setProperty("/backButtonVisible");
+        oModel.setProperty("/nextButtonVisible");
+        oModel.setProperty("/reviewButtonVisible");
+        oModel.setProperty("/finishButtonVisible");
+        },      
         handleWizardCancel: function () {
             sap.m.MessageBox.confirm("Are you sure you want to cancel?", {
                 onClose: function (sAction) {
@@ -250,6 +250,7 @@ sap.ui.define([
             sap.m.MessageToast.show("Leave request submitted!");
             that._wizardDialog.close();
         },
+
         onExcelDownload: function(oEvent) {
         var oTable = that.getView().byId("employeeTable");
         var aItems = oTable.getItems();
